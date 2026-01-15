@@ -6,7 +6,7 @@
   <meta name="description" content="Сайт-приглашение на свадьбу Александра и Гюнель — 21.08.2026, 15:00, Витебский район, Дрюково" />
   <title>Александр & Гюнель — 21.08.2026</title>
 
-  <!-- Шрифты -->
+  <!-- Шрифты: аккуратный гротеск + рукописный акцент -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Allura&display=swap" rel="stylesheet">
@@ -17,7 +17,7 @@
       --muted: rgba(0,0,0,.60);
       --line: rgba(0,0,0,.10);
 
-      /* Акцент */
+      /* Акцент (нежная фуксия) */
       --accent: #ff2c7d;
 
       /* Кнопки/ссылки */
@@ -33,6 +33,14 @@
 
     *{box-sizing:border-box}
     html,body{height:100%}
+
+    /* ===== БАЗА ===== */
+    body{
+      margin:0;
+      color:var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      background: #f7f7f7;
+    }
 
     /* ===== ПАДАЮЩИЕ "ЗВЁЗДЫ/ШАРИКИ" НА ФОНЕ ===== */
     .fxCanvas{
@@ -54,13 +62,6 @@
         linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.88));
     }
 
-    body{
-      margin:0;
-      color:var(--ink);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
-      background: #f7f7f7;
-    }
-
     /* Лёгкая фактура */
     body::after{
       content:"";
@@ -77,6 +78,46 @@
     /* контент над фоном */
     .topbar{ position: sticky; z-index: 50; top:0; }
     main, .wrap{ position: relative; z-index: 3; }
+
+    /* ===== ФОН-СЛОИ (твои .bgStack/.grain были в HTML, но CSS не было — добавила, чтобы работали) ===== */
+    .bgStack{
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .bgLayer{
+      position:absolute;
+      inset:0;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0;
+      transform: scale(1.05);
+      transition: opacity 1.2s ease, transform 7.5s ease;
+      filter: saturate(1.02) contrast(1.02);
+    }
+    .bgLayer.on{
+      opacity: .35;
+      transform: scale(1.08);
+    }
+    .bgVeil{
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events:none;
+      background: radial-gradient(1000px 600px at 50% 20%, rgba(255,255,255,.55), rgba(255,255,255,.90) 70%);
+    }
+    .grain{
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      pointer-events:none;
+      opacity: .06;
+      mix-blend-mode: multiply;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+    }
 
     /* ===== ШАПКА ===== */
     .topbar{
@@ -135,90 +176,69 @@
       box-shadow:var(--shadow);
       position:relative;
       overflow:hidden;
-      isolation:isolate; /* чтобы слои внутри карточки не конфликтовали с внешними */
+      isolation:isolate;
     }
     .card.padded{padding:24px}
     @media (max-width: 520px){
       .card.padded{padding:18px}
     }
 
-    /* ===== НОВОЕ: НЕЖНЫЕ "ЛЕПЕСТКИ/ПЫЛЬЦА" НА ФОНЕ КАРТОЧЕК (БЕЗ JS) =====
-       Работает так: два слоя псевдоэлементов внутри .card.
-       Текст/контент остаётся кликабельным и поверх (z-index).
-    */
-    .card > *{ position:relative; z-index:2; } /* контент выше эффектов */
-
-    .card::before{
-      content:"";
+    /* ===============================
+       ЛЕПЕСТКИ НА КАРТОЧКАХ (видимые)
+       =============================== */
+    .card .petal-layer{
       position:absolute;
-      inset:-30%;
+      inset:0;
       z-index:0;
       pointer-events:none;
-      opacity:.42;
-
-      /* "лепестки" как полупрозрачные пятнышки */
-      background:
-        radial-gradient(10px 7px at 12% 18%, rgba(255,255,255,.85), rgba(255,255,255,0) 70%),
-        radial-gradient(12px 8px at 28% 64%, rgba(255,255,255,.70), rgba(255,255,255,0) 72%),
-        radial-gradient(9px 6px at 46% 28%, rgba(255,255,255,.78), rgba(255,255,255,0) 70%),
-        radial-gradient(11px 7px at 62% 74%, rgba(255,255,255,.65), rgba(255,255,255,0) 72%),
-        radial-gradient(13px 9px at 78% 32%, rgba(255,255,255,.72), rgba(255,255,255,0) 72%),
-        radial-gradient(9px 6px at 88% 66%, rgba(255,255,255,.62), rgba(255,255,255,0) 72%),
-
-        radial-gradient(8px 5px at 18% 82%, rgba(255,255,255,.55), rgba(255,255,255,0) 70%),
-        radial-gradient(10px 6px at 52% 90%, rgba(255,255,255,.52), rgba(255,255,255,0) 70%),
-        radial-gradient(11px 7px at 70% 10%, rgba(255,255,255,.58), rgba(255,255,255,0) 72%),
-        radial-gradient(9px 6px at 6% 44%, rgba(255,255,255,.60), rgba(255,255,255,0) 72%),
-
-        /* чуть-чуть "розового дыхания" под акцент (очень мягко) */
-        radial-gradient(240px 180px at 50% 10%, rgba(255,44,125,.10), rgba(255,44,125,0) 70%);
-
-      filter: blur(.25px);
-      transform: translate3d(0,0,0);
-      animation: cardPetalsDrift 16s ease-in-out infinite;
     }
+    .card > *{ position:relative; z-index:2; }
 
-    .card::after{
-      content:"";
+    .petal{
       position:absolute;
-      inset:-20%;
-      z-index:1;
-      pointer-events:none;
-      opacity:.22;
-
-      /* пыльца/блики — микроточки */
-      background:
-        radial-gradient(2px 2px at 18% 24%, rgba(255,255,255,.95), rgba(255,255,255,0) 60%),
-        radial-gradient(2px 2px at 26% 70%, rgba(255,255,255,.80), rgba(255,255,255,0) 60%),
-        radial-gradient(1.5px 1.5px at 44% 36%, rgba(255,255,255,.85), rgba(255,255,255,0) 60%),
-        radial-gradient(2px 2px at 64% 78%, rgba(255,255,255,.75), rgba(255,255,255,0) 60%),
-        radial-gradient(2px 2px at 82% 42%, rgba(255,255,255,.85), rgba(255,255,255,0) 60%),
-        radial-gradient(1.5px 1.5px at 90% 68%, rgba(255,255,255,.70), rgba(255,255,255,0) 60%),
-
-        radial-gradient(2px 2px at 12% 86%, rgba(255,255,255,.75), rgba(255,255,255,0) 60%),
-        radial-gradient(1.5px 1.5px at 58% 92%, rgba(255,255,255,.70), rgba(255,255,255,0) 60%),
-        radial-gradient(2px 2px at 72% 16%, rgba(255,255,255,.78), rgba(255,255,255,0) 60%);
-
+      top:-18px;
+      left: var(--x, 50%);
+      width: var(--s, 12px);
+      height: var(--s, 12px);
+      opacity: var(--o, .75);
+      transform: translate3d(0,0,0) rotate(0deg);
+      border-radius: 60% 40% 60% 40%;
+      background: radial-gradient(circle at 30% 30%,
+        rgba(255,255,255,.98),
+        rgba(255,255,255,.55) 55%,
+        rgba(255,255,255,0) 72%
+      );
       filter: blur(.15px);
-      animation: cardSparklePulse 9s ease-in-out infinite;
+      animation: petalFall var(--d, 12s) linear infinite;
+      animation-delay: var(--delay, 0s);
+    }
+    @keyframes petalFall{
+      0%   { transform: translate3d(0,-20px,0) rotate(0deg); }
+      100% { transform: translate3d(var(--drift, 60px), 120vh, 0) rotate(360deg); }
     }
 
-    @keyframes cardPetalsDrift{
-      0%   { transform: translate3d(-8px,-6px,0) rotate(-0.6deg); }
-      50%  { transform: translate3d(10px, 8px,0) rotate(0.7deg); }
-      100% { transform: translate3d(-8px,-6px,0) rotate(-0.6deg); }
+    .spark{
+      position:absolute;
+      width:2px;height:2px;border-radius:50%;
+      background: rgba(255,255,255,.9);
+      opacity:0;
+      left: var(--sx, 50%);
+      top: var(--sy, 50%);
+      animation: spark 6s ease-in-out infinite;
+      animation-delay: var(--sdelay, 0s);
+      filter: blur(.1px);
     }
-    @keyframes cardSparklePulse{
-      0%,100% { opacity:.18; transform: translate3d(0,0,0) }
-      50%     { opacity:.30; transform: translate3d(6px,-4px,0) }
+    @keyframes spark{
+      0%,100%{ opacity:0; transform:scale(.8); }
+      45%{ opacity:.35; transform:scale(1); }
     }
 
-    /* Если у пользователя включено "уменьшить движение" — выключаем анимации */
     @media (prefers-reduced-motion: reduce){
-      .card::before, .card::after{ animation:none !important; }
+      .petal, .spark{ animation:none !important; }
     }
 
-    /* ===== Обложка ===== */
+    /* ===== Обложка в стиле референса ===== */
+    .wrap{ max-width: var(--max); margin: 0 auto; padding: 14px 20px 0; }
     .cover{
       padding: 14px 0 10px;
       display:grid;
@@ -252,6 +272,7 @@
       transform: translateY(10px);
     }
 
+    /* декоративная линия */
     .flourish{
       display:flex;
       align-items:center;
@@ -327,7 +348,7 @@
       background: rgba(255,255,255,.85);
     }
 
-    /* ===== Правая колонка ===== */
+    /* ===== Правая колонка: таймер + адрес ===== */
     .mini{display:grid;grid-template-columns:1fr;gap:12px}
     h2{
       margin:0 0 10px;
@@ -399,7 +420,6 @@
       border-color: rgba(0,0,0,.12);
       color: rgba(0,0,0,.78);
     }
-    .icon{width:16px;height:16px;opacity:.95}
 
     .badgeRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; justify-content:center}
     .badge{
@@ -531,10 +551,11 @@
 </head>
 
 <body>
+  <!-- фон: частицы -->
   <canvas class="fxCanvas" id="fxCanvas" aria-hidden="true"></canvas>
   <div class="fxVeil" aria-hidden="true"></div>
 
-  <!-- оставляю твои слои (если у тебя есть CSS во 2й части — всё будет ок) -->
+  <!-- фон: фото -->
   <div class="bgStack" aria-hidden="true">
     <div class="bgLayer a on"></div>
     <div class="bgLayer b"></div>
@@ -899,7 +920,7 @@
 
   <script>
     // =========================
-    // СКРИПТ (фон + карты + таймер + RSVP)
+    // СКРИПТ (карты + таймер + RSVP + фон-фото)
     // =========================
 
     // 1) Дата свадьбы
@@ -915,7 +936,7 @@
     // 3) RSVP -> Google Sheets (твой URL)
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyU1T7nihR_oqbwWHgWGCmoRBx6g7a_JxquL3VyVl668RORpaqeAek6BkAxsvoZ9jy0/exec";
 
-    // 4) ФОН: пути должны существовать в репозитории
+    // 4) ФОН: изображения
     const BG_IMAGES = [
       "assets/bg1.jpg",
       "assets/bg2.jpg",
@@ -924,7 +945,7 @@
       "assets/bg5.jpg"
     ];
 
-    // ====== Кнопка вниз на обложке ======
+    // ====== Кнопка вниз ======
     const downBtn = document.getElementById("downBtn");
     downBtn?.addEventListener("click", () => {
       const el = document.getElementById("details");
@@ -934,7 +955,6 @@
     // ====== Карта ======
     document.getElementById("mapsBtn").href = mapsUrl;
     document.getElementById("mapsPrimaryBtn").href = mapsUrl;
-    document.getElementById("routeBtn")?.setAttribute("href", mapsUrl);
     document.getElementById("mapFrame").src = embedUrl;
 
     // ====== Копирование ======
@@ -1074,7 +1094,7 @@
     }, { threshold: .12 });
     items.forEach(el => io.observe(el));
 
-    // ====== Фон: грузим только те картинки, которые реально загрузились ======
+    // ====== Фон: фото (кроссфейд) ======
     const layerA = document.querySelector(".bgLayer.a");
     const layerB = document.querySelector(".bgLayer.b");
 
@@ -1120,6 +1140,55 @@
       setInterval(nextBg, 9000);
       console.log("BG: loaded", okImages.length, "images");
     })();
+
+    // ===============================
+    // ЛЕПЕСТКИ: добавляем слой в каждую .card
+    // ===============================
+    const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    function addPetalsToCard(card, {petals = 14, sparks = 10} = {}) {
+      if (card.querySelector(".petal-layer")) return;
+
+      const layer = document.createElement("div");
+      layer.className = "petal-layer";
+      card.appendChild(layer);
+
+      for (let i = 0; i < petals; i++) {
+        const p = document.createElement("span");
+        p.className = "petal";
+
+        const size = 10 + Math.random() * 10;          // 10..20px
+        const duration = 9 + Math.random() * 9;        // 9..18s
+        const x = Math.random() * 100;                 // %
+        const drift = (Math.random() * 140 - 70);      // -70..70px
+        const opacity = 0.35 + Math.random() * 0.55;   // 0.35..0.9
+        const delay = -(Math.random() * duration);     // чтобы сразу падали
+
+        p.style.setProperty("--s", size + "px");
+        p.style.setProperty("--d", duration + "s");
+        p.style.setProperty("--x", x + "%");
+        p.style.setProperty("--drift", drift + "px");
+        p.style.setProperty("--o", opacity);
+        p.style.setProperty("--delay", delay + "s");
+        p.style.left = x + "%";
+
+        layer.appendChild(p);
+      }
+
+      for (let i = 0; i < sparks; i++) {
+        const s = document.createElement("span");
+        s.className = "spark";
+        s.style.setProperty("--sx", (Math.random() * 100) + "%");
+        s.style.setProperty("--sy", (Math.random() * 100) + "%");
+        s.style.setProperty("--sdelay", (-(Math.random() * 6)) + "s");
+        layer.appendChild(s);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      if (prefersReduced) return;
+      document.querySelectorAll(".card").forEach(card => addPetalsToCard(card, { petals: 14, sparks: 10 }));
+    });
   </script>
 
   <script>
@@ -1138,9 +1207,8 @@
     window.addEventListener("resize", resize);
     resize();
 
-    const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    // Настройки
     const CONFIG = {
       count: 48,
       minSize: 2,
@@ -1176,6 +1244,7 @@
       grad.addColorStop(0, "rgba(255,255,255,.95)");
       grad.addColorStop(0.45, "rgba(240,245,255,.55)");
       grad.addColorStop(1, "rgba(255,255,255,0)");
+
       ctx.fillStyle = grad;
 
       ctx.beginPath();
@@ -1209,7 +1278,7 @@
 
     let t = 0;
     function frame(){
-      if(prefersReduced) return;
+      if(reduced) return;
 
       t += 0.016;
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
