@@ -12,8 +12,10 @@
 
   <style>
     :root{
-      /* Палитра "history_flowers": тёплый крем + пудра + шалфей */
-      --bg: #fbf6ef;
+      /* "moment_love_green": более зелёный фон + светлые карточки */
+      --bg1:#edf6f0;
+      --bg2:#e7f1ea;
+
       --paper: rgba(255,255,255,.92);
       --paper2: rgba(255,255,255,.86);
 
@@ -21,8 +23,9 @@
       --muted: rgba(18,18,18,.62);
       --line: rgba(18,18,18,.10);
 
-      --sage: #7f9b86;
-      --rose: #c9908b;
+      --green: #3f6f55;     /* главный зелёный */
+      --green2:#7ea58f;     /* светлый зелёный */
+      --rose: #c9908b;      /* лёгкая пудра */
       --choco:#2a2a2a;
 
       --radius: 22px;
@@ -36,21 +39,11 @@
       margin:0;
       color:var(--ink);
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: var(--bg);
-      overflow-x:hidden;
-    }
-
-    /* ===== ФОН: мягкие “цветы/листья” (статично) ===== */
-    .bgFlorals{
-      position:fixed;
-      inset:0;
-      z-index:0;
-      pointer-events:none;
       background:
-        radial-gradient(900px 500px at 20% 0%, rgba(127,155,134,.10), rgba(127,155,134,0) 70%),
-        radial-gradient(900px 500px at 80% 0%, rgba(201,144,139,.10), rgba(201,144,139,0) 70%),
-        radial-gradient(900px 500px at 50% 110%, rgba(127,155,134,.10), rgba(127,155,134,0) 65%),
-        linear-gradient(180deg, rgba(255,255,255,.25), rgba(255,255,255,0));
+        radial-gradient(900px 520px at 20% 0%, rgba(63,111,85,.14), rgba(63,111,85,0) 70%),
+        radial-gradient(900px 520px at 80% 0%, rgba(126,165,143,.14), rgba(126,165,143,0) 70%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      overflow-x:hidden;
     }
 
     /* лёгкая фактура */
@@ -65,7 +58,6 @@
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
     }
 
-    /* контент поверх всего */
     .wrap{
       position:relative;
       z-index:5;
@@ -79,7 +71,7 @@
       position:sticky;
       top:0;
       z-index:50;
-      background: rgba(251,246,239,.78);
+      background: rgba(237,246,240,.78);
       backdrop-filter: blur(12px);
       border-bottom:1px solid rgba(18,18,18,.08);
     }
@@ -101,7 +93,7 @@
     .seal{
       width:30px;height:30px;border-radius:999px;
       border:1px solid rgba(18,18,18,.12);
-      background: radial-gradient(circle at 30% 30%, rgba(127,155,134,.18), rgba(127,155,134,.06));
+      background: radial-gradient(circle at 30% 30%, rgba(63,111,85,.18), rgba(63,111,85,.06));
       display:grid; place-items:center;
       box-shadow: 0 10px 24px rgba(0,0,0,.06);
       color: rgba(18,18,18,.80);
@@ -140,7 +132,7 @@
     @media (max-width:520px){ .card.padded{ padding:18px; } }
     .card > *{ position:relative; z-index:2; }
 
-    /* цветочный/лепестковый декор на карточках (статично) */
+    /* лёгкий декоративный “лепестковый” слой на карточках (статично) */
     .card::before{
       content:"";
       position:absolute;
@@ -153,26 +145,12 @@
         radial-gradient(22px 16px at 26% 62%, rgba(255,255,255,.80), rgba(255,255,255,0) 74%),
         radial-gradient(30px 20px at 76% 34%, rgba(255,255,255,.86), rgba(255,255,255,0) 76%),
         radial-gradient(24px 18px at 90% 70%, rgba(255,255,255,.74), rgba(255,255,255,0) 74%),
-        radial-gradient(420px 260px at 50% 0%, rgba(127,155,134,.10), rgba(127,155,134,0) 70%),
-        radial-gradient(520px 320px at 70% 110%, rgba(201,144,139,.10), rgba(201,144,139,0) 70%);
+        radial-gradient(520px 320px at 50% 0%, rgba(63,111,85,.10), rgba(63,111,85,0) 70%),
+        radial-gradient(520px 320px at 70% 110%, rgba(126,165,143,.10), rgba(126,165,143,0) 70%);
       filter: blur(.15px);
       transform: scale(1.02);
     }
-    .card::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      z-index:1;
-      pointer-events:none;
-      opacity:.20;
-      background:
-        radial-gradient(2px 2px at 20% 26%, rgba(18,18,18,.22), rgba(18,18,18,0) 65%),
-        radial-gradient(2px 2px at 32% 72%, rgba(18,18,18,.20), rgba(18,18,18,0) 65%),
-        radial-gradient(2px 2px at 58% 38%, rgba(18,18,18,.18), rgba(18,18,18,0) 65%),
-        radial-gradient(2px 2px at 82% 44%, rgba(18,18,18,.18), rgba(18,18,18,0) 65%);
-    }
 
-    /* ===== секции/сетки ===== */
     section{ padding: 14px 0; }
     .grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
     @media (max-width: 900px){ .grid{ grid-template-columns:1fr; } }
@@ -216,7 +194,7 @@
     .btn.primary{
       color:#fff;
       border-color: rgba(18,18,18,.18);
-      background: linear-gradient(180deg, rgba(42,42,42,.96), rgba(42,42,42,.86));
+      background: linear-gradient(180deg, rgba(63,111,85,.96), rgba(63,111,85,.84));
     }
     .btn.ghost{
       background: transparent;
@@ -224,12 +202,12 @@
       color: rgba(18,18,18,.80);
     }
 
-    /* ===== ПОЛНОЭКРАННЫЙ БЛОК ПРИГЛАШЕНИЯ (рамка + цветы) ===== */
+    /* ===== ПОЛНОЭКРАННЫЙ БЛОК ПРИГЛАШЕНИЯ (рамка + зелёный декор) ===== */
     .inviteFull{
-      min-height: calc(100svh - 62px); /* примерно высота, с учетом topbar */
+      min-height: calc(100svh - 62px);
       display:grid;
       place-items:center;
-      padding: 22px 0 8px;
+      padding: 22px 0 10px;
     }
     .inviteFrame{
       width: min(920px, 100%);
@@ -243,8 +221,6 @@
       text-align:center;
       isolation:isolate;
     }
-
-    /* внутренняя рамка */
     .inviteFrame .innerBorder{
       position:absolute;
       inset: 16px;
@@ -253,34 +229,31 @@
       pointer-events:none;
       z-index:1;
     }
-
-    /* цветочные углы (SVG через data-uri) */
     .inviteFrame::before,
     .inviteFrame::after{
       content:"";
       position:absolute;
-      width: 320px;
-      height: 320px;
+      width: 340px;
+      height: 340px;
       pointer-events:none;
-      opacity:.95;
+      opacity:.85;
       background-repeat:no-repeat;
-      background-size: 320px 320px;
+      background-size: 340px 340px;
       z-index:0;
       filter: drop-shadow(0 18px 35px rgba(0,0,0,.10));
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320' viewBox='0 0 320 320'%3E%3Cg fill='none' stroke-linecap='round'%3E%3Cpath d='M35 250c60-30 110-10 140 40' stroke='rgba(127,155,134,0.55)' stroke-width='6'/%3E%3Cpath d='M60 260c40-50 90-70 150-55' stroke='rgba(201,144,139,0.45)' stroke-width='5'/%3E%3Cpath d='M85 250c18-18 42-20 60-5' stroke='rgba(127,155,134,0.55)' stroke-width='4'/%3E%3Ccircle cx='78' cy='245' r='9' fill='rgba(201,144,139,0.55)'/%3E%3Ccircle cx='108' cy='272' r='7' fill='rgba(201,144,139,0.45)'/%3E%3Ccircle cx='132' cy='248' r='8' fill='rgba(201,144,139,0.40)'/%3E%3Cpath d='M120 285c10-18 26-28 46-30' stroke='rgba(127,155,134,0.50)' stroke-width='4'/%3E%3Cpath d='M42 286c22-10 36-26 44-46' stroke='rgba(127,155,134,0.45)' stroke-width='4'/%3E%3C/g%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='340' height='340' viewBox='0 0 340 340'%3E%3Cg fill='none' stroke-linecap='round'%3E%3Cpath d='M40 270c70-38 120-18 155 40' stroke='rgba(63,111,85,0.55)' stroke-width='7'/%3E%3Cpath d='M68 285c46-58 106-82 175-64' stroke='rgba(126,165,143,0.48)' stroke-width='6'/%3E%3Cpath d='M98 270c20-20 48-22 70-6' stroke='rgba(63,111,85,0.55)' stroke-width='5'/%3E%3Ccircle cx='92' cy='262' r='10' fill='rgba(126,165,143,0.55)'/%3E%3Ccircle cx='125' cy='290' r='8' fill='rgba(126,165,143,0.45)'/%3E%3Ccircle cx='154' cy='265' r='9' fill='rgba(126,165,143,0.40)'/%3E%3Cpath d='M138 306c12-22 31-34 56-36' stroke='rgba(63,111,85,0.50)' stroke-width='5'/%3E%3Cpath d='M48 312c26-12 44-30 54-54' stroke='rgba(63,111,85,0.45)' stroke-width='5'/%3E%3C/g%3E%3C/svg%3E");
     }
-    .inviteFrame::before{ left:-70px; top:-80px; transform: rotate(18deg); opacity:.70; }
-    .inviteFrame::after{ right:-70px; bottom:-80px; transform: rotate(198deg); opacity:.70; }
+    .inviteFrame::before{ left:-85px; top:-95px; transform: rotate(20deg); opacity:.60; }
+    .inviteFrame::after{ right:-85px; bottom:-95px; transform: rotate(200deg); opacity:.60; }
 
-    /* мягкие пятна */
     .inviteGlow{
       position:absolute;
       inset:-1px;
       z-index:0;
       pointer-events:none;
       background:
-        radial-gradient(520px 320px at 18% 14%, rgba(127,155,134,.16), rgba(127,155,134,0) 70%),
-        radial-gradient(560px 340px at 82% 86%, rgba(201,144,139,.16), rgba(201,144,139,0) 70%),
+        radial-gradient(520px 320px at 18% 14%, rgba(63,111,85,.18), rgba(63,111,85,0) 70%),
+        radial-gradient(560px 340px at 82% 86%, rgba(126,165,143,.18), rgba(126,165,143,0) 70%),
         radial-gradient(420px 240px at 50% 0%, rgba(255,255,255,.75), rgba(255,255,255,0) 70%);
       opacity:.95;
     }
@@ -316,10 +289,10 @@
       margin-top: 14px;
       font-family: "Allura", cursive;
       font-size: 32px;
-      color: var(--rose);
+      color: var(--green2);
     }
 
-    /* сердце-плеер (как в предыдущем варианте) */
+    /* сердце-плеер */
     .heartRow{
       display:flex;
       justify-content:center;
@@ -332,7 +305,7 @@
       height: 62px;
       border-radius: 999px;
       border: 1px solid rgba(18,18,18,.14);
-      background: radial-gradient(circle at 30% 30%, rgba(127,155,134,.18), rgba(127,155,134,.06));
+      background: radial-gradient(circle at 30% 30%, rgba(63,111,85,.18), rgba(63,111,85,.06));
       box-shadow: 0 18px 45px rgba(0,0,0,.12);
       display:grid;
       place-items:center;
@@ -343,7 +316,7 @@
     .heartBtn:hover{
       transform: translateY(-1px);
       border-color: rgba(18,18,18,.22);
-      background: radial-gradient(circle at 30% 30%, rgba(201,144,139,.16), rgba(201,144,139,.06));
+      background: radial-gradient(circle at 30% 30%, rgba(126,165,143,.18), rgba(126,165,143,.06));
     }
     .heartBtn:active{ transform: translateY(1px); }
     .heartBtn span{
@@ -358,7 +331,6 @@
     }
     .musicText b{ color: rgba(18,18,18,.92); }
 
-    /* быстрые бейджи */
     .badges{
       display:flex; gap:10px; flex-wrap:wrap;
       justify-content:center;
@@ -373,48 +345,11 @@
       color: rgba(18,18,18,.80);
     }
 
-    /* ===== 2 фото молодожёнов ===== */
-    .photoGrid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      align-items:stretch;
-    }
-    @media (max-width: 900px){ .photoGrid{ grid-template-columns:1fr; } }
-    .photo{
-      border-radius: 22px;
-      overflow:hidden;
-      border:1px solid rgba(18,18,18,.10);
-      background: rgba(255,255,255,.82);
-      box-shadow: 0 18px 50px rgba(0,0,0,.10);
-      position:relative;
-      min-height: 280px;
-    }
-    .photo img{
-      width:100%;
-      height:100%;
-      object-fit: cover;
-      display:block;
-    }
-    .photo .cap{
-      position:absolute;
-      left:14px;
-      bottom:14px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      background: rgba(255,255,255,.78);
-      border:1px solid rgba(18,18,18,.10);
-      color: rgba(18,18,18,.88);
-      font-weight: 700;
-      font-size: 13px;
-      backdrop-filter: blur(10px);
-    }
-
-    /* ===== цитата ===== */
+    /* ===== ЦИТАТА (как тебе понравилось) ===== */
     .quote{
       text-align:center;
       padding: 26px 22px;
-      background: linear-gradient(180deg, rgba(127,155,134,.10), rgba(127,155,134,0));
+      background: linear-gradient(180deg, rgba(63,111,85,.10), rgba(63,111,85,0));
       border:1px solid rgba(18,18,18,.08);
       border-radius: 22px;
     }
@@ -475,8 +410,8 @@
     }
     .planDot{
       width:10px;height:10px;border-radius:999px;
-      background: rgba(127,155,134,.95);
-      box-shadow: 0 0 0 6px rgba(127,155,134,.12);
+      background: rgba(63,111,85,.95);
+      box-shadow: 0 0 0 6px rgba(63,111,85,.12);
       margin-top: 6px;
       flex:0 0 auto;
     }
@@ -486,7 +421,7 @@
       position:absolute;
       left:-14px; top:0; bottom:0;
       width:2px;
-      background: linear-gradient(180deg, rgba(127,155,134,.35), rgba(127,155,134,.08));
+      background: linear-gradient(180deg, rgba(63,111,85,.35), rgba(63,111,85,.08));
       border-radius:999px;
     }
     .planItemTitle{
@@ -540,8 +475,8 @@
       outline:none;
     }
     input:focus, select:focus, textarea:focus{
-      border-color: rgba(127,155,134,.60);
-      box-shadow: 0 0 0 3px rgba(127,155,134,.14);
+      border-color: rgba(63,111,85,.60);
+      box-shadow: 0 0 0 3px rgba(63,111,85,.14);
       background:#fff;
     }
     textarea{ min-height: 105px; resize: vertical; }
@@ -568,6 +503,65 @@
     }
     .chk input{ width:auto; padding:0; margin:0; }
 
+    /* ===== ФОТО (НЕ подряд): одно в правой колонке, второе — ниже в отдельной секции ===== */
+    .photoInset{
+      border-radius: 22px;
+      overflow:hidden;
+      border:1px solid rgba(18,18,18,.10);
+      background: rgba(255,255,255,.82);
+      box-shadow: 0 18px 50px rgba(0,0,0,.10);
+      position:relative;
+      min-height: 280px;
+    }
+    .photoInset img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+    }
+    .photoInset .cap{
+      position:absolute;
+      left:14px;
+      bottom:14px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.78);
+      border:1px solid rgba(18,18,18,.10);
+      color: rgba(18,18,18,.88);
+      font-weight: 700;
+      font-size: 13px;
+      backdrop-filter: blur(10px);
+    }
+
+    .photoWide{
+      border-radius: 26px;
+      overflow:hidden;
+      border:1px solid rgba(18,18,18,.10);
+      background: rgba(255,255,255,.82);
+      box-shadow: 0 22px 60px rgba(0,0,0,.12);
+      position:relative;
+      min-height: 320px;
+    }
+    .photoWide img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+    }
+    .photoWide .cap{
+      position:absolute;
+      right:14px;
+      bottom:14px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.78);
+      border:1px solid rgba(18,18,18,.10);
+      color: rgba(18,18,18,.88);
+      font-weight: 700;
+      font-size: 13px;
+      backdrop-filter: blur(10px);
+    }
+
     /* футер */
     footer{
       padding: 22px 0 30px;
@@ -577,7 +571,7 @@
     footer .script{
       font-family: Allura, cursive;
       font-size: 30px;
-      color: var(--sage);
+      color: var(--green);
       margin-bottom: 4px;
     }
 
@@ -591,9 +585,9 @@
       place-items:center;
       padding: 22px;
       background:
-        radial-gradient(1200px 700px at 50% 0%, rgba(127,155,134,.12), rgba(127,155,134,0) 65%),
-        radial-gradient(900px 520px at 20% 110%, rgba(201,144,139,.12), rgba(201,144,139,0) 65%),
-        var(--bg);
+        radial-gradient(1200px 700px at 50% 0%, rgba(63,111,85,.16), rgba(63,111,85,0) 65%),
+        radial-gradient(900px 520px at 20% 110%, rgba(126,165,143,.16), rgba(126,165,143,0) 65%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
     }
     .gateCard{
       width: min(520px, 100%);
@@ -614,8 +608,8 @@
       pointer-events:none;
       opacity:.55;
       background:
-        radial-gradient(380px 260px at 50% 0%, rgba(127,155,134,.14), rgba(127,155,134,0) 70%),
-        radial-gradient(420px 280px at 80% 110%, rgba(201,144,139,.14), rgba(201,144,139,0) 70%);
+        radial-gradient(380px 260px at 50% 0%, rgba(63,111,85,.18), rgba(63,111,85,0) 70%),
+        radial-gradient(420px 280px at 80% 110%, rgba(126,165,143,.18), rgba(126,165,143,0) 70%);
     }
     .gateSmall{
       font-size: 12px;
@@ -643,7 +637,7 @@
       padding: 14px 16px;
       border-radius: 999px;
       border: 1px solid rgba(18,18,18,.18);
-      background: linear-gradient(180deg, rgba(42,42,42,.96), rgba(42,42,42,.86));
+      background: linear-gradient(180deg, rgba(63,111,85,.96), rgba(63,111,85,.84));
       color:#fff;
       font-weight: 900;
       letter-spacing: .18em;
@@ -666,7 +660,7 @@
       transition: opacity .35s ease;
     }
 
-    /* ===== мини-панель музыки (как в прошлом варианте) ===== */
+    /* ===== мини-панель музыки ===== */
     .musicDock{
       position: fixed;
       right: 14px;
@@ -708,7 +702,6 @@
 </head>
 
 <body class="lock">
-  <div class="bgFlorals" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
 
   <!-- Музыка: положи файл assets/music.mp3 -->
@@ -735,7 +728,7 @@
       </div>
       <nav class="nav">
         <a href="#invite">Приглашение</a>
-        <a href="#photos">Фото</a>
+        <a href="#quote">Фраза</a>
         <a href="#plan">Программа</a>
         <a href="#route">Локация</a>
         <a href="#details">Детали</a>
@@ -789,36 +782,21 @@
       </div>
     </section>
 
-    <!-- 2 фото молодожёнов -->
-    <section id="photos">
-      <div class="photoGrid reveal">
-        <div class="photo">
-          <img src="assets/couple1.jpg" alt="Фото молодожёнов 1">
-          <div class="cap">Александр</div>
-        </div>
-        <div class="photo">
-          <img src="assets/couple2.jpg" alt="Фото молодожёнов 2">
-          <div class="cap">Гюнель</div>
-        </div>
-      </div>
-      <p class="note" style="text-align:center; margin-top:10px;">
-        Подставь свои фото в: <b>assets/couple1.jpg</b> и <b>assets/couple2.jpg</b>
-      </p>
-    </section>
-
-    <!-- цитата -->
-    <section class="reveal">
+    <!-- Фраза (как ты просила) -->
+    <section id="quote" class="reveal">
       <div class="quote">
         <p class="q">Место для счастья — здесь,<br>время для счастья — сейчас</p>
         <div class="s">мы ждём вас</div>
       </div>
     </section>
 
-    <!-- Программа + Таймер -->
+    <!-- Блок: программа + фото (фото НЕ рядом с другим) -->
     <section id="plan">
       <div class="grid">
         <div class="card padded reveal">
           <h2>Программа дня</h2>
+          <p class="p">Тайминг ориентировочный (возможны небольшие изменения).</p>
+
           <ul class="planList">
             <li class="planRow">
               <div class="planTime"><span class="planDot"></span>15:00</div>
@@ -852,10 +830,10 @@
               </div>
             </li>
           </ul>
-        </div>
 
-        <div class="card padded reveal">
-          <h2>До свадьбы осталось</h2>
+          <div class="hr"></div>
+
+          <h2 style="margin:0 0 10px;">До свадьбы осталось</h2>
           <div class="countdown" aria-live="polite">
             <div class="pill"><p class="n" id="d">—</p><p class="l">дней</p></div>
             <div class="pill"><p class="n" id="h">—</p><p class="l">часов</p></div>
@@ -864,7 +842,17 @@
           </div>
           <p class="note" style="text-align:center">21.08.2026 · 15:00</p>
         </div>
+
+        <!-- Фото 1 — как “вставка” рядом с программой -->
+        <div class="photoInset reveal">
+          <img src="assets/couple1.jpg" alt="Фото молодожёнов 1">
+          <div class="cap">Мы ❤️</div>
+        </div>
       </div>
+
+      <p class="note" style="text-align:center; margin-top:10px;">
+        Подставь свои фото в: <b>assets/couple1.jpg</b> и <b>assets/couple2.jpg</b>
+      </p>
     </section>
 
     <!-- Локация -->
@@ -903,6 +891,14 @@
       </div>
     </section>
 
+    <!-- Фото 2 — отдельным красивым “панно” перед деталями -->
+    <section class="reveal">
+      <div class="photoWide">
+        <img src="assets/couple2.jpg" alt="Фото молодожёнов 2">
+        <div class="cap">Александр &amp; Гюнель</div>
+      </div>
+    </section>
+
     <!-- Детали -->
     <section id="details">
       <div class="card padded reveal">
@@ -918,8 +914,12 @@
 
         <div class="hr"></div>
 
-        <p class="p"><strong>— Маленькая просьба</strong></p>
-        <p class="p">Если вы захотите сказать нам тёплые слова — мы будем счастливы. А “Горько” оставим на ваше усмотрение 🙂</p>
+        <p class="p"><strong>— Про “Горько”</strong></p>
+        <p class="p">
+          Мы знаем, что крики “Горько” — это традиционный показатель чувств.
+          Но мы будем очень благодарны, если вы <strong>воздержитесь от “Горько”</strong> —
+          пусть поцелуи будут в момент, когда нам захочется самим ❤️
+        </p>
       </div>
     </section>
 
@@ -1060,9 +1060,7 @@
       <div class="grid">
         <div class="card padded reveal">
           <h2>Контакты</h2>
-          <p class="p">
-            По любым вопросам можно обратиться к организатору:
-          </p>
+          <p class="p">По любым вопросам можно обратиться к организатору:</p>
           <div class="hr"></div>
           <p class="p" style="margin-bottom:12px">
             <strong>Организатор:</strong> <a href="tel:+375295183650">+375 29 518 3650</a>
@@ -1077,8 +1075,10 @@
 
         <div class="card padded reveal">
           <h2>Памятка</h2>
-          <p class="p">
-            Приезжайте к 15:00 · Ч/б стиль · Трансфер будет — отметьте в анкете.
+          <p class="p">Приезжайте к 15:00 · Ч/б стиль · Трансфер будет — отметьте в анкете.</p>
+          <div class="hr"></div>
+          <p class="note" style="margin:0;">
+            Файлы для сайта: <b>assets/music.mp3</b>, <b>assets/couple1.jpg</b>, <b>assets/couple2.jpg</b>
           </p>
         </div>
       </div>
@@ -1103,11 +1103,8 @@
     // =========================
     // ДАННЫЕ (из твоего кода)
     // =========================
-
-    // 1) Дата свадьбы
     const weddingDateLocal = new Date(2026, 7, 21, 15, 0, 0);
 
-    // 2) Адрес + карты
     const addressText = "Витебский район, Вороновский сельсовет, деревня Дрюково, Центральная улица, 32";
     const placeText = "Дрюково, Центральная 32";
     const mapsQuery = encodeURIComponent(placeText + ", " + addressText);
@@ -1117,7 +1114,7 @@
     document.getElementById("mapsPrimaryBtn").href = mapsUrl;
     document.getElementById("mapFrame").src = embedUrl;
 
-    // 3) RSVP -> Google Sheets (URL из твоего кода)
+    // RSVP -> Google Sheets (ссылка из предыдущего кода)
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyU1T7nihR_oqbwWHgWGCmoRBx6g7a_JxquL3VyVl668RORpaqeAek6BkAxsvoZ9jy0/exec";
 
     // =========================
@@ -1125,7 +1122,6 @@
     // =========================
     const gate = document.getElementById("gate");
     const openBtn = document.getElementById("openInviteBtn");
-
     function openInvite(){
       gate.classList.add("hide");
       document.body.classList.remove("lock");
@@ -1185,7 +1181,7 @@
     // =========================
     const form = document.getElementById("rsvpForm");
     const saveDraftBtn = document.getElementById("saveDraftBtn");
-    const draftKey = "wedding_rsvp_history_flowers_music_v1";
+    const draftKey = "wedding_rsvp_moment_green_v2";
 
     function getDrinks(){
       const checked = [...form.querySelectorAll('input[name="drinks"]:checked')].map(x => x.value);
@@ -1271,7 +1267,7 @@
     });
 
     // =========================
-    // МУЗЫКА (как в предыдущем варианте: сердце + док-панель)
+    // МУЗЫКА (сердце + док-панель)
     // =========================
     const audio = document.getElementById("bgMusic");
     const heartBtn = document.getElementById("heartBtn");
@@ -1285,7 +1281,7 @@
 
     function setUI(isPlaying){
       musicState.textContent = isPlaying ? "Музыка включена" : "Музыка выключена";
-      heartIcon.textContent = isPlaying ? "💐" : "❤";
+      heartIcon.textContent = isPlaying ? "🎶" : "❤";
 
       musicDock.style.display = "flex";
       musicDock.setAttribute("aria-hidden", "false");
@@ -1313,11 +1309,10 @@
     audio.addEventListener("ended", ()=> setUI(false));
     audio.addEventListener("pause", ()=> setUI(false));
     audio.addEventListener("play", ()=> setUI(true));
-
     setUI(false);
 
     // =========================
-    // Reveal (если разрешены анимации)
+    // Reveal
     // =========================
     const items = document.querySelectorAll(".reveal");
     const canAnimate = window.matchMedia && window.matchMedia("(prefers-reduced-motion: no-preference)").matches;
