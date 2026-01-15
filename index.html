@@ -38,23 +38,29 @@
   color:var(--ink);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
  
-  /* ФОН: первая картинка */
-  background-image: url("./assets/bg1.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  /* ===== ПАДАЮЩИЕ "ЗВЁЗДЫ/ШАРИКИ" НА ФОНЕ ===== */
+.fxCanvas{
+  position: fixed;
+  inset: 0;
+  z-index: 0;           /* фон */
+  pointer-events: none; /* чтобы не мешало кликам */
+  opacity: .55;         /* общая нежность эффекта */
 }
  
-/* Вуаль, чтобы текст читался */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
+/* Важно: контент должен быть выше */
+.topbar{ position: sticky; z-index: 50; }
+main, .wrap{ position: relative; z-index: 3; }
+ 
+/* Вуаль для читаемости (если у тебя уже есть — оставь одну, не дублируй) */
+.fxVeil{
+  position: fixed;
+  inset: 0;
+  z-index: 1;
   pointer-events:none;
-  z-index:-1;
   background:
-    radial-gradient(900px 520px at 50% 22%, rgba(255,255,255,.55), rgba(255,255,255,.88) 70%),
+    radial-gradient(900px 520px at 50% 22%, rgba(255,255,255,.62), rgba(255,255,255,.92) 70%),
     linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.88));
+}
 }
  
 /* Лёгкая фактура */
@@ -451,6 +457,8 @@ body::after{
 </head>
  
 <body>
+  <canvas class="fxCanvas" id="fxCanvas" aria-hidden="true"></canvas>
+<div class="fxVeil" aria-hidden="true"></div>
   <div class="bgStack" aria-hidden="true">
     <div class="bgLayer a on"></div>
     <div class="bgLayer b"></div>
@@ -1041,5 +1049,135 @@ body::after{
       console.log("BG: loaded", okImages.length, "images");
     })();
   </script>
+  <script>
+  // Нежный фон: падающие "звёзды/шарики" (не мешают читать)
+  const canvas = document.getElementById("fxCanvas");
+  const ctx = canvas.getContext("2d", { alpha: true });
+ 
+  function resize(){
+    const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+    canvas.width = Math.floor(window.innerWidth * dpr);
+    canvas.height = Math.floor(window.innerHeight * dpr);
+    canvas.style.width = window.innerWidth + "px";
+    canvas.style.height = window.innerHeight + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  window.addEventListener("resize", resize);
+  resize();
+ 
+  const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+ 
+  // Настройки (можно менять)
+  const CONFIG = {
+    count: 48,          // сколько частиц
+    minSize: 2,
+    maxSize: 6,
+    minSpeed: 0.3,
+    maxSpeed: 1.2,
+    drift: 0.35,        // боковой дрейф
+    twinkle: 0.55       // мерцание
+  };
+ 
+  function rnd(a,b){ return a + Math.random()*(b-a); }
+ 
+  const particles = [];
+  function spawn(initial=false){
+    const size = rnd(CONFIG.minSize, CONFIG.maxSize);
+    const x = rnd(0, window.innerWidth);
+    const y = initial ? rnd(0, window.innerHeight) : -size - 10;
+    const speed = rnd(CONFIG.minSpeed, CONFIG.maxSpeed);
+    const vx = rnd(-CONFIG.drift, CONFIG.drift);
+    const phase = rnd(0, Math.PI*2);
+ 
+    // Тип: "звёздочка" или "шарик"
+    const type = Math.random() < 0.55 ? "star" : "dot";
+ 
+    particles.push({ x, y, size, speed, vx, phase, type });
+  }
+ 
+  // начальные частицы
+  for(let i=0;i<CONFIG.count;i++) spawn(true);
+ 
+  function drawStar(x, y, r, alpha){
+    // маленькая 4-лучевая "звезда"
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.translate(x, y);
+ 
+    // светлый акцент: чёрно-бело + лёгкий оттенок
+    const grad = ctx.createRadialGradient(0,0,0, 0,0,r*2.2);
+    grad.addColorStop(0, "rgba(255,255,255,.95)");
+    grad.addColorStop(0.45, "rgba(240,245,255,.55)");
+    grad.addColorStop(1, "rgba(255,255,255,0)");
+ 
+    ctx.fillStyle = grad;
+ 
+    ctx.beginPath();
+    ctx.moveTo(0, -r);
+    ctx.quadraticCurveTo(r*0.15, -r*0.15, r, 0);
+    ctx.quadraticCurveTo(r*0.15, r*0.15, 0, r);
+    ctx.quadraticCurveTo(-r*0.15, r*0.15, -r, 0);
+    ctx.quadraticCurveTo(-r*0.15, -r*0.15, 0, -r);
+    ctx.closePath();
+    ctx.fill();
+ 
+    ctx.restore();
+  }
+ 
+  function drawDot(x, y, r, alpha){
+    ctx.save();
+    ctx.globalAlpha = alpha;
+ 
+    const grad = ctx.createRadialGradient(x,y,0, x,y,r*2);
+    grad.addColorStop(0, "rgba(255,255,255,.92)");
+    grad.addColorStop(0.65, "rgba(230,240,255,.38)");
+    grad.addColorStop(1, "rgba(255,255,255,0)");
+ 
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI*2);
+    ctx.fill();
+ 
+    ctx.restore();
+  }
+ 
+  let t = 0;
+  function frame(){
+    if(prefersReduced) return; // уважение к настройке "reduce motion"
+ 
+    t += 0.016;
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+ 
+    for(let i=0;i<particles.length;i++){
+      const p = particles[i];
+ 
+      p.y += p.speed;
+      p.x += p.vx + Math.sin(t + p.phase) * 0.15;
+ 
+      // мерцание
+      const tw = (Math.sin(t*2 + p.phase) + 1) / 2; // 0..1
+      const alpha = 0.18 + tw * CONFIG.twinkle * 0.25;
+ 
+      if(p.type === "star") drawStar(p.x, p.y, p.size, alpha);
+      else drawDot(p.x, p.y, p.size, alpha);
+ 
+      // если улетели вниз — перерождаем
+      if(p.y > window.innerHeight + 30){
+        particles[i] = null;
+      }
+    }
+ 
+    // чистим null и досоздаём
+    for(let i=particles.length-1;i>=0;i--){
+      if(particles[i] === null) particles.splice(i,1);
+    }
+    while(particles.length < CONFIG.count) spawn(false);
+ 
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+</script>
+ 
+
 </body>
 </html>
