@@ -13,14 +13,15 @@
  
   <style>
     :root{
-      --bg:#fbfbf8;
-      --paper:#ffffff;
       --ink:#111111;
-      --muted:#4a4a4a;
       --line:rgba(0,0,0,.10);
  
-      /* Палитра: ч/б + спокойный синий */
+      /* спокойный синий акцент */
       --accent:#0f2a5f;
+ 
+      /* молочные карточки */
+      --milk: rgba(255,255,255,.90);
+      --milk2: rgba(255,255,255,.84);
  
       --shadow: 0 18px 45px rgba(0,0,0,.10);
       --radius: 18px;
@@ -36,22 +37,10 @@
       background: transparent;
     }
  
-    /* зерно для мягкой фактуры */
-    body::before{
-      content:"";
-      position:fixed; inset:0;
-      pointer-events:none;
-      background-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E");
-      opacity:.16;
-      mix-blend-mode:multiply;
-      z-index: 2;
-    }
- 
     a{color:inherit}
     .wrap{max-width:var(--max);margin:0 auto;padding:22px}
  
-    /* ===== ФОН-СЛАЙДШОУ ===== */
+    /* ===== ФОН-СЛАЙДШОУ (светлее, но фото видно) ===== */
     .bgStack{
       position: fixed;
       inset: 0;
@@ -63,31 +52,47 @@
       position:absolute;
       inset:-12%;
       background: center/cover no-repeat;
-      filter: blur(22px);
-      transform: scale(1.1);
+      filter: blur(24px);
+      transform: scale(1.12);
       opacity: 0;
-      transition: opacity 1.6s ease;
+      transition: opacity 1.8s ease;
     }
-    .bgLayer.on{ opacity: .18; }  /* очень мягко, чтобы не мешало тексту */
+    /* делаем фото чуть заметнее, но нежно */
+    .bgLayer.on{ opacity: .22; }
  
-    /* молочная вуаль для читаемости */
+    /* Вуаль: по краям плотнее (читаемость), по центру чуть прозрачнее (видно фото) */
     .bgVeil{
       position: fixed;
       inset: 0;
       z-index: 1;
       pointer-events:none;
-      background: rgba(255,255,255,.86);
+      background:
+        radial-gradient(900px 520px at 50% 22%, rgba(255,255,255,.64), rgba(255,255,255,.90) 70%),
+        linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.88));
+    }
+ 
+    /* нежная “бумажная” фактура поверх */
+    .grain{
+      position: fixed;
+      inset:0;
+      z-index: 2;
+      pointer-events:none;
+      opacity: .10;
+      mix-blend-mode:multiply;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.10'/%3E%3C/svg%3E");
     }
  
     /* контент над фоном */
     .topbar{ position: sticky; z-index: 50; }
     main, .wrap{ position: relative; z-index: 3; }
  
+    /* ===== ШАПКА ===== */
     .topbar{
       top:0;
-      background: rgba(255,255,255,.72);
+      background: rgba(255,255,255,.78);
       backdrop-filter: blur(12px);
-      border-bottom:1px solid var(--line);
+      border-bottom:1px solid rgba(0,0,0,.08);
     }
     .topbar .inner{
       max-width:var(--max);
@@ -106,10 +111,10 @@
     }
     .seal{
       width:30px;height:30px;border-radius:999px;
-      border:1px solid rgba(15,42,95,.25);
-      background: radial-gradient(circle at 30% 30%, rgba(15,42,95,.14), rgba(15,42,95,.04));
+      border:1px solid rgba(15,42,95,.20);
+      background: radial-gradient(circle at 30% 30%, rgba(15,42,95,.12), rgba(15,42,95,.03));
       display:grid; place-items:center;
-      box-shadow: 0 10px 24px rgba(0,0,0,.08);
+      box-shadow: 0 10px 24px rgba(0,0,0,.06);
       color:var(--accent);
       font-size:14px;
       user-select:none;
@@ -128,13 +133,14 @@
     }
     .nav a:hover{
       color:var(--ink);
-      border-color:rgba(15,42,95,.18);
-      background:rgba(15,42,95,.05);
+      border-color:rgba(15,42,95,.14);
+      background:rgba(15,42,95,.04);
     }
  
+    /* ===== КАРТОЧКИ (молочные) ===== */
     .card{
-      background: rgba(255,255,255,.86);
-      border:1px solid var(--line);
+      background: var(--milk);
+      border:1px solid rgba(0,0,0,.09);
       border-radius:var(--radius);
       box-shadow:var(--shadow);
       position:relative;
@@ -145,18 +151,29 @@
       .card.padded{padding:18px}
     }
  
+    /* ===== ДЕКОР: угловые листики + точки ===== */
     .leaf-corner{
       position:absolute;
       width:210px; height:210px;
-      opacity:.22;
+      opacity:.20;
       pointer-events:none;
-      filter: drop-shadow(0 14px 18px rgba(0,0,0,.10));
+      filter: drop-shadow(0 12px 18px rgba(0,0,0,.08));
     }
-    .leaf-corner.tl{top:-40px;left:-55px;transform:rotate(-10deg)}
-    .leaf-corner.br{bottom:-55px;right:-55px;transform:rotate(170deg)}
-    .leaf-corner.small{width:150px;height:150px;opacity:.16}
-    .leaf-corner.tr{top:-40px;right:-55px;transform:rotate(40deg)}
-    .leaf-corner.bl{bottom:-55px;left:-55px;transform:rotate(220deg)}
+    .leaf-corner.tl{top:-46px;left:-60px;transform:rotate(-10deg)}
+    .leaf-corner.br{bottom:-60px;right:-62px;transform:rotate(170deg)}
+    .leaf-corner.tr{top:-52px;right:-65px;transform:rotate(35deg);opacity:.14}
+    .leaf-corner.bl{bottom:-62px;left:-62px;transform:rotate(215deg);opacity:.14}
+ 
+    .dots{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      opacity:.10;
+      background-image:
+        radial-gradient(rgba(15,42,95,.35) 1px, transparent 1.6px);
+      background-size: 28px 28px;
+      mask-image: radial-gradient(420px 260px at 70% 20%, rgba(0,0,0,.9), transparent 65%);
+    }
  
     .hero{
       padding:30px 0 14px;
@@ -171,28 +188,49 @@
  
     .kicker{
       font-size:12px;
-      color:rgba(0,0,0,.55);
+      color:rgba(0,0,0,.52);
       text-transform:uppercase;
       letter-spacing:2.6px;
       margin:0 0 12px;
     }
  
     /* ИМЕНА — нежно и аккуратно */
+    .namesBlock{ position: relative; }
     .namesBig{
       font-family: "Cormorant Garamond", Georgia, serif;
       font-size: clamp(44px, 6vw, 72px);
       font-weight: 600;
       letter-spacing: .04em;
       line-height: 1.05;
-      margin: 6px 0 12px;
+      margin: 6px 0 10px;
       color: #1a1a1a;
-      text-shadow: 0 6px 18px rgba(0,0,0,.08);
+      text-shadow: 0 6px 18px rgba(0,0,0,.07);
     }
     .namesBig .amp{
-      font-family: "Cormorant Garamond", Georgia, serif;
       font-style: italic;
       font-weight: 400;
-      opacity: .8;
+      opacity: .75;
+    }
+ 
+    /* Декоративная линия под именами */
+    .nameFlourish{
+      display:flex;
+      align-items:center;
+      justify-content:flex-start;
+      gap:12px;
+      margin: 0 0 12px;
+      color: rgba(15,42,95,.55);
+    }
+    .nameFlourish .line{
+      height:1px;
+      flex:1;
+      background: linear-gradient(90deg, rgba(15,42,95,.00), rgba(15,42,95,.26), rgba(15,42,95,.00));
+      border-radius:999px;
+    }
+    .nameFlourish .orn{
+      width:56px;
+      height:16px;
+      opacity:.85;
     }
  
     .script{
@@ -200,15 +238,14 @@
       font-weight: 400;
       color: rgba(0,0,0,.72);
     }
- 
     .sub{
       font-size:18px;
-      color:rgba(0,0,0,.62);
+      color:rgba(0,0,0,.60);
       margin:0 0 18px;
       line-height:1.5;
     }
  
-    .hr{height:1px;background:var(--line);margin:16px 0}
+    .hr{height:1px;background:rgba(0,0,0,.08);margin:16px 0}
     .p{margin:0;color:rgba(0,0,0,.70);line-height:1.7}
  
     .ctaRow{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
@@ -216,8 +253,8 @@
       display:inline-flex; align-items:center; justify-content:center; gap:10px;
       padding:12px 14px;
       border-radius:999px;
-      border:1px solid rgba(0,0,0,.14);
-      background: rgba(255,255,255,.74);
+      border:1px solid rgba(0,0,0,.12);
+      background: rgba(255,255,255,.76);
       color:var(--ink);
       text-decoration:none;
       font-weight:650;
@@ -227,22 +264,22 @@
     }
     .btn:hover{
       background:#fff;
-      border-color:rgba(15,42,95,.22);
-      box-shadow: 0 10px 25px rgba(0,0,0,.08);
+      border-color:rgba(15,42,95,.18);
+      box-shadow: 0 10px 25px rgba(0,0,0,.07);
     }
     .btn:active{transform: translateY(1px)}
     .btn.primary{
       background: linear-gradient(180deg, rgba(15,42,95,.92), rgba(15,42,95,.82));
       color:#fff;
-      border-color: rgba(15,42,95,.45);
+      border-color: rgba(15,42,95,.40);
     }
     .btn.primary:hover{
-      border-color: rgba(15,42,95,.60);
-      box-shadow: 0 14px 32px rgba(15,42,95,.14);
+      border-color: rgba(15,42,95,.56);
+      box-shadow: 0 14px 32px rgba(15,42,95,.12);
     }
     .btn.ghost{
       background: transparent;
-      border-color: rgba(15,42,95,.18);
+      border-color: rgba(15,42,95,.16);
       color: rgba(0,0,0,.78);
     }
     .icon{width:16px;height:16px;opacity:.95}
@@ -251,10 +288,10 @@
     .stat{
       padding:16px;
       border-radius:14px;
-      border:1px solid var(--line);
-      background: rgba(15,42,95,.04);
+      border:1px solid rgba(0,0,0,.09);
+      background: var(--milk2);
     }
-    .stat .t{font-size:12px;color:rgba(0,0,0,.58);margin:0 0 8px;text-transform:uppercase;letter-spacing:1.6px}
+    .stat .t{font-size:12px;color:rgba(0,0,0,.56);margin:0 0 8px;text-transform:uppercase;letter-spacing:1.6px}
     .stat .v{font-size:18px;font-weight:700;margin:0}
  
     .countdown{display:flex; gap:10px; flex-wrap:wrap}
@@ -263,15 +300,15 @@
       text-align:center;
       padding:10px 12px;
       border-radius:14px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.78);
+      border:1px solid rgba(0,0,0,.09);
+      background: rgba(255,255,255,.82);
     }
     .pill .n{
       font-family: "Cormorant Garamond", Georgia, serif;
       font-size:24px;font-weight:700;margin:0;
       color: var(--accent);
     }
-    .pill .l{font-size:12px;color:rgba(0,0,0,.58);margin:2px 0 0}
+    .pill .l{font-size:12px;color:rgba(0,0,0,.56);margin:2px 0 0}
  
     section{padding:10px 0}
     .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -290,8 +327,8 @@
       font-size:13px;
       padding:8px 10px;
       border-radius:999px;
-      border:1px solid rgba(15,42,95,.18);
-      background: rgba(15,42,95,.05);
+      border:1px solid rgba(15,42,95,.14);
+      background: rgba(15,42,95,.04);
       color: rgba(0,0,0,.70);
     }
  
@@ -303,14 +340,14 @@
       width:100%;
       padding:12px 12px;
       border-radius:12px;
-      border:1px solid rgba(0,0,0,.16);
-      background: rgba(255,255,255,.86);
+      border:1px solid rgba(0,0,0,.15);
+      background: rgba(255,255,255,.90);
       color:var(--ink);
       outline:none;
     }
     input:focus, select:focus, textarea:focus{
-      border-color: rgba(15,42,95,.35);
-      box-shadow: 0 0 0 3px rgba(15,42,95,.10);
+      border-color: rgba(15,42,95,.30);
+      box-shadow: 0 0 0 3px rgba(15,42,95,.09);
       background:#fff;
     }
     textarea{min-height:105px;resize:vertical}
@@ -324,9 +361,9 @@
     .divider{
       display:flex; align-items:center; gap:10px;
       margin:14px 0 0;
-      color: rgba(15,42,95,.60);
+      color: rgba(15,42,95,.52);
     }
-    .divider .line{height:1px;flex:1;background:rgba(15,42,95,.16)}
+    .divider .line{height:1px;flex:1;background:rgba(15,42,95,.14)}
     .divider .mark{
       font-family: "Cormorant Garamond", Georgia, serif;
       font-style:italic;
@@ -338,9 +375,9 @@
     .mapWrap{
       border-radius:16px;
       overflow:hidden;
-      border:1px solid var(--line);
+      border:1px solid rgba(0,0,0,.09);
       background:#fff;
-      box-shadow: 0 12px 26px rgba(0,0,0,.08);
+      box-shadow: 0 12px 26px rgba(0,0,0,.07);
     }
     .mapWrap iframe{
       width:100%;
@@ -365,7 +402,7 @@
       grid-template-columns: 74px 1fr;
       gap:12px;
       padding:14px 0;
-      border-top:1px solid var(--line);
+      border-top:1px solid rgba(0,0,0,.08);
       position:relative;
     }
     .planRow:first-child{border-top:none;padding-top:6px}
@@ -382,7 +419,7 @@
       width:10px; height:10px;
       border-radius:999px;
       background: var(--accent);
-      box-shadow: 0 0 0 6px rgba(15,42,95,.08);
+      box-shadow: 0 0 0 6px rgba(15,42,95,.07);
       margin-top:6px;
       flex:0 0 auto;
     }
@@ -397,7 +434,7 @@
       top:0;
       bottom:0;
       width:2px;
-      background: linear-gradient(180deg, rgba(15,42,95,.16), rgba(15,42,95,.04));
+      background: linear-gradient(180deg, rgba(15,42,95,.14), rgba(15,42,95,.03));
       border-radius:999px;
     }
     .planItemTitle{
@@ -413,10 +450,10 @@
     .planIcon{
       width:34px;height:34px;
       border-radius:999px;
-      border:1px solid rgba(15,42,95,.14);
-      background: rgba(15,42,95,.05);
+      border:1px solid rgba(15,42,95,.12);
+      background: rgba(15,42,95,.04);
       display:grid;place-items:center;
-      box-shadow: 0 10px 22px rgba(0,0,0,.06);
+      box-shadow: 0 10px 22px rgba(0,0,0,.05);
       font-size: 18px;
       line-height: 1;
       flex:0 0 auto;
@@ -428,7 +465,6 @@
       line-height:1.6;
     }
  
-    /* Детали (вместо “конверта” ничего нет — удалено) */
     .detailsText{
       font-family: "Cormorant Garamond", Georgia, serif;
       font-size: 19px;
@@ -438,15 +474,20 @@
     }
     .detailsText strong{ color: var(--accent); }
   </style>
+ 
+  <!-- Предзагрузка фона (помогает, если фото долго подхватываются) -->
+  <link rel="preload" as="image" href="https://i.ibb.co/Nd2QbKPQ/IMG-0302.jpg">
+  <link rel="preload" as="image" href="https://i.ibb.co/bMN4QBry/B2-AC3-B25-113-B-4-C73-AF84-DB8-BFEC273-F0.jpg">
+  <link rel="preload" as="image" href="https://i.ibb.co/DHpQVmcZ/IMG-5025.jpg">
 </head>
  
 <body>
-  <!-- фоновые фото -->
   <div class="bgStack" aria-hidden="true">
     <div class="bgLayer a"></div>
     <div class="bgLayer b"></div>
   </div>
   <div class="bgVeil" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
  
   <div class="topbar">
     <div class="inner">
@@ -469,8 +510,11 @@
   <main class="wrap">
     <div class="hero">
       <div class="card padded reveal">
+        <div class="dots" aria-hidden="true"></div>
+ 
+        <!-- больше декоративных элементов: 4 угла -->
         <svg class="leaf-corner tl" viewBox="0 0 220 220" aria-hidden="true">
-          <g fill="none" stroke="rgba(15,42,95,.55)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+          <g fill="none" stroke="rgba(15,42,95,.55)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M40 170c45-68 85-105 150-125" />
             <path d="M62 155c15-25 28-40 58-64" />
             <path d="M78 142c12-18 24-30 44-45" />
@@ -481,21 +525,44 @@
           </g>
         </svg>
         <svg class="leaf-corner br" viewBox="0 0 220 220" aria-hidden="true">
-          <g fill="none" stroke="rgba(15,42,95,.55)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+          <g fill="none" stroke="rgba(15,42,95,.55)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M40 170c45-68 85-105 150-125" />
             <path d="M62 155c15-25 28-40 58-64" />
             <path d="M78 142c12-18 24-30 44-45" />
             <path d="M95 130c10-13 18-22 34-32" />
-            <path d="M53 160c18 2 30 0 44-6" />
-            <path d="M68 145c18 1 28-1 40-7" />
-            <path d="M84 132c14 1 23-1 34-6" />
+          </g>
+        </svg>
+        <svg class="leaf-corner tr" viewBox="0 0 220 220" aria-hidden="true">
+          <g fill="none" stroke="rgba(15,42,95,.55)" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M40 170c45-68 85-105 150-125" />
+            <path d="M62 155c15-25 28-40 58-64" />
+          </g>
+        </svg>
+        <svg class="leaf-corner bl" viewBox="0 0 220 220" aria-hidden="true">
+          <g fill="none" stroke="rgba(15,42,95,.55)" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M40 170c45-68 85-105 150-125" />
+            <path d="M78 142c12-18 24-30 44-45" />
           </g>
         </svg>
  
         <p class="kicker">свадебное приглашение</p>
  
-        <div class="namesBig">
-          Александр <span class="amp">&amp;</span> Гюнель
+        <div class="namesBlock">
+          <div class="namesBig">
+            Александр <span class="amp">&amp;</span> Гюнель
+          </div>
+ 
+          <!-- декоративная линия под именами -->
+          <div class="nameFlourish" aria-hidden="true">
+            <div class="line"></div>
+            <svg class="orn" viewBox="0 0 120 32" fill="none">
+              <path d="M8 16c14-12 26-12 40 0s26 12 40 0 26-12 40 0"
+                    stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+              <path d="M58 16c2-6 6-10 12-12-2 6-6 10-12 12z" fill="currentColor" opacity=".35"/>
+              <path d="M62 16c2-6 6-10 12-12-2 6-6 10-12 12z" fill="currentColor" opacity=".18"/>
+            </svg>
+            <div class="line"></div>
+          </div>
         </div>
  
         <p class="sub">
@@ -664,7 +731,7 @@
               <div class="planTime"><span class="planDot"></span>15:00</div>
               <div class="planBody">
                 <div class="planItemTitle"><span class="planIcon">🥂</span>Сбор гостей</div>
-                <p class="planItemText">Приветственный бокал · фото · знакомимся</p>
+                <p class="planItemText">Приветственный бокал · встреча · знакомимся</p>
               </div>
             </li>
  
@@ -857,7 +924,7 @@
  
   <script>
     // =========================
-    // ЧИСТЫЙ СКРИПТ (без галереи)
+    // ЧИСТЫЙ СКРИПТ
     // =========================
  
     // 1) Дата свадьбы
@@ -871,10 +938,11 @@
     const mapsUrl = "https://www.google.com/maps/search/?api=1&query=" + mapsQuery;
     const embedUrl = "https://www.google.com/maps?q=" + mapsQuery + "&output=embed";
  
-    // 3) RSVP -> Google Sheets (твой URL оставила)
+    // 3) RSVP -> Google Sheets
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyU1T7nihR_oqbwWHgWGCmoRBx6g7a_JxquL3VyVl668RORpaqeAek6BkAxsvoZ9jy0/exec";
  
-    // 4) Ваши фото для фона (перелистываются)
+    // 4) Ваши фото для фона
+    // ВАЖНО: это прямые ссылки i.ibb.co — они подходят для фоновых картинок.
     const BG_IMAGES = [
       "https://i.ibb.co/Nd2QbKPQ/IMG-0302.jpg",
       "https://i.ibb.co/bMN4QBry/B2-AC3-B25-113-B-4-C73-AF84-DB8-BFEC273-F0.jpg",
@@ -884,13 +952,13 @@
       "https://i.ibb.co/QFWdhsG6/IMG-4854.jpg"
     ];
  
-    // ====== Карта: кнопки + iframe ======
+    // ====== Карта ======
     document.getElementById("routeBtn").href = mapsUrl;
     document.getElementById("mapsBtn").href = mapsUrl;
     document.getElementById("mapsPrimaryBtn").href = mapsUrl;
     document.getElementById("mapFrame").src = embedUrl;
  
-    // ====== Копирование адреса ======
+    // ====== Копирование ======
     const copyBtn = document.getElementById("copyAddressBtn");
     const copyNote = document.getElementById("copyNote");
     copyBtn.addEventListener("click", async () => {
@@ -903,7 +971,6 @@
       }
     });
  
-    // Копировать “место”
     const copyPlaceBtn = document.getElementById("copyPlaceBtn");
     const copyPlaceNote = document.getElementById("copyPlaceNote");
     copyPlaceBtn.addEventListener("click", async () => {
@@ -947,7 +1014,7 @@
     const form = document.getElementById("rsvpForm");
     const saveDraftBtn = document.getElementById("saveDraftBtn");
     const statusNote = document.getElementById("statusNote");
-    const draftKey = "wedding_rsvp_draft_clean_v1";
+    const draftKey = "wedding_rsvp_draft_soft_v2";
  
     function getFormData(){
       const data = new FormData(form);
@@ -1034,7 +1101,21 @@
     const layerA = document.querySelector(".bgLayer.a");
     const layerB = document.querySelector(".bgLayer.b");
  
-    if(layerA && layerB && BG_IMAGES.length){
+    function preload(url){
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => resolve(true);
+        img.onerror = () => resolve(false);
+        img.src = url;
+      });
+    }
+ 
+    (async function initBg(){
+      if(!layerA || !layerB || !BG_IMAGES.length) return;
+ 
+      // прогоняем прелоад (чтобы "не появившиеся" фото подхватились)
+      for(const u of BG_IMAGES){ await preload(u); }
+ 
       let idx = 0;
       let showA = true;
  
@@ -1055,7 +1136,7 @@
       }
  
       setInterval(nextBg, 9000);
-    }
+    })();
   </script>
 </body>
 </html>
