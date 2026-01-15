@@ -4,88 +4,104 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Сайт-приглашение на свадьбу Александра и Гюнель — 21.08.2026, 15:00, Витебский район, Дрюково" />
-  <title>Александр & Гюнель — 21.08.2026</title>
+  <title>Александр &amp; Гюнель — 21.08.2026</title>
 
+  <!-- Шрифты: как в твоих версиях (читабельно + рукописный акцент) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Allura&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Allura&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      /* Тёплый крем + шалфей */
-      --bg: #fbf6ef;
-      --paper: rgba(255,255,255,.92);
+      /* Стиль “moment_love_green” (приближено): тёплый светлый фон + глубокий зелёный */
+      --bg: #f6f2ea;
+      --ink: #0f1714;
+      --muted: rgba(15,23,20,.64);
+      --line: rgba(15,23,20,.12);
 
-      --ink: #121212;
-      --muted: rgba(18,18,18,.62);
-      --line: rgba(18,18,18,.10);
+      --green: #0f3b36;      /* основной зелёный */
+      --green2: #0b2e2a;     /* темнее */
+      --leaf: rgba(15,59,54,.14);
+      --paper: rgba(255,255,255,.88);
 
-      --sage: #7f9b86;
-      --rose: #c9908b;
-      --choco:#2a2a2a;
-
-      --radius: 22px;
-      --shadow: 0 18px 50px rgba(0,0,0,.12);
+      --radius: 26px;
+      --shadow: 0 22px 70px rgba(0,0,0,.12);
       --max: 980px;
     }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
+    *{ box-sizing:border-box }
+    html,body{ height:100% }
     body{
       margin:0;
-      color:var(--ink);
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--ink);
       background: var(--bg);
       overflow-x:hidden;
     }
 
-    /* ===== ЗЕЛЁНЫЙ/ШАЛФЕЙНЫЙ ФОН (как в коде) ===== */
-    .bgFlorals{
-      position:fixed;
-      inset:0;
-      z-index:0;
-      pointer-events:none;
+    /* ===== ФОН (зелёные мягкие пятна + листочки) ===== */
+    .bg{
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
       background:
-        radial-gradient(900px 500px at 20% 0%, rgba(127,155,134,.12), rgba(127,155,134,0) 70%),
-        radial-gradient(900px 520px at 80% 0%, rgba(127,155,134,.10), rgba(127,155,134,0) 70%),
-        radial-gradient(900px 520px at 50% 110%, rgba(127,155,134,.12), rgba(127,155,134,0) 65%),
-        linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,0));
+        radial-gradient(1200px 700px at 50% -10%, rgba(15,59,54,.18), rgba(15,59,54,0) 62%),
+        radial-gradient(900px 560px at 15% 20%, rgba(15,59,54,.12), rgba(15,59,54,0) 65%),
+        radial-gradient(900px 560px at 85% 25%, rgba(15,59,54,.12), rgba(15,59,54,0) 65%),
+        radial-gradient(1000px 620px at 50% 110%, rgba(15,59,54,.14), rgba(15,59,54,0) 62%),
+        linear-gradient(180deg, rgba(255,255,255,.35), rgba(255,255,255,0));
     }
 
-    /* лёгкая фактура */
+    /* статичные “лепестки/пылинки” на фоне */
+    .bg::after{
+      content:"";
+      position:absolute;
+      inset:-10px;
+      opacity:.18;
+      background:
+        radial-gradient(18px 12px at 10% 20%, rgba(255,255,255,.95), rgba(255,255,255,0) 72%),
+        radial-gradient(14px 10px at 22% 55%, rgba(255,255,255,.90), rgba(255,255,255,0) 72%),
+        radial-gradient(16px 12px at 70% 28%, rgba(255,255,255,.90), rgba(255,255,255,0) 72%),
+        radial-gradient(15px 11px at 88% 62%, rgba(255,255,255,.86), rgba(255,255,255,0) 72%),
+        radial-gradient(12px 9px at 54% 78%, rgba(255,255,255,.84), rgba(255,255,255,0) 72%);
+      filter: blur(.2px);
+    }
+
+    /* лёгкая фактура (зерно) */
     .grain{
-      position:fixed;
-      inset:0;
-      z-index:1;
-      pointer-events:none;
-      opacity:.10;
-      mix-blend-mode:multiply;
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: .10;
+      mix-blend-mode: multiply;
       background-image:
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
     }
 
-    /* контент поверх всего */
+    /* контейнер */
     .wrap{
-      position:relative;
-      z-index:5;
-      max-width:var(--max);
-      margin:0 auto;
-      padding: 18px 20px 70px;
+      position: relative;
+      z-index: 5;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 18px 20px 74px;
     }
 
-    /* ===== верхняя полоска ===== */
+    /* ===== TOPBAR ===== */
     .topbar{
-      position:sticky;
+      position: sticky;
       top:0;
-      z-index:50;
-      background: rgba(251,246,239,.78);
+      z-index: 50;
+      background: rgba(246,242,234,.78);
+      border-bottom: 1px solid rgba(15,23,20,.10);
       backdrop-filter: blur(12px);
-      border-bottom:1px solid rgba(18,18,18,.08);
     }
     .topbar .inner{
-      max-width:var(--max);
-      margin:0 auto;
-      padding:12px 20px;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 12px 20px;
       display:flex;
       align-items:center;
       justify-content:space-between;
@@ -93,509 +109,377 @@
     }
     .brand{
       display:flex; align-items:center; gap:10px;
-      font-weight:700;
+      font-weight:800;
       letter-spacing:.2px;
       white-space:nowrap;
     }
     .seal{
-      width:30px;height:30px;border-radius:999px;
-      border:1px solid rgba(18,18,18,.12);
-      background: radial-gradient(circle at 30% 30%, rgba(127,155,134,.18), rgba(127,155,134,.06));
+      width: 30px; height: 30px;
+      border-radius: 999px;
       display:grid; place-items:center;
-      box-shadow: 0 10px 24px rgba(0,0,0,.06);
-      color: rgba(18,18,18,.80);
-      font-size:14px;
+      border:1px solid rgba(15,23,20,.14);
+      background: radial-gradient(circle at 30% 30%, rgba(15,59,54,.25), rgba(15,59,54,.08));
+      box-shadow: 0 14px 30px rgba(0,0,0,.08);
+      font-size: 14px;
+      color: rgba(15,23,20,.85);
       user-select:none;
     }
     .nav{
-      display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
     }
     .nav a{
       text-decoration:none;
-      color: rgba(18,18,18,.64);
-      font-size:13px;
-      padding:7px 10px;
-      border-radius:999px;
-      border:1px solid transparent;
-      transition:.2s ease;
+      color: rgba(15,23,20,.66);
+      font-size: 13px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: .2s ease;
     }
     .nav a:hover{
-      border-color: rgba(18,18,18,.16);
-      background: rgba(18,18,18,.03);
-      color: var(--ink);
+      color: rgba(15,23,20,.92);
+      border-color: rgba(15,23,20,.16);
+      background: rgba(15,23,20,.03);
     }
 
-    /* ===== карточки ===== */
+    /* ===== Общие блоки ===== */
+    section{ padding: 16px 0; }
+    .grid{ display:grid; grid-template-columns: 1fr 1fr; gap:14px; }
+    @media (max-width: 900px){ .grid{ grid-template-columns: 1fr; } }
+
     .card{
       background: var(--paper);
-      border:1px solid rgba(18,18,18,.10);
+      border: 1px solid rgba(15,23,20,.10);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      position:relative;
-      overflow:hidden;
-      isolation:isolate;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
     }
     .card.padded{ padding: 26px; }
-    @media (max-width:520px){ .card.padded{ padding:18px; } }
+    @media (max-width:520px){ .card.padded{ padding: 18px; } }
     .card > *{ position:relative; z-index:2; }
 
-    /* лепестки/свет на карточках (статично) */
+    /* мягкий рисунок на карточках (статично) */
     .card::before{
       content:"";
       position:absolute;
       inset:0;
       z-index:0;
       pointer-events:none;
-      opacity:.85;
+      opacity:.95;
       background:
-        radial-gradient(26px 18px at 12% 18%, rgba(255,255,255,.92), rgba(255,255,255,0) 74%),
-        radial-gradient(22px 16px at 26% 62%, rgba(255,255,255,.80), rgba(255,255,255,0) 74%),
-        radial-gradient(30px 20px at 76% 34%, rgba(255,255,255,.86), rgba(255,255,255,0) 76%),
-        radial-gradient(24px 18px at 90% 70%, rgba(255,255,255,.74), rgba(255,255,255,0) 74%),
-        radial-gradient(420px 260px at 50% 0%, rgba(127,155,134,.10), rgba(127,155,134,0) 70%),
-        radial-gradient(520px 320px at 70% 110%, rgba(201,144,139,.08), rgba(201,144,139,0) 70%);
-      filter: blur(.15px);
+        radial-gradient(520px 320px at 50% -10%, rgba(15,59,54,.12), rgba(15,59,54,0) 70%),
+        radial-gradient(420px 260px at 90% 110%, rgba(15,59,54,.10), rgba(15,59,54,0) 70%),
+        radial-gradient(24px 18px at 14% 20%, rgba(255,255,255,.92), rgba(255,255,255,0) 74%),
+        radial-gradient(20px 16px at 24% 66%, rgba(255,255,255,.86), rgba(255,255,255,0) 74%),
+        radial-gradient(26px 20px at 78% 34%, rgba(255,255,255,.88), rgba(255,255,255,0) 76%),
+        radial-gradient(22px 18px at 90% 70%, rgba(255,255,255,.84), rgba(255,255,255,0) 74%);
+      filter: blur(.2px);
       transform: scale(1.02);
     }
-    .card::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      z-index:1;
-      pointer-events:none;
-      opacity:.16;
-      background:
-        radial-gradient(2px 2px at 20% 26%, rgba(18,18,18,.22), rgba(18,18,18,0) 65%),
-        radial-gradient(2px 2px at 32% 72%, rgba(18,18,18,.20), rgba(18,18,18,0) 65%),
-        radial-gradient(2px 2px at 58% 38%, rgba(18,18,18,.18), rgba(18,18,18,0) 65%),
-        radial-gradient(2px 2px at 82% 44%, rgba(18,18,18,.18), rgba(18,18,18,0) 65%);
-    }
-
-    /* ===== секции/сетки ===== */
-    section{ padding: 14px 0; }
-    .grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-    @media (max-width: 900px){ .grid{ grid-template-columns:1fr; } }
 
     h2{
-      margin:0 0 10px;
-      font-size:20px;
-      font-weight:800;
-      letter-spacing:-.2px;
+      margin: 0 0 10px;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -.2px;
     }
     .p{
       margin:0;
-      color: rgba(18,18,18,.72);
-      line-height:1.75;
+      color: rgba(15,23,20,.72);
+      line-height: 1.75;
     }
-    .hr{ height:1px; background: rgba(18,18,18,.10); margin:16px 0; }
+    .hr{ height:1px; background: rgba(15,23,20,.10); margin: 16px 0; }
+    .note{ font-size: 12px; color: rgba(15,23,20,.58); margin-top: 8px; }
 
-    /* ===== кнопки ===== */
-    .ctaRow{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    /* ===== Кнопки (как на образце: зелёная кнопка + белая) ===== */
+    .ctaRow{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:center; }
     .btn{
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      padding:12px 14px;
-      border-radius:999px;
-      border:1px solid rgba(18,18,18,.14);
-      background: rgba(255,255,255,.80);
-      color: rgba(18,18,18,.92);
+      padding: 12px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(15,23,20,.16);
+      background: rgba(255,255,255,.86);
+      color: rgba(15,23,20,.92);
       text-decoration:none;
       font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .10em;
+      font-size: 12px;
       cursor:pointer;
       transition: transform .06s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
       user-select:none;
     }
     .btn:hover{
-      background:#fff;
-      border-color: rgba(18,18,18,.20);
-      box-shadow: 0 10px 25px rgba(0,0,0,.08);
+      background: #fff;
+      border-color: rgba(15,23,20,.22);
+      box-shadow: 0 18px 45px rgba(0,0,0,.10);
     }
     .btn:active{ transform: translateY(1px); }
+
     .btn.primary{
-      color:#fff;
-      border-color: rgba(18,18,18,.18);
-      background: linear-gradient(180deg, rgba(42,42,42,.96), rgba(42,42,42,.86));
+      background: linear-gradient(180deg, rgba(15,59,54,.98), rgba(11,46,42,.92));
+      color: #fff;
+      border-color: rgba(255,255,255,.55);
     }
-    .btn.ghost{
-      background: transparent;
-      border-color: rgba(18,18,18,.14);
-      color: rgba(18,18,18,.80);
+    .btn.primary:hover{
+      background: #fff;
+      color: var(--green2);
+      border-color: rgba(255,255,255,.75);
     }
 
-    /* ===== БЛОК В САМОМ НАЧАЛЕ С РАМКОЙ ===== */
-    .heroIntro{ padding: 18px 0 8px; }
-    .heroCard{
-      background: rgba(255,255,255,.78);
-      border-radius: 30px;
-      border: 1px solid rgba(18,18,18,.10);
-      box-shadow: 0 28px 90px rgba(0,0,0,.12);
-      padding: 30px 20px 22px;
+    /* ===== ВСТУПИТЕЛЬНЫЙ БЛОК С РАМКОЙ (первый) ===== */
+    .intro{
+      padding-top: 10px;
+    }
+    .frame{
+      position: relative;
+      padding: 34px 22px 24px;
       text-align:center;
-      position:relative;
+      border-radius: 32px;
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(15,23,20,.10);
+      box-shadow: 0 34px 110px rgba(0,0,0,.14);
       overflow:hidden;
       isolation:isolate;
     }
-    .heroCard .innerBorder{
+    .frame .innerBorder{
       position:absolute;
       inset: 14px;
-      border-radius: 22px;
-      border: 1px solid rgba(18,18,18,.16);
+      border-radius: 24px;
+      border: 1px solid rgba(15,23,20,.18);
       pointer-events:none;
       z-index:1;
     }
-    .heroCard::before,
-    .heroCard::after{
+    /* угловой ботанический декор (свой, лёгкий) */
+    .frame::before, .frame::after{
       content:"";
       position:absolute;
-      width: 320px;
-      height: 320px;
+      width: 340px;
+      height: 340px;
       pointer-events:none;
-      opacity:.95;
+      opacity:.70;
       background-repeat:no-repeat;
-      background-size: 320px 320px;
+      background-size: 340px 340px;
       z-index:0;
-      filter: drop-shadow(0 18px 35px rgba(0,0,0,.10));
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320' viewBox='0 0 320 320'%3E%3Cg fill='none' stroke-linecap='round'%3E%3Cpath d='M35 250c60-30 110-10 140 40' stroke='rgba(127,155,134,0.55)' stroke-width='6'/%3E%3Cpath d='M60 260c40-50 90-70 150-55' stroke='rgba(201,144,139,0.45)' stroke-width='5'/%3E%3Cpath d='M85 250c18-18 42-20 60-5' stroke='rgba(127,155,134,0.55)' stroke-width='4'/%3E%3Ccircle cx='78' cy='245' r='9' fill='rgba(201,144,139,0.55)'/%3E%3Ccircle cx='108' cy='272' r='7' fill='rgba(201,144,139,0.45)'/%3E%3Ccircle cx='132' cy='248' r='8' fill='rgba(201,144,139,0.40)'/%3E%3Cpath d='M120 285c10-18 26-28 46-30' stroke='rgba(127,155,134,0.50)' stroke-width='4'/%3E%3Cpath d='M42 286c22-10 36-26 44-46' stroke='rgba(127,155,134,0.45)' stroke-width='4'/%3E%3C/g%3E%3C/svg%3E");
+      filter: drop-shadow(0 20px 40px rgba(0,0,0,.12));
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='340' height='340' viewBox='0 0 340 340'%3E%3Cg fill='none' stroke-linecap='round'%3E%3Cpath d='M46 270c72-36 126-10 160 48' stroke='rgba(15,59,54,0.55)' stroke-width='6'/%3E%3Cpath d='M76 286c46-56 104-76 170-58' stroke='rgba(15,59,54,0.35)' stroke-width='5'/%3E%3Cpath d='M118 274c22-22 52-22 74-4' stroke='rgba(15,59,54,0.45)' stroke-width='4'/%3E%3Ccircle cx='92' cy='262' r='10' fill='rgba(15,59,54,0.32)'/%3E%3Ccircle cx='132' cy='298' r='8' fill='rgba(15,59,54,0.28)'/%3E%3Ccircle cx='164' cy='270' r='9' fill='rgba(15,59,54,0.26)'/%3E%3Cpath d='M150 312c12-20 34-32 62-34' stroke='rgba(15,59,54,0.40)' stroke-width='4'/%3E%3Cpath d='M58 310c26-10 42-30 52-56' stroke='rgba(15,59,54,0.36)' stroke-width='4'/%3E%3C/g%3E%3C/svg%3E");
     }
-    .heroCard::before{ left:-70px; top:-80px; transform: rotate(18deg); opacity:.62; }
-    .heroCard::after{ right:-70px; bottom:-80px; transform: rotate(198deg); opacity:.62; }
-    .heroGlow{
-      position:absolute;
-      inset:-1px;
-      z-index:0;
-      pointer-events:none;
-      background:
-        radial-gradient(520px 320px at 18% 14%, rgba(127,155,134,.18), rgba(127,155,134,0) 70%),
-        radial-gradient(520px 340px at 82% 86%, rgba(127,155,134,.12), rgba(127,155,134,0) 70%),
-        radial-gradient(420px 240px at 50% 0%, rgba(255,255,255,.75), rgba(255,255,255,0) 70%);
-      opacity:.95;
-    }
-    .heroSmall{
-      font-size: 12px;
-      letter-spacing: .42em;
-      text-transform: uppercase;
-      color: rgba(18,18,18,.62);
-      margin: 0 0 10px;
-    }
-    .heroNames{
-      font-family: "Allura", cursive;
-      font-size: clamp(52px, 8vw, 92px);
-      line-height: .92;
-      margin: 6px 0 8px;
-      color: var(--choco);
-    }
-    .heroDate{
-      font-size: 16px;
-      font-weight: 900;
-      letter-spacing:.10em;
-      margin: 0 0 10px;
-      color: rgba(18,18,18,.86);
-      text-transform: uppercase;
-    }
-    .heroText{
-      max-width: 720px;
-      margin: 0 auto;
-      color: rgba(18,18,18,.72);
-      line-height: 1.85;
-    }
-    .heroCta{
-      margin-top: 14px;
-      display:flex;
-      gap:10px;
-      justify-content:center;
-      flex-wrap:wrap;
-    }
-
-    /* ===== ПОЛНОЭКРАННЫЙ БЛОК ПРИГЛАШЕНИЯ ===== */
-    .inviteFull{
-      min-height: calc(100svh - 62px);
-      display:grid;
-      place-items:center;
-      padding: 22px 0 8px;
-    }
-    .inviteFrame{
-      width: min(920px, 100%);
-      background: rgba(255,255,255,.84);
-      border-radius: 30px;
-      border: 1px solid rgba(18,18,18,.10);
-      box-shadow: 0 28px 90px rgba(0,0,0,.14);
-      padding: 34px 22px 26px;
-      position:relative;
-      overflow:hidden;
-      text-align:center;
-      isolation:isolate;
-    }
-    .inviteFrame .innerBorder{
-      position:absolute;
-      inset: 16px;
-      border-radius: 22px;
-      border: 1px solid rgba(18,18,18,.16);
-      pointer-events:none;
-      z-index:1;
-    }
-    .inviteFrame::before,
-    .inviteFrame::after{
-      content:"";
-      position:absolute;
-      width: 320px;
-      height: 320px;
-      pointer-events:none;
-      opacity:.95;
-      background-repeat:no-repeat;
-      background-size: 320px 320px;
-      z-index:0;
-      filter: drop-shadow(0 18px 35px rgba(0,0,0,.10));
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320' viewBox='0 0 320 320'%3E%3Cg fill='none' stroke-linecap='round'%3E%3Cpath d='M35 250c60-30 110-10 140 40' stroke='rgba(127,155,134,0.55)' stroke-width='6'/%3E%3Cpath d='M60 260c40-50 90-70 150-55' stroke='rgba(201,144,139,0.45)' stroke-width='5'/%3E%3Cpath d='M85 250c18-18 42-20 60-5' stroke='rgba(127,155,134,0.55)' stroke-width='4'/%3E%3Ccircle cx='78' cy='245' r='9' fill='rgba(201,144,139,0.55)'/%3E%3Ccircle cx='108' cy='272' r='7' fill='rgba(201,144,139,0.45)'/%3E%3Ccircle cx='132' cy='248' r='8' fill='rgba(201,144,139,0.40)'/%3E%3Cpath d='M120 285c10-18 26-28 46-30' stroke='rgba(127,155,134,0.50)' stroke-width='4'/%3E%3Cpath d='M42 286c22-10 36-26 44-46' stroke='rgba(127,155,134,0.45)' stroke-width='4'/%3E%3C/g%3E%3C/svg%3E");
-    }
-    .inviteFrame::before{ left:-70px; top:-80px; transform: rotate(18deg); opacity:.70; }
-    .inviteFrame::after{ right:-70px; bottom:-80px; transform: rotate(198deg); opacity:.70; }
-    .inviteGlow{
-      position:absolute;
-      inset:-1px;
-      z-index:0;
-      pointer-events:none;
-      background:
-        radial-gradient(520px 320px at 18% 14%, rgba(127,155,134,.16), rgba(127,155,134,0) 70%),
-        radial-gradient(520px 340px at 82% 86%, rgba(201,144,139,.12), rgba(201,144,139,0) 70%),
-        radial-gradient(420px 240px at 50% 0%, rgba(255,255,255,.75), rgba(255,255,255,0) 70%);
-      opacity:.95;
-    }
+    .frame::before{ left:-82px; top:-92px; transform: rotate(18deg); }
+    .frame::after{ right:-82px; bottom:-92px; transform: rotate(198deg); }
 
     .smallCaps{
       font-size: 12px;
       letter-spacing: .42em;
       text-transform: uppercase;
-      color: rgba(18,18,18,.62);
+      color: rgba(15,23,20,.62);
       margin: 0 0 12px;
     }
-    .namesScript{
+    .scriptNames{
       font-family: "Allura", cursive;
-      font-size: clamp(54px, 8vw, 98px);
+      font-size: clamp(54px, 8vw, 104px);
       line-height: .92;
-      margin: 6px 0 10px;
-      color: var(--choco);
+      margin: 8px 0 10px;
+      color: rgba(15,23,20,.92);
     }
-    .dateStrong{
-      font-size: 18px;
+    .dateBig{
       font-weight: 900;
-      letter-spacing:.08em;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-size: 14px;
+      color: rgba(15,23,20,.78);
       margin: 0 0 10px;
-      color: rgba(18,18,18,.88);
     }
     .lead{
-      max-width: 740px;
+      max-width: 760px;
       margin: 0 auto;
-      color: rgba(18,18,18,.72);
-      line-height:1.85;
-    }
-    .sign{
-      margin-top: 14px;
-      font-family: "Allura", cursive;
-      font-size: 32px;
-      color: var(--rose);
+      color: rgba(15,23,20,.72);
+      line-height: 1.9;
     }
 
-    /* сердце-плеер */
+    /* ===== Сердце-музыка (как идея из образца) ===== */
     .heartRow{
       display:flex;
       justify-content:center;
       align-items:center;
       gap:10px;
-      margin: 14px 0 12px;
+      margin: 12px 0 14px;
     }
     .heartBtn{
-      width: 62px;
-      height: 62px;
+      width: 64px; height: 64px;
       border-radius: 999px;
-      border: 1px solid rgba(18,18,18,.14);
-      background: radial-gradient(circle at 30% 30%, rgba(127,155,134,.18), rgba(127,155,134,.06));
-      box-shadow: 0 18px 45px rgba(0,0,0,.12);
-      display:grid;
-      place-items:center;
+      border: 1px solid rgba(15,23,20,.16);
+      background: radial-gradient(circle at 30% 30%, rgba(15,59,54,.22), rgba(15,59,54,.08));
+      box-shadow: 0 20px 55px rgba(0,0,0,.14);
+      display:grid; place-items:center;
       cursor:pointer;
       user-select:none;
       transition: transform .12s ease, background .2s ease, border-color .2s ease;
     }
     .heartBtn:hover{
       transform: translateY(-1px);
-      border-color: rgba(18,18,18,.22);
-      background: radial-gradient(circle at 30% 30%, rgba(201,144,139,.16), rgba(201,144,139,.06));
+      border-color: rgba(15,23,20,.24);
+      background: radial-gradient(circle at 30% 30%, rgba(15,59,54,.18), rgba(15,59,54,.06));
     }
     .heartBtn:active{ transform: translateY(1px); }
-    .heartBtn span{
-      font-size: 26px;
-      filter: drop-shadow(0 10px 18px rgba(0,0,0,.20));
-    }
+    .heartBtn span{ font-size: 26px; filter: drop-shadow(0 12px 18px rgba(0,0,0,.22)); }
+
     .musicText{
       text-align:left;
       font-size: 13px;
-      color: rgba(18,18,18,.70);
-      line-height:1.35;
+      color: rgba(15,23,20,.70);
+      line-height: 1.35;
     }
-    .musicText b{ color: rgba(18,18,18,.92); }
+    .musicText b{ color: rgba(15,23,20,.92); }
 
-    /* быстрые бейджи */
-    .badges{
-      display:flex; gap:10px; flex-wrap:wrap;
-      justify-content:center;
-      margin-top: 12px;
+    /* ===== ЦИТАТА (как в образце) ===== */
+    .quote{
+      text-align:center;
+      padding: 28px 22px;
+      border-radius: 26px;
+      background: linear-gradient(180deg, rgba(15,59,54,.10), rgba(15,59,54,0));
+      border: 1px solid rgba(15,23,20,.08);
     }
-    .badge{
-      font-size: 13px;
-      padding: 9px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(18,18,18,.12);
-      background: rgba(255,255,255,.65);
-      color: rgba(18,18,18,.80);
+    .quote .q{
+      font-family: "Allura", cursive;
+      font-size: clamp(30px, 4.6vw, 48px);
+      line-height: 1.08;
+      margin: 0;
+      color: rgba(15,23,20,.92);
+    }
+    .quote .s{
+      margin-top: 10px;
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(15,23,20,.62);
     }
 
-    /* ===== БЛОК С ФОТО (отдельно, красиво) ===== */
-    .photoStrip{
+    /* ===== Фото в круглых рамках ===== */
+    .photoRow{
       display:grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap:14px;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
       align-items:stretch;
     }
-    @media (max-width: 900px){ .photoStrip{ grid-template-columns: 1fr; } }
+    @media (max-width: 900px){ .photoRow{ grid-template-columns: 1fr; } }
 
     .photoCard{
-      border-radius: 24px;
-      overflow:hidden;
-      border:1px solid rgba(18,18,18,.10);
-      background: rgba(255,255,255,.82);
-      box-shadow: 0 18px 50px rgba(0,0,0,.10);
+      background: rgba(255,255,255,.86);
+      border: 1px solid rgba(15,23,20,.10);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      text-align:center;
       position:relative;
-      min-height: 320px;
+      overflow:hidden;
+      isolation:isolate;
     }
-    @media (max-width: 520px){ .photoCard{ min-height: 240px; } }
-    .photoCard img{
+    .medallion{
+      width: min(260px, 72vw);
+      aspect-ratio: 1/1;
+      border-radius: 999px;
+      margin: 0 auto 12px;
+      overflow:hidden;
+      border: 1px solid rgba(15,23,20,.14);
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 22px 60px rgba(0,0,0,.12);
+      position:relative;
+    }
+    .medallion::before{
+      content:"";
+      position:absolute;
+      inset:10px;
+      border-radius:999px;
+      border: 1px solid rgba(255,255,255,.65);
+      pointer-events:none;
+    }
+    .medallion img{
       width:100%;
       height:100%;
       object-fit: cover;
       display:block;
-      transform: scale(1.01);
+      transform: scale(1.02);
     }
-    .photoCard .cap{
-      position:absolute;
-      left:14px;
-      bottom:14px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      background: rgba(255,255,255,.78);
-      border:1px solid rgba(18,18,18,.10);
-      color: rgba(18,18,18,.88);
+    .who{
       font-weight: 800;
-      font-size: 13px;
-      backdrop-filter: blur(10px);
-    }
-
-    /* ===== цитата ===== */
-    .quote{
-      text-align:center;
-      padding: 26px 22px;
-      background: linear-gradient(180deg, rgba(127,155,134,.10), rgba(127,155,134,0));
-      border:1px solid rgba(18,18,18,.08);
-      border-radius: 22px;
-    }
-    .quote .q{
-      font-family: "Allura", cursive;
-      font-size: clamp(28px, 4.4vw, 44px);
-      line-height:1.1;
-      margin:0;
-      color: rgba(42,42,42,.92);
-    }
-    .quote .s{
-      margin-top: 8px;
-      color: rgba(18,18,18,.62);
-      letter-spacing:.08em;
+      letter-spacing: .06em;
       text-transform: uppercase;
       font-size: 12px;
+      color: rgba(15,23,20,.78);
+      margin: 0;
+    }
+    .whoBig{
+      font-family: "Allura", cursive;
+      font-size: 34px;
+      margin: 6px 0 0;
+      color: rgba(15,23,20,.92);
     }
 
-    /* ===== таймер ===== */
+    /* ===== Таймер ===== */
     .countdown{ display:flex; gap:10px; flex-wrap:wrap; justify-content:center; }
     .pill{
       min-width: 92px;
       text-align:center;
-      padding:10px 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(18,18,18,.10);
-      background: rgba(255,255,255,.86);
+      padding: 10px 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(15,23,20,.10);
+      background: rgba(255,255,255,.90);
     }
     .pill .n{
       font-size: 24px;
-      font-weight: 800;
+      font-weight: 900;
       margin:0;
       font-variant-numeric: tabular-nums;
+      color: rgba(15,23,20,.92);
     }
     .pill .l{
       font-size: 12px;
-      color: rgba(18,18,18,.58);
       margin: 2px 0 0;
+      color: rgba(15,23,20,.58);
     }
 
-    /* ===== программа (таймлайн) ===== */
-    .planList{ margin: 12px 0 0; padding:0; list-style:none; }
-    .planRow{
+    /* ===== Программа (как на образце: простые строки) ===== */
+    .plan{
+      margin: 10px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .plan li{
       display:grid;
-      grid-template-columns: 74px 1fr;
+      grid-template-columns: 90px 1fr;
       gap: 12px;
       padding: 14px 0;
-      border-top: 1px solid rgba(18,18,18,.10);
+      border-top: 1px solid rgba(15,23,20,.10);
+      align-items:start;
     }
-    .planRow:first-child{ border-top:none; padding-top:6px; }
-    .planTime{
+    .plan li:first-child{ border-top:none; padding-top: 6px; }
+    .t{
       font-weight: 900;
+      letter-spacing: .06em;
+      color: rgba(15,23,20,.92);
       font-variant-numeric: tabular-nums;
-      display:flex;
-      align-items:flex-start;
-      gap:8px;
-      color: rgba(18,18,18,.95);
     }
-    .planDot{
-      width:10px;height:10px;border-radius:999px;
-      background: rgba(127,155,134,.95);
-      box-shadow: 0 0 0 6px rgba(127,155,134,.12);
-      margin-top: 6px;
-      flex:0 0 auto;
+    .b{
+      margin:0;
+      color: rgba(15,23,20,.72);
+      line-height: 1.65;
     }
-    .planBody{ padding-left: 10px; position:relative; }
-    .planBody::before{
-      content:"";
-      position:absolute;
-      left:-14px; top:0; bottom:0;
-      width:2px;
-      background: linear-gradient(180deg, rgba(127,155,134,.35), rgba(127,155,134,.08));
-      border-radius:999px;
-    }
-    .planItemTitle{
-      margin:0 0 4px;
-      font-size: 18px;
-      font-weight: 800;
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
-    .planIcon{
-      width:34px;height:34px;border-radius:999px;
-      border:1px solid rgba(18,18,18,.10);
-      background: rgba(255,255,255,.88);
-      display:grid;place-items:center;
-      box-shadow: 0 10px 22px rgba(0,0,0,.06);
-      font-size: 18px;
-      line-height: 1;
-      flex:0 0 auto;
-    }
-    .planItemText{ margin:0; color: rgba(18,18,18,.70); line-height:1.6; }
+    .b strong{ color: rgba(15,23,20,.92); }
 
-    /* ===== карта ===== */
+    /* ===== Карта ===== */
     .mapWrap{
       border-radius: 18px;
-      overflow:hidden;
-      border:1px solid rgba(18,18,18,.10);
+      overflow: hidden;
+      border: 1px solid rgba(15,23,20,.10);
       background:#fff;
-      box-shadow: 0 12px 26px rgba(0,0,0,.08);
+      box-shadow: 0 14px 32px rgba(0,0,0,.10);
     }
     .mapWrap iframe{
       width:100%;
@@ -605,62 +489,48 @@
     }
     @media (max-width:640px){ .mapWrap iframe{ height: 280px; } }
 
-    /* ===== форма ===== */
-    form{ display:grid; gap:10px; margin-top:10px; }
+    /* ===== Форма ===== */
+    form{ display:grid; gap:10px; margin-top: 10px; }
     .row{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
     @media (max-width:640px){ .row{ grid-template-columns:1fr; } }
-    label{ font-size:12px; color: rgba(18,18,18,.62); }
+    label{ font-size: 12px; color: rgba(15,23,20,.62); }
     input, select, textarea{
       width:100%;
       padding: 12px 12px;
-      border-radius: 14px;
-      border:1px solid rgba(18,18,18,.16);
+      border-radius: 16px;
+      border: 1px solid rgba(15,23,20,.16);
       background: rgba(255,255,255,.95);
-      color: rgba(18,18,18,.95);
+      color: rgba(15,23,20,.95);
       outline:none;
     }
     input:focus, select:focus, textarea:focus{
-      border-color: rgba(127,155,134,.60);
-      box-shadow: 0 0 0 3px rgba(127,155,134,.14);
+      border-color: rgba(15,59,54,.58);
+      box-shadow: 0 0 0 3px rgba(15,59,54,.14);
       background:#fff;
     }
-    textarea{ min-height: 105px; resize: vertical; }
-    .note{ font-size: 12px; color: rgba(18,18,18,.58); margin-top:8px; }
+    textarea{ min-height: 110px; resize: vertical; }
 
-    /* футер */
-    footer{
-      padding: 22px 0 30px;
-      text-align:center;
-      color: rgba(18,18,18,.60);
-    }
-    footer .script{
-      font-family: Allura, cursive;
-      font-size: 30px;
-      color: var(--sage);
-      margin-bottom: 4px;
-    }
-
-    /* ===== ЗАСТАВКА "ОТКРЫТЬ ПРИГЛАШЕНИЕ" ===== */
-    body.lock{ overflow: hidden; }
+    /* ===== Заставка "ОТКРЫТЬ ПРИГЛАШЕНИЕ" ===== */
+    body.lock{ overflow:hidden; }
     .gate{
-      position:fixed;
-      inset:0;
-      z-index:1000;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
       display:grid;
       place-items:center;
       padding: 22px;
       background:
-        radial-gradient(1200px 700px at 50% 0%, rgba(127,155,134,.14), rgba(127,155,134,0) 65%),
-        radial-gradient(900px 520px at 20% 110%, rgba(127,155,134,.10), rgba(127,155,134,0) 65%),
+        radial-gradient(1200px 720px at 50% -5%, rgba(15,59,54,.20), rgba(15,59,54,0) 65%),
+        radial-gradient(900px 560px at 10% 110%, rgba(15,59,54,.14), rgba(15,59,54,0) 62%),
         var(--bg);
     }
     .gateCard{
-      width: min(520px, 100%);
-      border-radius: 28px;
+      width: min(540px, 100%);
+      border-radius: 30px;
       background: rgba(255,255,255,.86);
-      border: 1px solid rgba(18,18,18,.10);
-      box-shadow: 0 28px 90px rgba(0,0,0,.16);
-      padding: 26px 20px 22px;
+      border: 1px solid rgba(15,23,20,.10);
+      box-shadow: 0 36px 120px rgba(0,0,0,.18);
+      padding: 28px 20px 22px;
       text-align:center;
       position:relative;
       overflow:hidden;
@@ -671,53 +541,69 @@
       position:absolute;
       inset:0;
       pointer-events:none;
-      opacity:.55;
+      opacity:.65;
       background:
-        radial-gradient(380px 260px at 50% 0%, rgba(127,155,134,.16), rgba(127,155,134,0) 70%),
-        radial-gradient(420px 280px at 80% 110%, rgba(201,144,139,.12), rgba(201,144,139,0) 70%);
+        radial-gradient(420px 280px at 50% 0%, rgba(15,59,54,.16), rgba(15,59,54,0) 70%),
+        radial-gradient(520px 340px at 80% 110%, rgba(15,59,54,.12), rgba(15,59,54,0) 70%);
     }
     .gateSmall{
       font-size: 12px;
       letter-spacing: .42em;
       text-transform: uppercase;
-      color: rgba(18,18,18,.62);
+      color: rgba(15,23,20,.62);
       margin: 0 0 10px;
+      position:relative;
+      z-index:2;
     }
     .gateNames{
       font-family: Allura, cursive;
-      font-size: 62px;
+      font-size: 64px;
       line-height: .95;
-      margin: 4px 0 6px;
-      color: var(--choco);
+      margin: 4px 0 8px;
+      color: rgba(15,23,20,.92);
+      position:relative;
+      z-index:2;
     }
     .gateDate{
       font-weight: 900;
-      letter-spacing: .08em;
+      letter-spacing: .10em;
+      text-transform: uppercase;
       margin: 0 0 14px;
-      color: rgba(18,18,18,.82);
+      color: rgba(15,23,20,.78);
+      font-size: 12px;
+      position:relative;
+      z-index:2;
     }
     .openBtn{
       width:100%;
       margin-top: 10px;
       padding: 14px 16px;
       border-radius: 999px;
-      border: 1px solid rgba(18,18,18,.18);
-      background: linear-gradient(180deg, rgba(42,42,42,.96), rgba(42,42,42,.86));
+      border: 1px solid rgba(255,255,255,.70);
+      background: linear-gradient(180deg, rgba(15,59,54,.98), rgba(11,46,42,.92));
       color:#fff;
       font-weight: 900;
       letter-spacing: .18em;
       text-transform: uppercase;
       cursor:pointer;
-      transition: transform .08s ease, box-shadow .2s ease;
+      transition: transform .08s ease, box-shadow .2s ease, background .2s ease;
       user-select:none;
+      position:relative;
+      z-index:2;
     }
-    .openBtn:hover{ box-shadow: 0 18px 45px rgba(0,0,0,.18); }
+    .openBtn:hover{
+      background:#fff;
+      color: var(--green2);
+      box-shadow: 0 22px 60px rgba(0,0,0,.18);
+    }
     .openBtn:active{ transform: translateY(1px); }
     .gateHint{
       margin: 12px 0 0;
-      color: rgba(18,18,18,.58);
+      color: rgba(15,23,20,.58);
       font-size: 12px;
       line-height: 1.55;
+      position:relative;
+      z-index:2;
     }
     .gate.hide{
       opacity:0;
@@ -736,38 +622,52 @@
       gap:10px;
       padding: 10px 12px;
       border-radius: 999px;
-      border:1px solid rgba(18,18,18,.12);
+      border: 1px solid rgba(15,23,20,.14);
       background: rgba(255,255,255,.78);
       backdrop-filter: blur(14px);
-      color: rgba(18,18,18,.92);
+      color: rgba(15,23,20,.92);
       box-shadow: 0 18px 50px rgba(0,0,0,.12);
     }
     .dockBtn{
-      width:40px;height:40px;border-radius:999px;
-      border:1px solid rgba(18,18,18,.12);
-      background: rgba(255,255,255,.70);
-      display:grid;place-items:center;
+      width: 40px; height: 40px;
+      border-radius: 999px;
+      border: 1px solid rgba(15,23,20,.14);
+      background: rgba(255,255,255,.72);
+      display:grid; place-items:center;
       cursor:pointer;
       user-select:none;
     }
     .dockText{
       font-size: 12px;
-      line-height:1.25;
-      opacity:.92;
-      max-width: 200px;
+      line-height: 1.25;
+      opacity: .92;
+      max-width: 220px;
     }
 
-    /* Плавное появление блоков */
-    .reveal{ opacity:1; transform:none; }
+    /* ===== Reveal (анимации секций) ===== */
+    .reveal{ opacity: 1; transform: none; }
     @media (prefers-reduced-motion: no-preference){
       .reveal{ opacity:0; transform: translateY(10px); transition: .65s ease; }
       .reveal.on{ opacity:1; transform: translateY(0); }
+    }
+
+    /* ===== Футер ===== */
+    footer{
+      padding: 22px 0 30px;
+      text-align:center;
+      color: rgba(15,23,20,.60);
+    }
+    footer .script{
+      font-family: Allura, cursive;
+      font-size: 30px;
+      color: var(--green);
+      margin-bottom: 4px;
     }
   </style>
 </head>
 
 <body class="lock">
-  <div class="bgFlorals" aria-hidden="true"></div>
+  <div class="bg" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
 
   <!-- Музыка: положи файл assets/music.mp3 -->
@@ -778,23 +678,23 @@
   <!-- Заставка -->
   <div class="gate" id="gate" aria-hidden="false">
     <div class="gateCard">
-      <div class="gateSmall">приглашение на свадьбу</div>
+      <div class="gateSmall">нажмите, чтобы открыть приглашение</div>
       <div class="gateNames">Александр<br>&amp; Гюнель</div>
       <div class="gateDate">21 августа 2026 · 15:00</div>
       <button class="openBtn" id="openInviteBtn" type="button">ОТКРЫТЬ ПРИГЛАШЕНИЕ</button>
-      <div class="gateHint">Нажмите кнопку, чтобы открыть приглашение</div>
+      <div class="gateHint">Музыку можно включить сердцем на странице 💚</div>
     </div>
   </div>
 
   <div class="topbar">
     <div class="inner">
       <div class="brand">
-        <div class="seal">A&G</div>
-        Александр & Гюнель
+        <div class="seal">A&amp;G</div>
+        Александр &amp; Гюнель
       </div>
       <nav class="nav">
-        <a href="#intro">Начало</a>
-        <a href="#invite">Приглашение</a>
+        <a href="#home">Главная</a>
+        <a href="#quote">Фраза</a>
         <a href="#photos">Фото</a>
         <a href="#plan">Программа</a>
         <a href="#route">Локация</a>
@@ -808,35 +708,12 @@
 
   <main class="wrap">
 
-    <!-- БЛОК В САМОМ НАЧАЛЕ (рамка) -->
-    <section id="intro" class="heroIntro">
-      <div class="heroCard reveal">
-        <div class="heroGlow" aria-hidden="true"></div>
+    <!-- Вступительный блок с рамкой (как ты просила) -->
+    <section id="home" class="intro">
+      <div class="frame reveal">
         <div class="innerBorder" aria-hidden="true"></div>
 
-        <div class="heroSmall">мы приглашаем вас</div>
-        <div class="heroNames">Александр &amp; Гюнель</div>
-        <div class="heroDate">21 августа 2026 · 15:00</div>
-
-        <p class="heroText">
-          Место для счастья — здесь, время для счастья — сейчас.<br>
-          Мы будем очень рады разделить этот день вместе с вами.
-        </p>
-
-        <div class="heroCta">
-          <a class="btn primary" href="#invite">Открыть приглашение</a>
-          <a class="btn" href="#rsvp">Заполнить анкету</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ПОЛНОЭКРАННОЕ ПРИГЛАШЕНИЕ -->
-    <section id="invite" class="inviteFull">
-      <div class="inviteFrame reveal">
-        <div class="inviteGlow" aria-hidden="true"></div>
-        <div class="innerBorder" aria-hidden="true"></div>
-
-        <div class="smallCaps">приглашение на свадьбу</div>
+        <div class="smallCaps">мы женимся!</div>
 
         <div class="heartRow" aria-label="Музыка">
           <div class="heartBtn" id="heartBtn" role="button" aria-label="Включить / выключить музыку" title="Музыка">
@@ -848,51 +725,49 @@
           </div>
         </div>
 
-        <div class="namesScript">Александр &amp; Гюнель</div>
-        <div class="dateStrong">21 АВГУСТА 2026 · 15:00</div>
+        <div class="scriptNames">Александр &amp; Гюнель</div>
+        <div class="dateBig">21 августа 2026 · 15:00</div>
 
         <p class="lead">
-          Мы хотим разделить с вами самый важный день в нашей жизни и приглашаем вас на нашу свадьбу.<br>
-          Мы с нетерпением ждём возможности увидеть вас и вместе отпраздновать начало нашего совместного пути.
+          С большой радостью приглашаем вас на наш первый семейный праздник — нашу свадьбу!<br>
+          Мы очень хотим, чтобы в этот день рядом были наши самые близкие люди.
         </p>
 
-        <div class="sign">С любовью, Александр и Гюнель</div>
-
-        <div class="badges" style="margin-top:14px;">
-          <span class="badge">🖤🤍 дресс-код + акцент</span>
-          <span class="badge">🚌 будет трансфер</span>
-          <span class="badge">Витебский район · Дрюково</span>
-        </div>
-
-        <div class="ctaRow" style="justify-content:center; margin-top:16px;">
+        <div class="ctaRow" style="margin-top:16px;">
           <a class="btn primary" href="#rsvp">Заполнить анкету</a>
           <a class="btn" href="#route">Открыть карту</a>
         </div>
       </div>
     </section>
 
-    <!-- ФОТО (НЕ НА ФОНЕ, отдельным красивым блоком) -->
-    <section id="photos">
-      <div class="photoStrip reveal">
-        <div class="photoCard">
-          <img src="assets/couple1.jpg" alt="Фото молодожёнов 1">
-          <div class="cap">Александр</div>
-        </div>
-        <div class="photoCard">
-          <img src="assets/couple2.jpg" alt="Фото молодожёнов 2">
-          <div class="cap">Гюнель</div>
-        </div>
-      </div>
-      <p class="note" style="text-align:center; margin-top:10px;">
-        Подставь свои фото в: <b>assets/couple1.jpg</b> и <b>assets/couple2.jpg</b>
-      </p>
-    </section>
-
-    <!-- цитата -->
-    <section class="reveal">
+    <!-- Фраза (как в образце) -->
+    <section id="quote" class="reveal">
       <div class="quote">
         <p class="q">Место для счастья — здесь,<br>время для счастья — сейчас</p>
         <div class="s">мы ждём вас</div>
+      </div>
+    </section>
+
+    <!-- Фото в круглых рамках (как ты предложила) -->
+    <section id="photos">
+      <div class="photoRow reveal">
+        <div class="photoCard">
+          <div class="medallion">
+            <img src="assets/couple1.jpg" alt="Фото молодожёнов — Александр">
+          </div>
+          <p class="who">жених</p>
+          <p class="whoBig">Александр</p>
+          <p class="note">Файл: <b>assets/couple1.jpg</b></p>
+        </div>
+
+        <div class="photoCard">
+          <div class="medallion">
+            <img src="assets/couple2.jpg" alt="Фото молодожёнов — Гюнель">
+          </div>
+          <p class="who">невеста</p>
+          <p class="whoBig">Гюнель</p>
+          <p class="note">Файл: <b>assets/couple2.jpg</b></p>
+        </div>
       </div>
     </section>
 
@@ -901,37 +776,22 @@
       <div class="grid">
         <div class="card padded reveal">
           <h2>Программа дня</h2>
-          <ul class="planList">
-            <li class="planRow">
-              <div class="planTime"><span class="planDot"></span>15:00</div>
-              <div class="planBody">
-                <div class="planItemTitle"><span class="planIcon">🥂</span>Сбор гостей</div>
-                <p class="planItemText">Приветственный бокал · общение · встреча</p>
-              </div>
+          <ul class="plan">
+            <li>
+              <div class="t">15:00</div>
+              <p class="b"><strong>Сбор гостей</strong><br>Время пролетит незаметно за общением и настроением праздника</p>
             </li>
-
-            <li class="planRow">
-              <div class="planTime"><span class="planDot"></span>15:30</div>
-              <div class="planBody">
-                <div class="planItemTitle"><span class="planIcon">💍</span>Церемония</div>
-                <p class="planItemText">Проживите этот трогательный момент вместе с нами</p>
-              </div>
+            <li>
+              <div class="t">15:30</div>
+              <p class="b"><strong>Церемония</strong><br>Проживите этот важный момент вместе с нами</p>
             </li>
-
-            <li class="planRow">
-              <div class="planTime"><span class="planDot"></span>17:00</div>
-              <div class="planBody">
-                <div class="planItemTitle"><span class="planIcon">🍽️</span>Праздничный вечер</div>
-                <p class="planItemText">Ужин · тосты · атмосфера · танцы</p>
-              </div>
+            <li>
+              <div class="t">17:00</div>
+              <p class="b"><strong>Праздничный вечер</strong><br>Ужин · тосты · атмосфера · танцы</p>
             </li>
-
-            <li class="planRow">
-              <div class="planTime"><span class="planDot"></span>23:30</div>
-              <div class="planBody">
-                <div class="planItemTitle"><span class="planIcon">🚌</span>Завершение</div>
-                <p class="planItemText">Трансфер · объятия · до встречи</p>
-              </div>
+            <li>
+              <div class="t">23:30</div>
+              <p class="b"><strong>Завершение</strong><br>Трансфер · объятия · до встречи</p>
             </li>
           </ul>
         </div>
@@ -959,11 +819,11 @@
             <strong>Витебский район, Вороновский сельсовет,<br>деревня Дрюково, Центральная улица, 32</strong>
           </p>
           <div class="hr"></div>
-          <p class="p">Ниже вы найдёте карту — она поможет вам быстрее добраться вовремя.</p>
+          <p class="p">Ниже вы найдёте карту — она поможет вам быстрее найти место торжества и добраться вовремя.</p>
           <div class="hr"></div>
           <div class="ctaRow">
             <a class="btn primary" id="mapsPrimaryBtn" target="_blank" rel="noopener">Открыть карту</a>
-            <button class="btn ghost" id="copyPlaceBtn" type="button">Скопировать “место”</button>
+            <button class="btn" id="copyPlaceBtn" type="button">Скопировать “место”</button>
           </div>
           <p class="note" id="copyPlaceNote" style="display:none">Скопировано ✅</p>
         </div>
@@ -978,20 +838,18 @@
               allowfullscreen
               title="Карта — Дрюково, Центральная 32"></iframe>
           </div>
-          <p class="note" style="margin-top:10px">
-            Если карта не отображается — нажмите “Открыть карту”.
-          </p>
+          <p class="note" style="margin-top:10px">Если карта не отображается — нажмите “Открыть карту”.</p>
         </div>
       </div>
     </section>
 
-    <!-- Детали -->
+    <!-- Детали (без “конвертов”) -->
     <section id="details">
       <div class="card padded reveal">
         <h2>Детали</h2>
 
         <p class="p"><strong>— Подарки</strong></p>
-        <p class="p">Ваши улыбки и смех подарят нам незабываемое счастье в этот день — это самое ценное ❤️</p>
+        <p class="p">Ваше присутствие и тёплые слова — самое ценное для нас ❤️</p>
 
         <div class="hr"></div>
 
@@ -1002,9 +860,8 @@
 
         <p class="p"><strong>— Про «Горько»</strong></p>
         <p class="p">
-          Мы знаем, что «Горько» — это традиционный показатель чувств.
-          Но мы будем очень благодарны, если вы <strong>воздержитесь от «Горько»</strong> —
-          пусть поцелуи будут в тот момент, когда нам самим захочется ❤️
+          Будем благодарны, если вы <strong>воздержитесь от криков «Горько»</strong> на празднике,
+          ведь поцелуй — это знак выражения чувств, он не может быть “по заказу” ❤️
         </p>
       </div>
     </section>
@@ -1042,7 +899,7 @@
       </div>
     </section>
 
-    <!-- Анкета (БЕЗ напитков) -->
+    <!-- Анкета (БЕЗ предпочтений по напиткам) -->
     <section id="rsvp">
       <div class="card padded reveal">
         <h2>Анкета гостя · RSVP</h2>
@@ -1114,13 +971,13 @@
           </div>
 
           <div>
-            <label for="comment">Комментарий (можно указать пожелания по напиткам)</label>
+            <label for="comment">Комментарий (сюда можно написать пожелания)</label>
             <textarea id="comment" name="comment" placeholder="Любые пожелания или важные детали"></textarea>
           </div>
 
           <div class="ctaRow" style="margin-top:6px;">
             <button class="btn primary" type="submit">ОТПРАВИТЬ</button>
-            <button class="btn ghost" type="button" id="saveDraftBtn">Сохранить черновик</button>
+            <button class="btn" type="button" id="saveDraftBtn">Сохранить черновик</button>
           </div>
 
           <p class="note" id="statusNote"></p>
@@ -1128,7 +985,7 @@
       </div>
     </section>
 
-    <!-- Контакты -->
+    <!-- Контакты (без памятки — ты просила удалить) -->
     <section id="contacts">
       <div class="card padded reveal">
         <h2>Контакты</h2>
@@ -1137,7 +994,7 @@
         <p class="p" style="margin-bottom:12px">
           <strong>Организатор:</strong> <a href="tel:+375295183650">+375 29 518 3650</a>
         </p>
-        <div class="ctaRow">
+        <div class="ctaRow" style="justify-content:flex-start">
           <a class="btn" href="tel:+375295183650">Позвонить</a>
           <a class="btn" target="_blank" rel="noopener" href="https://wa.me/375295183650">WhatsApp</a>
           <a class="btn" target="_blank" rel="noopener" href="viber://chat?number=%2B375295183650">Viber</a>
@@ -1150,6 +1007,7 @@
       <div class="script">Александр &amp; Гюнель</div>
       21.08.2026 · Витебский район · Дрюково · Центральная, 32
     </footer>
+
   </main>
 
   <!-- Мини-панель музыки -->
@@ -1163,10 +1021,13 @@
 
   <script>
     // =========================
-    // ДАННЫЕ
+    // ДАННЫЕ (из твоего кода)
     // =========================
+
+    // 1) Дата свадьбы
     const weddingDateLocal = new Date(2026, 7, 21, 15, 0, 0);
 
+    // 2) Адрес + карты
     const addressText = "Витебский район, Вороновский сельсовет, деревня Дрюково, Центральная улица, 32";
     const placeText = "Дрюково, Центральная 32";
     const mapsQuery = encodeURIComponent(placeText + ", " + addressText);
@@ -1176,6 +1037,7 @@
     document.getElementById("mapsPrimaryBtn").href = mapsUrl;
     document.getElementById("mapFrame").src = embedUrl;
 
+    // 3) RSVP -> Google Sheets (URL из твоего кода)
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyU1T7nihR_oqbwWHgWGCmoRBx6g7a_JxquL3VyVl668RORpaqeAek6BkAxsvoZ9jy0/exec";
 
     // =========================
@@ -1188,8 +1050,7 @@
       gate.classList.add("hide");
       document.body.classList.remove("lock");
       setTimeout(()=>{ gate.style.display = "none"; }, 420);
-
-      document.getElementById("intro")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      document.getElementById("home")?.scrollIntoView({ behavior: "smooth", block: "start" });
     }
     openBtn.addEventListener("click", openInvite);
 
@@ -1216,14 +1077,21 @@
     const elH = document.getElementById("h");
     const elM = document.getElementById("m");
     const elS = document.getElementById("s");
+
     function pad(n){ return String(n).padStart(2,"0"); }
+
     function tick(){
       const now = new Date();
       const diff = weddingDateLocal.getTime() - now.getTime();
+
       if(diff <= 0){
-        elD.textContent = "0"; elH.textContent = "00"; elM.textContent = "00"; elS.textContent = "00";
+        elD.textContent = "0";
+        elH.textContent = "00";
+        elM.textContent = "00";
+        elS.textContent = "00";
         return;
       }
+
       const sec = Math.floor(diff/1000);
       const days = Math.floor(sec / 86400);
       const hours = Math.floor((sec % 86400) / 3600);
@@ -1238,16 +1106,17 @@
     tick(); setInterval(tick, 1000);
 
     // =========================
-    // RSVP: черновик + отправка (без напитков)
+    // RSVP: черновик + отправка
     // =========================
     const form = document.getElementById("rsvpForm");
     const saveDraftBtn = document.getElementById("saveDraftBtn");
-    const draftKey = "wedding_rsvp_sage_v3_no_drinks";
+    const draftKey = "wedding_rsvp_moment_green_v1";
 
     function getFormData(){
       const data = new FormData(form);
       return Object.fromEntries(data.entries());
     }
+
     function fillForm(obj){
       if(!obj) return;
       for(const [k,v] of Object.entries(obj)){
@@ -1297,7 +1166,7 @@
       submitBtn.disabled = true;
       submitBtn.textContent = "Отправляем…";
 
-      try {
+      try{
         await fetch(SCRIPT_URL, {
           method: "POST",
           mode: "no-cors",
@@ -1308,9 +1177,9 @@
         localStorage.removeItem(draftKey);
         form.reset();
         alert("Спасибо! Будем рады Вас видеть ✅");
-      } catch (err) {
+      }catch(err){
         alert("Не получилось отправить 😕 Проверьте интернет и попробуйте ещё раз.");
-      } finally {
+      }finally{
         submitBtn.disabled = false;
         submitBtn.textContent = oldText;
       }
@@ -1331,7 +1200,7 @@
 
     function setUI(isPlaying){
       musicState.textContent = isPlaying ? "Музыка включена" : "Музыка выключена";
-      heartIcon.textContent = isPlaying ? "💐" : "❤";
+      heartIcon.textContent = isPlaying ? "💚" : "❤";
 
       musicDock.style.display = "flex";
       musicDock.setAttribute("aria-hidden", "false");
@@ -1366,6 +1235,7 @@
     // =========================
     const items = document.querySelectorAll(".reveal");
     const canAnimate = window.matchMedia && window.matchMedia("(prefers-reduced-motion: no-preference)").matches;
+
     if(canAnimate){
       const io = new IntersectionObserver((entries)=>{
         for(const e of entries){
