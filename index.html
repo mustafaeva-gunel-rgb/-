@@ -34,62 +34,42 @@
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0;
-      color:var(--ink);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
-      background: transparent;
-    }
+  margin:0;
+  color:var(--ink);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
  
-    a{color:inherit}
-    .wrap{max-width:var(--max);margin:0 auto;padding:22px}
- 
-    /* ===== ФОН-СЛАЙДШОУ (работает стабильно с assets/...) ===== */
-    .bgStack{
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      overflow: hidden;
-    }
-    .bgLayer{
-      position:absolute;
-      inset:-12%;
-      background: center/cover no-repeat;
-      filter: blur(24px);
-      transform: scale(1.12);
-      opacity: 0;
-      transition: opacity 1.8s ease;
-      will-change: opacity;
-    }
-    .bgLayer.on{ opacity: .22; }
-    * ПОКАЗАТЬ ПЕРВУЮ КАРТИНКУ ДАЖЕ БЕЗ СКРИПТА */
-.bgLayer.a{
-  background-image: url("assets/bg1.jpg");
+  /* ФОН: первая картинка */
+  background-image: url("./assets/bg1.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
  
-    /* Вуаль: по краям плотнее (читаемость), по центру мягче (видно фото) */
-    .bgVeil{
-      position: fixed;
-      inset: 0;
-      z-index: 1;
-      pointer-events:none;
-      background:
-        radial-gradient(900px 520px at 50% 22%, rgba(255,255,255,.70), rgba(255,255,255,.93) 70%),
-        linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,255,255,.90));
-    }
+/* Вуаль, чтобы текст читался */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  background:
+    radial-gradient(900px 520px at 50% 22%, rgba(255,255,255,.55), rgba(255,255,255,.88) 70%),
+    linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.88));
+}
  
-    /* Лёгкая фактура */
-    .grain{
-      position: fixed;
-      inset:0;
-      z-index: 2;
-      pointer-events:none;
-      opacity: .10;
-      mix-blend-mode:multiply;
-      background-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.10'/%3E%3C/svg%3E");
-    }
- 
+/* Лёгкая фактура */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  opacity:.10;
+  mix-blend-mode:multiply;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.10'/%3E%3C/svg%3E");
+}
+
     /* контент над фоном */
     .topbar{ position: sticky; z-index: 50; top:0; }
     main, .wrap{ position: relative; z-index: 3; }
