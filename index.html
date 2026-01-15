@@ -1,3 +1,4 @@
+```html
 <!doctype html>
 <html lang="ru">
 <head>
@@ -12,10 +13,8 @@
 
   <style>
     :root{
-      /* "moment_love_green": более зелёный фон + светлые карточки */
-      --bg1:#edf6f0;
-      --bg2:#e7f1ea;
-
+      /* Палитра "history_flowers": тёплый крем + пудра + шалфей */
+      --bg: #fbf6ef;
       --paper: rgba(255,255,255,.92);
       --paper2: rgba(255,255,255,.86);
 
@@ -23,9 +22,8 @@
       --muted: rgba(18,18,18,.62);
       --line: rgba(18,18,18,.10);
 
-      --green: #3f6f55;     /* главный зелёный */
-      --green2:#7ea58f;     /* светлый зелёный */
-      --rose: #c9908b;      /* лёгкая пудра */
+      --sage: #7f9b86;
+      --rose: #c9908b;
       --choco:#2a2a2a;
 
       --radius: 22px;
@@ -39,11 +37,67 @@
       margin:0;
       color:var(--ink);
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background:
-        radial-gradient(900px 520px at 20% 0%, rgba(63,111,85,.14), rgba(63,111,85,0) 70%),
-        radial-gradient(900px 520px at 80% 0%, rgba(126,165,143,.14), rgba(126,165,143,0) 70%),
-        linear-gradient(180deg, var(--bg1), var(--bg2));
+      background: var(--bg);
       overflow-x:hidden;
+    }
+
+    /* ===== ФОН: мягкие “цветы/листья” (статично) ===== */
+    .bgFlorals{
+      position:fixed;
+      inset:0;
+      z-index:0;
+      pointer-events:none;
+      background:
+        radial-gradient(900px 500px at 20% 0%, rgba(127,155,134,.10), rgba(127,155,134,0) 70%),
+        radial-gradient(900px 500px at 80% 0%, rgba(201,144,139,.10), rgba(201,144,139,0) 70%),
+        radial-gradient(900px 500px at 50% 110%, rgba(127,155,134,.10), rgba(127,155,134,0) 65%),
+        linear-gradient(180deg, rgba(255,255,255,.25), rgba(255,255,255,0));
+    }
+
+    /* ===== ФОТО НА ФОНЕ (НЕ ПЕРЕКРЫВАЮТ КОНТЕНТ) =====
+       Положи фото сюда:
+       assets/couple1.jpg
+       assets/couple2.jpg
+       Если не хочешь фото — просто удали эти файлы или поставь opacity:0
+    */
+    .bgPhotos{
+      position:fixed;
+      inset:0;
+      z-index:0;               /* под контентом */
+      pointer-events:none;
+      opacity:.18;             /* можно менять 0.10 - 0.22 */
+      filter: saturate(1.05) contrast(1.02);
+      mix-blend-mode: multiply;
+    }
+    .bgPhotos::before,
+    .bgPhotos::after{
+      content:"";
+      position:absolute;
+      width: min(560px, 72vw);
+      height: min(560px, 72vw);
+      border-radius: 999px;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      /* “вымываем”, чтобы не спорили с текстом */
+      filter: blur(1px) grayscale(.10);
+      opacity: .95;
+      box-shadow: 0 30px 90px rgba(0,0,0,.10);
+      /* мягкий вырез по краям */
+      -webkit-mask-image: radial-gradient(circle at 50% 50%, rgba(0,0,0,1) 52%, rgba(0,0,0,0) 74%);
+              mask-image: radial-gradient(circle at 50% 50%, rgba(0,0,0,1) 52%, rgba(0,0,0,0) 74%);
+    }
+    .bgPhotos::before{
+      left: -120px;
+      top: 120px;
+      transform: rotate(-8deg);
+      background-image: url("assets/couple1.jpg");
+    }
+    .bgPhotos::after{
+      right: -140px;
+      bottom: 120px;
+      transform: rotate(10deg);
+      background-image: url("assets/couple2.jpg");
     }
 
     /* лёгкая фактура */
@@ -58,6 +112,7 @@
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
     }
 
+    /* контент поверх всего */
     .wrap{
       position:relative;
       z-index:5;
@@ -71,7 +126,7 @@
       position:sticky;
       top:0;
       z-index:50;
-      background: rgba(237,246,240,.78);
+      background: rgba(251,246,239,.78);
       backdrop-filter: blur(12px);
       border-bottom:1px solid rgba(18,18,18,.08);
     }
@@ -93,7 +148,7 @@
     .seal{
       width:30px;height:30px;border-radius:999px;
       border:1px solid rgba(18,18,18,.12);
-      background: radial-gradient(circle at 30% 30%, rgba(63,111,85,.18), rgba(63,111,85,.06));
+      background: radial-gradient(circle at 30% 30%, rgba(127,155,134,.18), rgba(127,155,134,.06));
       display:grid; place-items:center;
       box-shadow: 0 10px 24px rgba(0,0,0,.06);
       color: rgba(18,18,18,.80);
@@ -132,7 +187,7 @@
     @media (max-width:520px){ .card.padded{ padding:18px; } }
     .card > *{ position:relative; z-index:2; }
 
-    /* лёгкий декоративный “лепестковый” слой на карточках (статично) */
+    /* цветочный/лепестковый декор на карточках (статично) */
     .card::before{
       content:"";
       position:absolute;
@@ -145,12 +200,26 @@
         radial-gradient(22px 16px at 26% 62%, rgba(255,255,255,.80), rgba(255,255,255,0) 74%),
         radial-gradient(30px 20px at 76% 34%, rgba(255,255,255,.86), rgba(255,255,255,0) 76%),
         radial-gradient(24px 18px at 90% 70%, rgba(255,255,255,.74), rgba(255,255,255,0) 74%),
-        radial-gradient(520px 320px at 50% 0%, rgba(63,111,85,.10), rgba(63,111,85,0) 70%),
-        radial-gradient(520px 320px at 70% 110%, rgba(126,165,143,.10), rgba(126,165,143,0) 70%);
+        radial-gradient(420px 260px at 50% 0%, rgba(127,155,134,.10), rgba(127,155,134,0) 70%),
+        radial-gradient(520px 320px at 70% 110%, rgba(201,144,139,.10), rgba(201,144,139,0) 70%);
       filter: blur(.15px);
       transform: scale(1.02);
     }
+    .card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:1;
+      pointer-events:none;
+      opacity:.20;
+      background:
+        radial-gradient(2px 2px at 20% 26%, rgba(18,18,18,.22), rgba(18,18,18,0) 65%),
+        radial-gradient(2px 2px at 32% 72%, rgba(18,18,18,.20), rgba(18,18,18,0) 65%),
+        radial-gradient(2px 2px at 58% 38%, rgba(18,18,18,.18), rgba(18,18,18,0) 65%),
+        radial-gradient(2px 2px at 82% 44%, rgba(18,18,18,.18), rgba(18,18,18,0) 65%);
+    }
 
+    /* ===== секции/сетки ===== */
     section{ padding: 14px 0; }
     .grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
     @media (max-width: 900px){ .grid{ grid-template-columns:1fr; } }
@@ -194,7 +263,7 @@
     .btn.primary{
       color:#fff;
       border-color: rgba(18,18,18,.18);
-      background: linear-gradient(180deg, rgba(63,111,85,.96), rgba(63,111,85,.84));
+      background: linear-gradient(180deg, rgba(42,42,42,.96), rgba(42,42,42,.86));
     }
     .btn.ghost{
       background: transparent;
@@ -202,12 +271,98 @@
       color: rgba(18,18,18,.80);
     }
 
-    /* ===== ПОЛНОЭКРАННЫЙ БЛОК ПРИГЛАШЕНИЯ (рамка + зелёный декор) ===== */
+    /* ===== 1) ОТДЕЛЬНЫЙ БЛОК В САМОМ НАЧАЛЕ С РАМКОЙ (как ты просила) ===== */
+    .heroIntro{
+      padding: 18px 0 8px;
+    }
+    .heroCard{
+      background: rgba(255,255,255,.78);
+      border-radius: 30px;
+      border: 1px solid rgba(18,18,18,.10);
+      box-shadow: 0 28px 90px rgba(0,0,0,.12);
+      padding: 30px 20px 22px;
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+      isolation:isolate;
+    }
+    .heroCard .innerBorder{
+      position:absolute;
+      inset: 14px;
+      border-radius: 22px;
+      border: 1px solid rgba(18,18,18,.16);
+      pointer-events:none;
+      z-index:1;
+    }
+    .heroCard::before,
+    .heroCard::after{
+      content:"";
+      position:absolute;
+      width: 320px;
+      height: 320px;
+      pointer-events:none;
+      opacity:.95;
+      background-repeat:no-repeat;
+      background-size: 320px 320px;
+      z-index:0;
+      filter: drop-shadow(0 18px 35px rgba(0,0,0,.10));
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320' viewBox='0 0 320 320'%3E%3Cg fill='none' stroke-linecap='round'%3E%3Cpath d='M35 250c60-30 110-10 140 40' stroke='rgba(127,155,134,0.55)' stroke-width='6'/%3E%3Cpath d='M60 260c40-50 90-70 150-55' stroke='rgba(201,144,139,0.45)' stroke-width='5'/%3E%3Cpath d='M85 250c18-18 42-20 60-5' stroke='rgba(127,155,134,0.55)' stroke-width='4'/%3E%3Ccircle cx='78' cy='245' r='9' fill='rgba(201,144,139,0.55)'/%3E%3Ccircle cx='108' cy='272' r='7' fill='rgba(201,144,139,0.45)'/%3E%3Ccircle cx='132' cy='248' r='8' fill='rgba(201,144,139,0.40)'/%3E%3Cpath d='M120 285c10-18 26-28 46-30' stroke='rgba(127,155,134,0.50)' stroke-width='4'/%3E%3Cpath d='M42 286c22-10 36-26 44-46' stroke='rgba(127,155,134,0.45)' stroke-width='4'/%3E%3C/g%3E%3C/svg%3E");
+    }
+    .heroCard::before{ left:-70px; top:-80px; transform: rotate(18deg); opacity:.62; }
+    .heroCard::after{ right:-70px; bottom:-80px; transform: rotate(198deg); opacity:.62; }
+    .heroGlow{
+      position:absolute;
+      inset:-1px;
+      z-index:0;
+      pointer-events:none;
+      background:
+        radial-gradient(520px 320px at 18% 14%, rgba(127,155,134,.16), rgba(127,155,134,0) 70%),
+        radial-gradient(560px 340px at 82% 86%, rgba(201,144,139,.16), rgba(201,144,139,0) 70%),
+        radial-gradient(420px 240px at 50% 0%, rgba(255,255,255,.75), rgba(255,255,255,0) 70%);
+      opacity:.95;
+    }
+    .heroSmall{
+      font-size: 12px;
+      letter-spacing: .42em;
+      text-transform: uppercase;
+      color: rgba(18,18,18,.62);
+      margin: 0 0 10px;
+    }
+    .heroNames{
+      font-family: "Allura", cursive;
+      font-size: clamp(52px, 8vw, 92px);
+      line-height: .92;
+      margin: 6px 0 8px;
+      color: var(--choco);
+    }
+    .heroDate{
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing:.10em;
+      margin: 0 0 10px;
+      color: rgba(18,18,18,.86);
+      text-transform: uppercase;
+    }
+    .heroText{
+      max-width: 720px;
+      margin: 0 auto;
+      color: rgba(18,18,18,.72);
+      line-height: 1.85;
+    }
+    .heroCta{
+      margin-top: 14px;
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+
+    /* ===== ПОЛНОЭКРАННЫЙ БЛОК ПРИГЛАШЕНИЯ (как был) ===== */
     .inviteFull{
       min-height: calc(100svh - 62px);
       display:grid;
       place-items:center;
-      padding: 22px 0 10px;
+      padding: 22px 0 8px;
     }
     .inviteFrame{
       width: min(920px, 100%);
@@ -221,6 +376,8 @@
       text-align:center;
       isolation:isolate;
     }
+
+    /* внутренняя рамка */
     .inviteFrame .innerBorder{
       position:absolute;
       inset: 16px;
@@ -229,31 +386,34 @@
       pointer-events:none;
       z-index:1;
     }
+
+    /* цветочные углы */
     .inviteFrame::before,
     .inviteFrame::after{
       content:"";
       position:absolute;
-      width: 340px;
-      height: 340px;
+      width: 320px;
+      height: 320px;
       pointer-events:none;
-      opacity:.85;
+      opacity:.95;
       background-repeat:no-repeat;
-      background-size: 340px 340px;
+      background-size: 320px 320px;
       z-index:0;
       filter: drop-shadow(0 18px 35px rgba(0,0,0,.10));
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='340' height='340' viewBox='0 0 340 340'%3E%3Cg fill='none' stroke-linecap='round'%3E%3Cpath d='M40 270c70-38 120-18 155 40' stroke='rgba(63,111,85,0.55)' stroke-width='7'/%3E%3Cpath d='M68 285c46-58 106-82 175-64' stroke='rgba(126,165,143,0.48)' stroke-width='6'/%3E%3Cpath d='M98 270c20-20 48-22 70-6' stroke='rgba(63,111,85,0.55)' stroke-width='5'/%3E%3Ccircle cx='92' cy='262' r='10' fill='rgba(126,165,143,0.55)'/%3E%3Ccircle cx='125' cy='290' r='8' fill='rgba(126,165,143,0.45)'/%3E%3Ccircle cx='154' cy='265' r='9' fill='rgba(126,165,143,0.40)'/%3E%3Cpath d='M138 306c12-22 31-34 56-36' stroke='rgba(63,111,85,0.50)' stroke-width='5'/%3E%3Cpath d='M48 312c26-12 44-30 54-54' stroke='rgba(63,111,85,0.45)' stroke-width='5'/%3E%3C/g%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320' viewBox='0 0 320 320'%3E%3Cg fill='none' stroke-linecap='round'%3E%3Cpath d='M35 250c60-30 110-10 140 40' stroke='rgba(127,155,134,0.55)' stroke-width='6'/%3E%3Cpath d='M60 260c40-50 90-70 150-55' stroke='rgba(201,144,139,0.45)' stroke-width='5'/%3E%3Cpath d='M85 250c18-18 42-20 60-5' stroke='rgba(127,155,134,0.55)' stroke-width='4'/%3E%3Ccircle cx='78' cy='245' r='9' fill='rgba(201,144,139,0.55)'/%3E%3Ccircle cx='108' cy='272' r='7' fill='rgba(201,144,139,0.45)'/%3E%3Ccircle cx='132' cy='248' r='8' fill='rgba(201,144,139,0.40)'/%3E%3Cpath d='M120 285c10-18 26-28 46-30' stroke='rgba(127,155,134,0.50)' stroke-width='4'/%3E%3Cpath d='M42 286c22-10 36-26 44-46' stroke='rgba(127,155,134,0.45)' stroke-width='4'/%3E%3C/g%3E%3C/svg%3E");
     }
-    .inviteFrame::before{ left:-85px; top:-95px; transform: rotate(20deg); opacity:.60; }
-    .inviteFrame::after{ right:-85px; bottom:-95px; transform: rotate(200deg); opacity:.60; }
+    .inviteFrame::before{ left:-70px; top:-80px; transform: rotate(18deg); opacity:.70; }
+    .inviteFrame::after{ right:-70px; bottom:-80px; transform: rotate(198deg); opacity:.70; }
 
+    /* мягкие пятна */
     .inviteGlow{
       position:absolute;
       inset:-1px;
       z-index:0;
       pointer-events:none;
       background:
-        radial-gradient(520px 320px at 18% 14%, rgba(63,111,85,.18), rgba(63,111,85,0) 70%),
-        radial-gradient(560px 340px at 82% 86%, rgba(126,165,143,.18), rgba(126,165,143,0) 70%),
+        radial-gradient(520px 320px at 18% 14%, rgba(127,155,134,.16), rgba(127,155,134,0) 70%),
+        radial-gradient(560px 340px at 82% 86%, rgba(201,144,139,.16), rgba(201,144,139,0) 70%),
         radial-gradient(420px 240px at 50% 0%, rgba(255,255,255,.75), rgba(255,255,255,0) 70%);
       opacity:.95;
     }
@@ -289,7 +449,7 @@
       margin-top: 14px;
       font-family: "Allura", cursive;
       font-size: 32px;
-      color: var(--green2);
+      color: var(--rose);
     }
 
     /* сердце-плеер */
@@ -305,7 +465,7 @@
       height: 62px;
       border-radius: 999px;
       border: 1px solid rgba(18,18,18,.14);
-      background: radial-gradient(circle at 30% 30%, rgba(63,111,85,.18), rgba(63,111,85,.06));
+      background: radial-gradient(circle at 30% 30%, rgba(127,155,134,.18), rgba(127,155,134,.06));
       box-shadow: 0 18px 45px rgba(0,0,0,.12);
       display:grid;
       place-items:center;
@@ -316,7 +476,7 @@
     .heartBtn:hover{
       transform: translateY(-1px);
       border-color: rgba(18,18,18,.22);
-      background: radial-gradient(circle at 30% 30%, rgba(126,165,143,.18), rgba(126,165,143,.06));
+      background: radial-gradient(circle at 30% 30%, rgba(201,144,139,.16), rgba(201,144,139,.06));
     }
     .heartBtn:active{ transform: translateY(1px); }
     .heartBtn span{
@@ -331,6 +491,7 @@
     }
     .musicText b{ color: rgba(18,18,18,.92); }
 
+    /* быстрые бейджи */
     .badges{
       display:flex; gap:10px; flex-wrap:wrap;
       justify-content:center;
@@ -345,11 +506,11 @@
       color: rgba(18,18,18,.80);
     }
 
-    /* ===== ЦИТАТА (как тебе понравилось) ===== */
+    /* ===== цитата ===== */
     .quote{
       text-align:center;
       padding: 26px 22px;
-      background: linear-gradient(180deg, rgba(63,111,85,.10), rgba(63,111,85,0));
+      background: linear-gradient(180deg, rgba(127,155,134,.10), rgba(127,155,134,0));
       border:1px solid rgba(18,18,18,.08);
       border-radius: 22px;
     }
@@ -410,8 +571,8 @@
     }
     .planDot{
       width:10px;height:10px;border-radius:999px;
-      background: rgba(63,111,85,.95);
-      box-shadow: 0 0 0 6px rgba(63,111,85,.12);
+      background: rgba(127,155,134,.95);
+      box-shadow: 0 0 0 6px rgba(127,155,134,.12);
       margin-top: 6px;
       flex:0 0 auto;
     }
@@ -421,7 +582,7 @@
       position:absolute;
       left:-14px; top:0; bottom:0;
       width:2px;
-      background: linear-gradient(180deg, rgba(63,111,85,.35), rgba(63,111,85,.08));
+      background: linear-gradient(180deg, rgba(127,155,134,.35), rgba(127,155,134,.08));
       border-radius:999px;
     }
     .planItemTitle{
@@ -475,8 +636,8 @@
       outline:none;
     }
     input:focus, select:focus, textarea:focus{
-      border-color: rgba(63,111,85,.60);
-      box-shadow: 0 0 0 3px rgba(63,111,85,.14);
+      border-color: rgba(127,155,134,.60);
+      box-shadow: 0 0 0 3px rgba(127,155,134,.14);
       background:#fff;
     }
     textarea{ min-height: 105px; resize: vertical; }
@@ -503,65 +664,6 @@
     }
     .chk input{ width:auto; padding:0; margin:0; }
 
-    /* ===== ФОТО (НЕ подряд): одно в правой колонке, второе — ниже в отдельной секции ===== */
-    .photoInset{
-      border-radius: 22px;
-      overflow:hidden;
-      border:1px solid rgba(18,18,18,.10);
-      background: rgba(255,255,255,.82);
-      box-shadow: 0 18px 50px rgba(0,0,0,.10);
-      position:relative;
-      min-height: 280px;
-    }
-    .photoInset img{
-      width:100%;
-      height:100%;
-      object-fit: cover;
-      display:block;
-    }
-    .photoInset .cap{
-      position:absolute;
-      left:14px;
-      bottom:14px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      background: rgba(255,255,255,.78);
-      border:1px solid rgba(18,18,18,.10);
-      color: rgba(18,18,18,.88);
-      font-weight: 700;
-      font-size: 13px;
-      backdrop-filter: blur(10px);
-    }
-
-    .photoWide{
-      border-radius: 26px;
-      overflow:hidden;
-      border:1px solid rgba(18,18,18,.10);
-      background: rgba(255,255,255,.82);
-      box-shadow: 0 22px 60px rgba(0,0,0,.12);
-      position:relative;
-      min-height: 320px;
-    }
-    .photoWide img{
-      width:100%;
-      height:100%;
-      object-fit: cover;
-      display:block;
-    }
-    .photoWide .cap{
-      position:absolute;
-      right:14px;
-      bottom:14px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      background: rgba(255,255,255,.78);
-      border:1px solid rgba(18,18,18,.10);
-      color: rgba(18,18,18,.88);
-      font-weight: 700;
-      font-size: 13px;
-      backdrop-filter: blur(10px);
-    }
-
     /* футер */
     footer{
       padding: 22px 0 30px;
@@ -571,7 +673,7 @@
     footer .script{
       font-family: Allura, cursive;
       font-size: 30px;
-      color: var(--green);
+      color: var(--sage);
       margin-bottom: 4px;
     }
 
@@ -585,9 +687,9 @@
       place-items:center;
       padding: 22px;
       background:
-        radial-gradient(1200px 700px at 50% 0%, rgba(63,111,85,.16), rgba(63,111,85,0) 65%),
-        radial-gradient(900px 520px at 20% 110%, rgba(126,165,143,.16), rgba(126,165,143,0) 65%),
-        linear-gradient(180deg, var(--bg1), var(--bg2));
+        radial-gradient(1200px 700px at 50% 0%, rgba(127,155,134,.12), rgba(127,155,134,0) 65%),
+        radial-gradient(900px 520px at 20% 110%, rgba(201,144,139,.12), rgba(201,144,139,0) 65%),
+        var(--bg);
     }
     .gateCard{
       width: min(520px, 100%);
@@ -608,8 +710,8 @@
       pointer-events:none;
       opacity:.55;
       background:
-        radial-gradient(380px 260px at 50% 0%, rgba(63,111,85,.18), rgba(63,111,85,0) 70%),
-        radial-gradient(420px 280px at 80% 110%, rgba(126,165,143,.18), rgba(126,165,143,0) 70%);
+        radial-gradient(380px 260px at 50% 0%, rgba(127,155,134,.14), rgba(127,155,134,0) 70%),
+        radial-gradient(420px 280px at 80% 110%, rgba(201,144,139,.14), rgba(201,144,139,0) 70%);
     }
     .gateSmall{
       font-size: 12px;
@@ -637,7 +739,7 @@
       padding: 14px 16px;
       border-radius: 999px;
       border: 1px solid rgba(18,18,18,.18);
-      background: linear-gradient(180deg, rgba(63,111,85,.96), rgba(63,111,85,.84));
+      background: linear-gradient(180deg, rgba(42,42,42,.96), rgba(42,42,42,.86));
       color:#fff;
       font-weight: 900;
       letter-spacing: .18em;
@@ -702,6 +804,8 @@
 </head>
 
 <body class="lock">
+  <div class="bgFlorals" aria-hidden="true"></div>
+  <div class="bgPhotos" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
 
   <!-- Музыка: положи файл assets/music.mp3 -->
@@ -727,8 +831,8 @@
         Александр & Гюнель
       </div>
       <nav class="nav">
+        <a href="#intro">Начало</a>
         <a href="#invite">Приглашение</a>
-        <a href="#quote">Фраза</a>
         <a href="#plan">Программа</a>
         <a href="#route">Локация</a>
         <a href="#details">Детали</a>
@@ -740,6 +844,28 @@
   </div>
 
   <main class="wrap">
+
+    <!-- НОВЫЙ ОТДЕЛЬНЫЙ БЛОК В САМОМ НАЧАЛЕ (рамка) -->
+    <section id="intro" class="heroIntro">
+      <div class="heroCard reveal">
+        <div class="heroGlow" aria-hidden="true"></div>
+        <div class="innerBorder" aria-hidden="true"></div>
+
+        <div class="heroSmall">мы приглашаем вас</div>
+        <div class="heroNames">Александр &amp; Гюнель</div>
+        <div class="heroDate">21 августа 2026 · 15:00</div>
+
+        <p class="heroText">
+          Место для счастья — здесь, время для счастья — сейчас.<br>
+          Мы будем очень рады разделить этот день вместе с вами.
+        </p>
+
+        <div class="heroCta">
+          <a class="btn primary" href="#invite">Открыть приглашение</a>
+          <a class="btn" href="#rsvp">Заполнить анкету</a>
+        </div>
+      </div>
+    </section>
 
     <!-- ПОЛНОЭКРАННОЕ ПРИГЛАШЕНИЕ -->
     <section id="invite" class="inviteFull">
@@ -782,21 +908,19 @@
       </div>
     </section>
 
-    <!-- Фраза (как ты просила) -->
-    <section id="quote" class="reveal">
+    <!-- цитата -->
+    <section class="reveal">
       <div class="quote">
         <p class="q">Место для счастья — здесь,<br>время для счастья — сейчас</p>
         <div class="s">мы ждём вас</div>
       </div>
     </section>
 
-    <!-- Блок: программа + фото (фото НЕ рядом с другим) -->
+    <!-- Программа + Таймер -->
     <section id="plan">
       <div class="grid">
         <div class="card padded reveal">
           <h2>Программа дня</h2>
-          <p class="p">Тайминг ориентировочный (возможны небольшие изменения).</p>
-
           <ul class="planList">
             <li class="planRow">
               <div class="planTime"><span class="planDot"></span>15:00</div>
@@ -830,10 +954,10 @@
               </div>
             </li>
           </ul>
+        </div>
 
-          <div class="hr"></div>
-
-          <h2 style="margin:0 0 10px;">До свадьбы осталось</h2>
+        <div class="card padded reveal">
+          <h2>До свадьбы осталось</h2>
           <div class="countdown" aria-live="polite">
             <div class="pill"><p class="n" id="d">—</p><p class="l">дней</p></div>
             <div class="pill"><p class="n" id="h">—</p><p class="l">часов</p></div>
@@ -842,17 +966,7 @@
           </div>
           <p class="note" style="text-align:center">21.08.2026 · 15:00</p>
         </div>
-
-        <!-- Фото 1 — как “вставка” рядом с программой -->
-        <div class="photoInset reveal">
-          <img src="assets/couple1.jpg" alt="Фото молодожёнов 1">
-          <div class="cap">Мы ❤️</div>
-        </div>
       </div>
-
-      <p class="note" style="text-align:center; margin-top:10px;">
-        Подставь свои фото в: <b>assets/couple1.jpg</b> и <b>assets/couple2.jpg</b>
-      </p>
     </section>
 
     <!-- Локация -->
@@ -891,14 +1005,6 @@
       </div>
     </section>
 
-    <!-- Фото 2 — отдельным красивым “панно” перед деталями -->
-    <section class="reveal">
-      <div class="photoWide">
-        <img src="assets/couple2.jpg" alt="Фото молодожёнов 2">
-        <div class="cap">Александр &amp; Гюнель</div>
-      </div>
-    </section>
-
     <!-- Детали -->
     <section id="details">
       <div class="card padded reveal">
@@ -914,11 +1020,12 @@
 
         <div class="hr"></div>
 
-        <p class="p"><strong>— Про “Горько”</strong></p>
+        <!-- ОБНОВИЛА "ПРО ГОРЬКО" -->
+        <p class="p"><strong>— Про «Горько»</strong></p>
         <p class="p">
-          Мы знаем, что крики “Горько” — это традиционный показатель чувств.
-          Но мы будем очень благодарны, если вы <strong>воздержитесь от “Горько”</strong> —
-          пусть поцелуи будут в момент, когда нам захочется самим ❤️
+          Мы знаем, что «Горько» — это традиционный показатель чувств.
+          Но мы будем очень благодарны, если вы <strong>воздержитесь от «Горько»</strong> —
+          пусть поцелуи будут в тот момент, когда нам самим захочется ❤️
         </p>
       </div>
     </section>
@@ -1060,7 +1167,9 @@
       <div class="grid">
         <div class="card padded reveal">
           <h2>Контакты</h2>
-          <p class="p">По любым вопросам можно обратиться к организатору:</p>
+          <p class="p">
+            По любым вопросам можно обратиться к организатору:
+          </p>
           <div class="hr"></div>
           <p class="p" style="margin-bottom:12px">
             <strong>Организатор:</strong> <a href="tel:+375295183650">+375 29 518 3650</a>
@@ -1075,10 +1184,12 @@
 
         <div class="card padded reveal">
           <h2>Памятка</h2>
-          <p class="p">Приезжайте к 15:00 · Ч/б стиль · Трансфер будет — отметьте в анкете.</p>
+          <p class="p">
+            Приезжайте к 15:00 · Ч/б стиль · Трансфер будет — отметьте в анкете.
+          </p>
           <div class="hr"></div>
           <p class="note" style="margin:0;">
-            Файлы для сайта: <b>assets/music.mp3</b>, <b>assets/couple1.jpg</b>, <b>assets/couple2.jpg</b>
+            Фото на фоне: <b>assets/couple1.jpg</b> и <b>assets/couple2.jpg</b> (можно удалить). Музыка: <b>assets/music.mp3</b>.
           </p>
         </div>
       </div>
@@ -1101,10 +1212,13 @@
 
   <script>
     // =========================
-    // ДАННЫЕ (из твоего кода)
+    // ДАННЫЕ
     // =========================
+
+    // 1) Дата свадьбы
     const weddingDateLocal = new Date(2026, 7, 21, 15, 0, 0);
 
+    // 2) Адрес + карты
     const addressText = "Витебский район, Вороновский сельсовет, деревня Дрюково, Центральная улица, 32";
     const placeText = "Дрюково, Центральная 32";
     const mapsQuery = encodeURIComponent(placeText + ", " + addressText);
@@ -1114,7 +1228,7 @@
     document.getElementById("mapsPrimaryBtn").href = mapsUrl;
     document.getElementById("mapFrame").src = embedUrl;
 
-    // RSVP -> Google Sheets (ссылка из предыдущего кода)
+    // 3) RSVP -> Google Sheets (URL из твоего кода)
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyU1T7nihR_oqbwWHgWGCmoRBx6g7a_JxquL3VyVl668RORpaqeAek6BkAxsvoZ9jy0/exec";
 
     // =========================
@@ -1122,13 +1236,14 @@
     // =========================
     const gate = document.getElementById("gate");
     const openBtn = document.getElementById("openInviteBtn");
+
     function openInvite(){
       gate.classList.add("hide");
       document.body.classList.remove("lock");
       setTimeout(()=>{ gate.style.display = "none"; }, 420);
 
-      const invite = document.getElementById("invite");
-      invite?.scrollIntoView({ behavior: "smooth", block: "start" });
+      const intro = document.getElementById("intro");
+      intro?.scrollIntoView({ behavior: "smooth", block: "start" });
     }
     openBtn.addEventListener("click", openInvite);
 
@@ -1181,7 +1296,7 @@
     // =========================
     const form = document.getElementById("rsvpForm");
     const saveDraftBtn = document.getElementById("saveDraftBtn");
-    const draftKey = "wedding_rsvp_moment_green_v2";
+    const draftKey = "wedding_rsvp_history_flowers_music_v2_with_intro";
 
     function getDrinks(){
       const checked = [...form.querySelectorAll('input[name="drinks"]:checked')].map(x => x.value);
@@ -1281,7 +1396,7 @@
 
     function setUI(isPlaying){
       musicState.textContent = isPlaying ? "Музыка включена" : "Музыка выключена";
-      heartIcon.textContent = isPlaying ? "🎶" : "❤";
+      heartIcon.textContent = isPlaying ? "💐" : "❤";
 
       musicDock.style.display = "flex";
       musicDock.setAttribute("aria-hidden", "false");
@@ -1312,7 +1427,7 @@
     setUI(false);
 
     // =========================
-    // Reveal
+    // Reveal (если разрешены анимации)
     // =========================
     const items = document.querySelectorAll(".reveal");
     const canAnimate = window.matchMedia && window.matchMedia("(prefers-reduced-motion: no-preference)").matches;
@@ -1326,6 +1441,24 @@
     }else{
       items.forEach(el => el.classList.add("on"));
     }
+
+    // =========================
+    // Если фото на фоне не грузятся (нет файлов) — аккуратно убираем слой
+    // =========================
+    (function checkBgPhotos(){
+      const urls = ["assets/couple1.jpg", "assets/couple2.jpg"];
+      const layer = document.querySelector(".bgPhotos");
+      if(!layer) return;
+
+      let ok = 0, done = 0;
+      urls.forEach((u)=>{
+        const img = new Image();
+        img.onload = ()=>{ ok++; done++; if(done===urls.length && ok===0) layer.style.opacity = "0"; };
+        img.onerror = ()=>{ done++; if(done===urls.length && ok===0) layer.style.opacity = "0"; };
+        img.src = u;
+      });
+    })();
   </script>
 </body>
 </html>
+```
