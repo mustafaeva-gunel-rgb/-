@@ -6,22 +6,25 @@
   <meta name="description" content="Сайт-приглашение на свадьбу Александра и Гюнель — 21.08.2026, 15:00, Витебский район, Дрюково" />
   <title>Александр & Гюнель — 21.08.2026</title>
  
-  <!-- Элегантные шрифты с кириллицей -->
+  <!-- Шрифты: аккуратный гротеск + рукописный акцент -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Marck+Script&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Allura&display=swap" rel="stylesheet">
  
   <style>
     :root{
-      --ink:#111111;
-      --line:rgba(0,0,0,.10);
+      --ink:#111;
+      --muted: rgba(0,0,0,.60);
+      --line: rgba(0,0,0,.10);
  
-      /* спокойный синий акцент */
-      --accent:#0f2a5f;
+      /* Акцент (как на референсе: нежная фуксия) */
+      --accent: #ff2c7d;
  
-      /* молочные карточки */
-      --milk: rgba(255,255,255,.90);
-      --milk2: rgba(255,255,255,.84);
+      /* Кнопки/ссылки можно оставить спокойными */
+      --btn: #0f2a5f;
+ 
+      /* Молочные карточки */
+      --card: rgba(255,255,255,.90);
  
       --shadow: 0 18px 45px rgba(0,0,0,.10);
       --radius: 18px;
@@ -33,14 +36,14 @@
     body{
       margin:0;
       color:var(--ink);
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
       background: transparent;
     }
  
     a{color:inherit}
     .wrap{max-width:var(--max);margin:0 auto;padding:22px}
  
-    /* ===== ФОН-СЛАЙДШОУ (светлее, но фото видно) ===== */
+    /* ===== ФОН-СЛАЙДШОУ (работает стабильно с assets/...) ===== */
     .bgStack{
       position: fixed;
       inset: 0;
@@ -56,22 +59,22 @@
       transform: scale(1.12);
       opacity: 0;
       transition: opacity 1.8s ease;
+      will-change: opacity;
     }
-    /* делаем фото чуть заметнее, но нежно */
     .bgLayer.on{ opacity: .22; }
  
-    /* Вуаль: по краям плотнее (читаемость), по центру чуть прозрачнее (видно фото) */
+    /* Вуаль: по краям плотнее (читаемость), по центру мягче (видно фото) */
     .bgVeil{
       position: fixed;
       inset: 0;
       z-index: 1;
       pointer-events:none;
       background:
-        radial-gradient(900px 520px at 50% 22%, rgba(255,255,255,.64), rgba(255,255,255,.90) 70%),
-        linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.88));
+        radial-gradient(900px 520px at 50% 22%, rgba(255,255,255,.70), rgba(255,255,255,.93) 70%),
+        linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,255,255,.90));
     }
  
-    /* нежная “бумажная” фактура поверх */
+    /* Лёгкая фактура */
     .grain{
       position: fixed;
       inset:0;
@@ -84,12 +87,11 @@
     }
  
     /* контент над фоном */
-    .topbar{ position: sticky; z-index: 50; }
+    .topbar{ position: sticky; z-index: 50; top:0; }
     main, .wrap{ position: relative; z-index: 3; }
  
     /* ===== ШАПКА ===== */
     .topbar{
-      top:0;
       background: rgba(255,255,255,.78);
       backdrop-filter: blur(12px);
       border-bottom:1px solid rgba(0,0,0,.08);
@@ -111,11 +113,11 @@
     }
     .seal{
       width:30px;height:30px;border-radius:999px;
-      border:1px solid rgba(15,42,95,.20);
-      background: radial-gradient(circle at 30% 30%, rgba(15,42,95,.12), rgba(15,42,95,.03));
+      border:1px solid rgba(0,0,0,.12);
+      background: radial-gradient(circle at 30% 30%, rgba(0,0,0,.06), rgba(0,0,0,.02));
       display:grid; place-items:center;
       box-shadow: 0 10px 24px rgba(0,0,0,.06);
-      color:var(--accent);
+      color: rgba(0,0,0,.70);
       font-size:14px;
       user-select:none;
     }
@@ -133,13 +135,13 @@
     }
     .nav a:hover{
       color:var(--ink);
-      border-color:rgba(15,42,95,.14);
-      background:rgba(15,42,95,.04);
+      border-color:rgba(0,0,0,.12);
+      background:rgba(0,0,0,.03);
     }
  
-    /* ===== КАРТОЧКИ (молочные) ===== */
+    /* ===== Карточки ===== */
     .card{
-      background: var(--milk);
+      background: var(--card);
       border:1px solid rgba(0,0,0,.09);
       border-radius:var(--radius);
       box-shadow:var(--shadow);
@@ -151,102 +153,157 @@
       .card.padded{padding:18px}
     }
  
-    /* ===== ДЕКОР: угловые листики + точки ===== */
-    .leaf-corner{
-      position:absolute;
-      width:210px; height:210px;
-      opacity:.20;
-      pointer-events:none;
-      filter: drop-shadow(0 12px 18px rgba(0,0,0,.08));
-    }
-    .leaf-corner.tl{top:-46px;left:-60px;transform:rotate(-10deg)}
-    .leaf-corner.br{bottom:-60px;right:-62px;transform:rotate(170deg)}
-    .leaf-corner.tr{top:-52px;right:-65px;transform:rotate(35deg);opacity:.14}
-    .leaf-corner.bl{bottom:-62px;left:-62px;transform:rotate(215deg);opacity:.14}
- 
-    .dots{
-      position:absolute;
-      inset:0;
-      pointer-events:none;
-      opacity:.10;
-      background-image:
-        radial-gradient(rgba(15,42,95,.35) 1px, transparent 1.6px);
-      background-size: 28px 28px;
-      mask-image: radial-gradient(420px 260px at 70% 20%, rgba(0,0,0,.9), transparent 65%);
-    }
- 
-    .hero{
-      padding:30px 0 14px;
+    /* ===== Обложка в стиле референса ===== */
+    .cover{
+      padding: 14px 0 10px;
       display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap:16px;
+      grid-template-columns: 1.2fr .8fr;
+      gap:14px;
       align-items:stretch;
     }
-    @media (max-width: 900px){
-      .hero{grid-template-columns:1fr}
+    @media (max-width: 900px){ .cover{grid-template-columns:1fr} }
+ 
+    .coverMain{
+      padding: 32px 26px 26px;
+      text-align:center;
     }
  
-    .kicker{
-      font-size:12px;
-      color:rgba(0,0,0,.52);
-      text-transform:uppercase;
-      letter-spacing:2.6px;
-      margin:0 0 12px;
+    .caps{
+      font-size: 12px;
+      letter-spacing: .42em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,.62);
+      margin: 4px 0 16px;
     }
  
-    /* ИМЕНА — нежно и аккуратно */
-    .namesBlock{ position: relative; }
-    .namesBig{
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: clamp(44px, 6vw, 72px);
-      font-weight: 600;
-      letter-spacing: .04em;
-      line-height: 1.05;
-      margin: 6px 0 10px;
-      color: #1a1a1a;
-      text-shadow: 0 6px 18px rgba(0,0,0,.07);
-    }
-    .namesBig .amp{
-      font-style: italic;
-      font-weight: 400;
-      opacity: .75;
+    .namesScript{
+      font-family: "Allura", cursive;
+      font-size: clamp(52px, 8vw, 86px);
+      line-height: .90;
+      color: var(--accent);
+      margin: 0;
+      position: relative;
+      display:inline-block;
+      transform: translateY(10px);
     }
  
-    /* Декоративная линия под именами */
-    .nameFlourish{
+    /* декоративная линия под именами (тонко и аккуратно) */
+    .flourish{
       display:flex;
       align-items:center;
-      justify-content:flex-start;
-      gap:12px;
-      margin: 0 0 12px;
-      color: rgba(15,42,95,.55);
+      justify-content:center;
+      gap:14px;
+      margin: 14px 0 10px;
+      color: rgba(0,0,0,.35);
     }
-    .nameFlourish .line{
+    .flourish .line{
       height:1px;
-      flex:1;
-      background: linear-gradient(90deg, rgba(15,42,95,.00), rgba(15,42,95,.26), rgba(15,42,95,.00));
-      border-radius:999px;
+      width: min(140px, 22vw);
+      background: linear-gradient(90deg, rgba(0,0,0,0), rgba(0,0,0,.22), rgba(0,0,0,0));
     }
-    .nameFlourish .orn{
-      width:56px;
-      height:16px;
-      opacity:.85;
+    .flourish svg{ width:54px; height:18px; opacity:.75; }
+ 
+    .dateBlock{
+      margin: 10px auto 18px;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      justify-items:center;
     }
  
-    .script{
-      font-family: "Marck Script", cursive;
-      font-weight: 400;
-      color: rgba(0,0,0,.72);
+    .dateBig{
+      font-size: clamp(84px, 12vw, 132px);
+      font-weight: 700;
+      letter-spacing: .02em;
+      line-height: .92;
+      color: #0a0a0a;
+      margin: 0;
+      font-variant-numeric: tabular-nums;
     }
-    .sub{
-      font-size:18px;
-      color:rgba(0,0,0,.60);
-      margin:0 0 18px;
-      line-height:1.5;
+    .dateBig .dot{
+      display:inline-block;
+      transform: translateY(-.04em);
+      margin: 0 .05em;
     }
  
-    .hr{height:1px;background:rgba(0,0,0,.08);margin:16px 0}
+    .dateYear{
+      font-size: clamp(86px, 12vw, 134px);
+      font-weight: 700;
+      letter-spacing: .06em;
+      line-height: .92;
+      color: #0a0a0a;
+      margin: 0;
+      font-variant-numeric: tabular-nums;
+    }
+ 
+    .bottomCaps{
+      margin-top: 16px;
+      color: rgba(0,0,0,.62);
+      font-size: 12px;
+      letter-spacing: .38em;
+      text-transform: uppercase;
+      line-height: 1.8;
+    }
+ 
+    .downArrow{
+      margin: 14px auto 0;
+      width: 26px; height: 26px;
+      display:grid; place-items:center;
+      color: rgba(0,0,0,.42);
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.65);
+      cursor: pointer;
+      transition: .2s ease;
+      user-select:none;
+    }
+    .downArrow:hover{
+      transform: translateY(1px);
+      border-color: rgba(0,0,0,.16);
+      background: rgba(255,255,255,.85);
+    }
+ 
+    /* ===== Правая колонка: таймер + адрес ===== */
+    .mini{display:grid;grid-template-columns:1fr;gap:12px}
+    h2{
+      margin:0 0 10px;
+      font-size:20px;
+      font-weight:700;
+      letter-spacing:-.2px;
+    }
+ 
+    .countdown{display:flex; gap:10px; flex-wrap:wrap; justify-content:center}
+    .pill{
+      min-width:96px;
+      text-align:center;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(0,0,0,.09);
+      background: rgba(255,255,255,.82);
+    }
+    .pill .n{
+      font-size:24px;font-weight:700;margin:0;
+      color: #0a0a0a;
+      font-variant-numeric: tabular-nums;
+    }
+    .pill .l{font-size:12px;color:rgba(0,0,0,.56);margin:2px 0 0}
+ 
+    .stat{
+      padding:16px;
+      border-radius:14px;
+      border:1px solid rgba(0,0,0,.09);
+      background: rgba(255,255,255,.84);
+    }
+    .stat .t{font-size:12px;color:rgba(0,0,0,.56);margin:0 0 8px;text-transform:uppercase;letter-spacing:1.6px}
+    .stat .v{font-size:16px;font-weight:700;margin:0; line-height:1.35}
+ 
+    /* ===== Остальные блоки (как было) ===== */
+    section{padding:10px 0}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    @media (max-width: 900px){ .grid{grid-template-columns:1fr} }
+ 
     .p{margin:0;color:rgba(0,0,0,.70);line-height:1.7}
+    .hr{height:1px;background:rgba(0,0,0,.08);margin:16px 0}
  
     .ctaRow{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
     .btn{
@@ -264,7 +321,7 @@
     }
     .btn:hover{
       background:#fff;
-      border-color:rgba(15,42,95,.18);
+      border-color:rgba(0,0,0,.16);
       box-shadow: 0 10px 25px rgba(0,0,0,.07);
     }
     .btn:active{transform: translateY(1px)}
@@ -273,105 +330,92 @@
       color:#fff;
       border-color: rgba(15,42,95,.40);
     }
-    .btn.primary:hover{
-      border-color: rgba(15,42,95,.56);
-      box-shadow: 0 14px 32px rgba(15,42,95,.12);
-    }
     .btn.ghost{
       background: transparent;
-      border-color: rgba(15,42,95,.16);
+      border-color: rgba(0,0,0,.12);
       color: rgba(0,0,0,.78);
     }
     .icon{width:16px;height:16px;opacity:.95}
  
-    .mini{display:grid;grid-template-columns:1fr;gap:12px}
-    .stat{
-      padding:16px;
-      border-radius:14px;
-      border:1px solid rgba(0,0,0,.09);
-      background: var(--milk2);
-    }
-    .stat .t{font-size:12px;color:rgba(0,0,0,.56);margin:0 0 8px;text-transform:uppercase;letter-spacing:1.6px}
-    .stat .v{font-size:18px;font-weight:700;margin:0}
- 
-    .countdown{display:flex; gap:10px; flex-wrap:wrap}
-    .pill{
-      min-width:96px;
-      text-align:center;
-      padding:10px 12px;
-      border-radius:14px;
-      border:1px solid rgba(0,0,0,.09);
-      background: rgba(255,255,255,.82);
-    }
-    .pill .n{
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-size:24px;font-weight:700;margin:0;
-      color: var(--accent);
-    }
-    .pill .l{font-size:12px;color:rgba(0,0,0,.56);margin:2px 0 0}
- 
-    section{padding:10px 0}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-    @media (max-width: 900px){ .grid{grid-template-columns:1fr} }
- 
-    h2{
-      margin:0 0 10px;
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-size:24px;
-      font-weight:700;
-      letter-spacing:-.2px;
-    }
- 
-    .badgeRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+    .badgeRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; justify-content:center}
     .badge{
       font-size:13px;
       padding:8px 10px;
       border-radius:999px;
-      border:1px solid rgba(15,42,95,.14);
-      background: rgba(15,42,95,.04);
+      border:1px solid rgba(0,0,0,.10);
+      background: rgba(0,0,0,.03);
       color: rgba(0,0,0,.70);
     }
  
-    form{display:grid; gap:10px; margin-top:10px}
-    .row{display:grid; grid-template-columns:1fr 1fr; gap:10px}
-    @media (max-width: 640px){ .row{grid-template-columns:1fr} }
-    label{font-size:12px;color:rgba(0,0,0,.60)}
-    input, select, textarea{
-      width:100%;
-      padding:12px 12px;
-      border-radius:12px;
-      border:1px solid rgba(0,0,0,.15);
-      background: rgba(255,255,255,.90);
-      color:var(--ink);
-      outline:none;
+    /* Программа дня */
+    .planList{margin:12px 0 0;padding:0;list-style:none}
+    .planRow{
+      display:grid;
+      grid-template-columns: 74px 1fr;
+      gap:12px;
+      padding:14px 0;
+      border-top:1px solid rgba(0,0,0,.08);
+      position:relative;
     }
-    input:focus, select:focus, textarea:focus{
-      border-color: rgba(15,42,95,.30);
-      box-shadow: 0 0 0 3px rgba(15,42,95,.09);
-      background:#fff;
+    .planRow:first-child{border-top:none;padding-top:6px}
+    .planTime{
+      font-variant-numeric: tabular-nums;
+      font-weight:900;
+      color: #0a0a0a;
+      display:flex;
+      align-items:flex-start;
+      gap:8px;
     }
-    textarea{min-height:105px;resize:vertical}
-    .note{font-size:12px;color:rgba(0,0,0,.56);margin-top:8px}
- 
-    footer{padding:26px 0 50px;color:rgba(0,0,0,.55);text-align:center}
- 
-    .reveal{opacity:0;transform: translateY(8px);transition: .6s ease}
-    .reveal.on{opacity:1;transform: translateY(0)}
- 
-    .divider{
-      display:flex; align-items:center; gap:10px;
-      margin:14px 0 0;
-      color: rgba(15,42,95,.52);
+    .planDot{
+      width:10px; height:10px;
+      border-radius:999px;
+      background: rgba(0,0,0,.70);
+      box-shadow: 0 0 0 6px rgba(0,0,0,.06);
+      margin-top:6px;
+      flex:0 0 auto;
     }
-    .divider .line{height:1px;flex:1;background:rgba(15,42,95,.14)}
-    .divider .mark{
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-style:italic;
-      font-size:16px;
-      letter-spacing:.4px;
+    .planBody{
+      padding-left:10px;
+      position:relative;
+    }
+    .planBody::before{
+      content:"";
+      position:absolute;
+      left:-14px;
+      top:0;
+      bottom:0;
+      width:2px;
+      background: linear-gradient(180deg, rgba(0,0,0,.14), rgba(0,0,0,.03));
+      border-radius:999px;
+    }
+    .planItemTitle{
+      font-size: 20px;
+      font-weight: 700;
+      color: #0a0a0a;
+      margin: 0 0 4px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .planIcon{
+      width:34px;height:34px;
+      border-radius:999px;
+      border:1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.80);
+      display:grid;place-items:center;
+      box-shadow: 0 10px 22px rgba(0,0,0,.05);
+      font-size: 18px;
+      line-height: 1;
+      flex:0 0 auto;
+    }
+    .planItemText{
+      margin:0;
+      font-size:15px;
+      color:rgba(0,0,0,.70);
+      line-height:1.6;
     }
  
-    /* ====== Карта ====== */
+    /* Карта */
     .mapWrap{
       border-radius:16px;
       overflow:hidden;
@@ -395,90 +439,31 @@
     }
     .hintList li{ margin:6px 0; }
  
-    /* ====== Программа дня: аккуратный таймлайн + иконки ===== */
-    .planList{margin:12px 0 0;padding:0;list-style:none}
-    .planRow{
-      display:grid;
-      grid-template-columns: 74px 1fr;
-      gap:12px;
-      padding:14px 0;
-      border-top:1px solid rgba(0,0,0,.08);
-      position:relative;
+    form{display:grid; gap:10px; margin-top:10px}
+    .row{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+    @media (max-width: 640px){ .row{grid-template-columns:1fr} }
+    label{font-size:12px;color:rgba(0,0,0,.60)}
+    input, select, textarea{
+      width:100%;
+      padding:12px 12px;
+      border-radius:12px;
+      border:1px solid rgba(0,0,0,.15);
+      background: rgba(255,255,255,.92);
+      color:var(--ink);
+      outline:none;
     }
-    .planRow:first-child{border-top:none;padding-top:6px}
+    input:focus, select:focus, textarea:focus{
+      border-color: rgba(0,0,0,.26);
+      box-shadow: 0 0 0 3px rgba(0,0,0,.06);
+      background:#fff;
+    }
+    textarea{min-height:105px;resize:vertical}
+    .note{font-size:12px;color:rgba(0,0,0,.56);margin-top:8px}
+    footer{padding:26px 0 50px;color:rgba(0,0,0,.55);text-align:center}
  
-    .planTime{
-      font-variant-numeric: tabular-nums;
-      font-weight:900;
-      color: var(--accent);
-      display:flex;
-      align-items:flex-start;
-      gap:8px;
-    }
-    .planDot{
-      width:10px; height:10px;
-      border-radius:999px;
-      background: var(--accent);
-      box-shadow: 0 0 0 6px rgba(15,42,95,.07);
-      margin-top:6px;
-      flex:0 0 auto;
-    }
-    .planBody{
-      padding-left:10px;
-      position:relative;
-    }
-    .planBody::before{
-      content:"";
-      position:absolute;
-      left:-14px;
-      top:0;
-      bottom:0;
-      width:2px;
-      background: linear-gradient(180deg, rgba(15,42,95,.14), rgba(15,42,95,.03));
-      border-radius:999px;
-    }
-    .planItemTitle{
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: 24px;
-      font-weight: 700;
-      color: var(--accent);
-      margin: 0 0 4px;
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
-    .planIcon{
-      width:34px;height:34px;
-      border-radius:999px;
-      border:1px solid rgba(15,42,95,.12);
-      background: rgba(15,42,95,.04);
-      display:grid;place-items:center;
-      box-shadow: 0 10px 22px rgba(0,0,0,.05);
-      font-size: 18px;
-      line-height: 1;
-      flex:0 0 auto;
-    }
-    .planItemText{
-      margin:0;
-      font-size:15px;
-      color:rgba(0,0,0,.70);
-      line-height:1.6;
-    }
- 
-    .detailsText{
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: 19px;
-      font-weight: 600;
-      color: rgba(0,0,0,.78);
-      line-height: 1.7;
-    }
-    .detailsText strong{ color: var(--accent); }
+    .reveal{opacity:0;transform: translateY(8px);transition: .6s ease}
+    .reveal.on{opacity:1;transform: translateY(0)}
   </style>
- 
-  <!-- Предзагрузка фона (помогает, если фото долго подхватываются) -->
-  <link rel="preload" as="image" href="https://i.ibb.co/Nd2QbKPQ/IMG-0302.jpg">
-  <link rel="preload" as="image" href="https://i.ibb.co/bMN4QBry/B2-AC3-B25-113-B-4-C73-AF84-DB8-BFEC273-F0.jpg">
-  <link rel="preload" as="image" href="https://i.ibb.co/DHpQVmcZ/IMG-5025.jpg">
 </head>
  
 <body>
@@ -508,126 +493,68 @@
   </div>
  
   <main class="wrap">
-    <div class="hero">
-      <div class="card padded reveal">
-        <div class="dots" aria-hidden="true"></div>
  
-        <!-- больше декоративных элементов: 4 угла -->
-        <svg class="leaf-corner tl" viewBox="0 0 220 220" aria-hidden="true">
-          <g fill="none" stroke="rgba(15,42,95,.55)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M40 170c45-68 85-105 150-125" />
-            <path d="M62 155c15-25 28-40 58-64" />
-            <path d="M78 142c12-18 24-30 44-45" />
-            <path d="M95 130c10-13 18-22 34-32" />
-            <path d="M53 160c18 2 30 0 44-6" />
-            <path d="M68 145c18 1 28-1 40-7" />
-            <path d="M84 132c14 1 23-1 34-6" />
-          </g>
-        </svg>
-        <svg class="leaf-corner br" viewBox="0 0 220 220" aria-hidden="true">
-          <g fill="none" stroke="rgba(15,42,95,.55)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M40 170c45-68 85-105 150-125" />
-            <path d="M62 155c15-25 28-40 58-64" />
-            <path d="M78 142c12-18 24-30 44-45" />
-            <path d="M95 130c10-13 18-22 34-32" />
-          </g>
-        </svg>
-        <svg class="leaf-corner tr" viewBox="0 0 220 220" aria-hidden="true">
-          <g fill="none" stroke="rgba(15,42,95,.55)" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M40 170c45-68 85-105 150-125" />
-            <path d="M62 155c15-25 28-40 58-64" />
-          </g>
-        </svg>
-        <svg class="leaf-corner bl" viewBox="0 0 220 220" aria-hidden="true">
-          <g fill="none" stroke="rgba(15,42,95,.55)" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M40 170c45-68 85-105 150-125" />
-            <path d="M78 142c12-18 24-30 44-45" />
-          </g>
-        </svg>
+    <!-- ОБЛОЖКА -->
+    <div class="cover">
+      <div class="card coverMain reveal" id="top">
+        <div class="caps">ПРИГЛАШЕНИЕ<br>НА СВАДЬБУ</div>
  
-        <p class="kicker">свадебное приглашение</p>
+        <div class="namesScript">Александр + Гюнель</div>
  
-        <div class="namesBlock">
-          <div class="namesBig">
-            Александр <span class="amp">&amp;</span> Гюнель
-          </div>
- 
-          <!-- декоративная линия под именами -->
-          <div class="nameFlourish" aria-hidden="true">
-            <div class="line"></div>
-            <svg class="orn" viewBox="0 0 120 32" fill="none">
-              <path d="M8 16c14-12 26-12 40 0s26 12 40 0 26-12 40 0"
-                    stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
-              <path d="M58 16c2-6 6-10 12-12-2 6-6 10-12 12z" fill="currentColor" opacity=".35"/>
-              <path d="M62 16c2-6 6-10 12-12-2 6-6 10-12 12z" fill="currentColor" opacity=".18"/>
-            </svg>
-            <div class="line"></div>
-          </div>
-        </div>
- 
-        <p class="sub">
-          Витебск · 21 августа 2026 · начало в <span class="script">15:00</span>
-        </p>
- 
-        <div class="ctaRow">
-          <a class="btn primary" href="#rsvp">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            Подтвердить участие
-          </a>
- 
-          <a class="btn" id="routeBtn" target="_blank" rel="noopener">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M10 20.5l-1.5-1.2A8.5 8.5 0 1119 10c0 6-9 10.5-9 10.5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-              <path d="M12 11a2 2 0 100-4 2 2 0 000 4z" stroke="currentColor" stroke-width="2"/>
-            </svg>
-            Построить маршрут
-          </a>
- 
-          <a class="btn ghost" href="#details">Смотреть детали</a>
-        </div>
- 
-        <div class="divider" aria-hidden="true">
+        <div class="flourish" aria-hidden="true">
           <div class="line"></div>
-          <div class="mark">with love</div>
+          <svg viewBox="0 0 120 32" fill="none">
+            <path d="M8 16c14-12 26-12 40 0s26 12 40 0 26-12 40 0"
+                  stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M58 16c2-6 6-10 12-12-2 6-6 10-12 12z" fill="currentColor" opacity=".25"/>
+            <path d="M62 16c2-6 6-10 12-12-2 6-6 10-12 12z" fill="currentColor" opacity=".12"/>
+          </svg>
           <div class="line"></div>
         </div>
  
-        <div class="hr"></div>
+        <div class="dateBlock" aria-label="Дата свадьбы">
+          <p class="dateBig">21<span class="dot">•</span>08</p>
+          <p class="dateYear">2026</p>
+        </div>
  
-        <p class="p">
-          Мы будем счастливы разделить этот день с вами.
-          <span class="script">Приходите праздновать нашу свадьбу</span> 🤍
-        </p>
+        <div class="bottomCaps">
+          БУДЕМ РАДЫ ВАС ВИДЕТЬ<br>
+          ВИТЕБСКИЙ РАЙОН
+        </div>
  
-        <div class="badgeRow">
-          <span class="badge">🖤🤍 чёрно-белый стиль</span>
-          <span class="badge">💙 синий акцент</span>
-          <span class="badge">🥂 вместо цветов — бутылочка напитка</span>
+        <div class="downArrow" id="downBtn" title="Вниз" aria-label="Прокрутить вниз">↓</div>
+ 
+        <div class="badgeRow" style="margin-top:16px">
+          <span class="badge">15:00 · сбор гостей</span>
+          <span class="badge">🖤🤍 + акцент</span>
           <span class="badge">🚌 будет трансфер</span>
         </div>
       </div>
  
       <div class="mini">
         <div class="card padded reveal">
-          <h2 style="margin-bottom:8px">До свадьбы</h2>
+          <h2 style="text-align:center;margin-bottom:8px">До свадьбы</h2>
           <div class="countdown" id="countdown" aria-live="polite">
             <div class="pill"><p class="n" id="d">—</p><p class="l">дней</p></div>
             <div class="pill"><p class="n" id="h">—</p><p class="l">часов</p></div>
             <div class="pill"><p class="n" id="m">—</p><p class="l">минут</p></div>
             <div class="pill"><p class="n" id="s">—</p><p class="l">секунд</p></div>
           </div>
-          <p class="note">21.08.2026 · 15:00</p>
+          <p class="note" style="text-align:center">21.08.2026 · 15:00</p>
         </div>
  
         <div class="card padded reveal">
           <div class="stat">
             <p class="t">Адрес</p>
-            <p class="v" style="font-size:16px; font-weight:700; line-height:1.35">
+            <p class="v">
               Витебский район, Вороновский сельсовет,<br>
               деревня Дрюково, Центральная улица, 32
             </p>
+          </div>
+          <div class="hr"></div>
+          <div class="ctaRow" style="justify-content:center">
+            <a class="btn primary" href="#rsvp">RSVP</a>
+            <a class="btn" href="#route">Карта</a>
           </div>
         </div>
       </div>
@@ -637,17 +564,14 @@
       <div class="grid">
         <div class="card padded reveal">
           <h2>Где и когда</h2>
- 
-          <p class="detailsText">
+          <p class="p">
             <strong>Сбор гостей:</strong> 15:00<br>
             <strong>Дата:</strong> 21 августа 2026<br>
             <strong>Адрес:</strong><br>
             Витебский район, Вороновский сельсовет,<br>
             деревня Дрюково, Центральная улица, 32
           </p>
- 
           <div class="hr"></div>
- 
           <div class="ctaRow">
             <a class="btn" id="mapsBtn" target="_blank" rel="noopener">Открыть карту</a>
             <button class="btn ghost" id="copyAddressBtn" type="button">Скопировать адрес</button>
@@ -657,17 +581,15 @@
  
         <div class="card padded reveal">
           <h2>Коротко о дне</h2>
- 
-          <p class="detailsText">
-            Дресс-код — <strong>ч/б</strong> 🖤🤍 + <strong>синий акцент</strong> 💙 (по желанию).<br>
+          <p class="p">
+            Дресс-код — <strong>ч/б</strong> 🖤🤍 (акцент по желанию).<br>
             Вместо цветов — <strong>бутылочка напитка</strong> 🥂<br>
             Будет трансфер — отметьте в RSVP.
           </p>
- 
           <div class="hr"></div>
           <div class="ctaRow">
             <a class="btn ghost" href="#route">Как добраться</a>
-            <a class="btn" href="#plan">Программа дня</a>
+            <a class="btn" href="#plan">Программа</a>
           </div>
         </div>
       </div>
@@ -678,17 +600,14 @@
         <div class="card padded reveal">
           <h2>Как добраться и парковка</h2>
           <p class="p">
-            Для удобства мы добавили подсказки и карту.
-            Если поедете на своём авто — пожалуйста, приезжайте заранее.
+            Для удобства — подсказки и карта. Если на авто — приезжайте заранее.
           </p>
- 
           <ul class="hintList">
             <li><strong>Навигатор:</strong> по адресу из раздела “Где и когда”.</li>
             <li><strong>Парковка:</strong> рядом/на территории (следуйте указателям).</li>
             <li><strong>Опоздания:</strong> если задерживаетесь — напишите организатору.</li>
             <li><strong>Трансфер:</strong> если нужен — отметьте в RSVP.</li>
           </ul>
- 
           <div class="hr"></div>
           <div class="ctaRow">
             <a class="btn primary" id="mapsPrimaryBtn" target="_blank" rel="noopener">Открыть в Google Maps</a>
@@ -702,7 +621,6 @@
           <p class="p" style="margin-bottom:10px">
             Можно приблизить/отдалить и открыть в отдельной вкладке.
           </p>
- 
           <div class="mapWrap">
             <iframe
               id="mapFrame"
@@ -712,7 +630,6 @@
               title="Карта — Дрюково, Центральная 32">
             </iframe>
           </div>
- 
           <p class="note" style="margin-top:10px">
             Если карта не отображается — откройте Google Maps кнопкой слева.
           </p>
@@ -765,20 +682,10 @@
           <h2>Дресс-код</h2>
           <p class="p">
             <strong>Чёрно-белая палитра</strong> 🖤🤍<br>
-            Будем рады, если вы поддержите стиль вечера образами в чёрно-белых тонах.
-            <span class="script">Синий акцент</span> — по желанию 💙
+            Акцент (необязательно) — можно в деталях.
           </p>
  
-          <div class="badgeRow">
-            <span class="badge">черный</span>
-            <span class="badge">белый</span>
-            <span class="badge">графит</span>
-            <span class="badge">молочный</span>
-            <span class="badge">синий акцент</span>
-          </div>
- 
           <div class="hr"></div>
- 
           <h2 style="margin-top:0">Пожелания</h2>
           <p class="p">
             Пожалуйста, <strong>вместо цветов</strong> подарите <strong>бутылочку любимого напитка</strong> 🥂
@@ -908,23 +815,23 @@
         </div>
  
         <div class="card padded reveal">
-          <h2>Небольшая памятка</h2>
+          <h2>Памятка</h2>
           <p class="p">
-            Приезжайте к 15:00 · Ч/б стиль (синий — по желанию) · Трансфер будет — отметьте в RSVP.
+            Приезжайте к 15:00 · Ч/б стиль · Трансфер будет — отметьте в RSVP.
           </p>
         </div>
       </div>
     </section>
  
     <footer class="reveal">
-      <div class="script" style="font-size:20px; margin-bottom:6px;">Александр &amp; Гюнель</div>
+      <div style="font-family: Allura, cursive; font-size:26px; color: var(--accent); margin-bottom:6px;">Александр &amp; Гюнель</div>
       21.08.2026 · Витебский район · Дрюково · Центральная, 32
     </footer>
   </main>
  
   <script>
     // =========================
-    // ЧИСТЫЙ СКРИПТ
+    // СКРИПТ (фон + карты + таймер + RSVP)
     // =========================
  
     // 1) Дата свадьбы
@@ -933,29 +840,36 @@
     // 2) Адрес + карты
     const addressText = "Витебский район, Вороновский сельсовет, деревня Дрюково, Центральная улица, 32";
     const placeText = "Дрюково, Центральная 32";
- 
     const mapsQuery = encodeURIComponent(placeText + ", " + addressText);
     const mapsUrl = "https://www.google.com/maps/search/?api=1&query=" + mapsQuery;
     const embedUrl = "https://www.google.com/maps?q=" + mapsQuery + "&output=embed";
  
-    // 3) RSVP -> Google Sheets
+    // 3) RSVP -> Google Sheets (твой URL)
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyU1T7nihR_oqbwWHgWGCmoRBx6g7a_JxquL3VyVl668RORpaqeAek6BkAxsvoZ9jy0/exec";
  
-    // 4) Ваши фото для фона
-    // ВАЖНО: это прямые ссылки i.ibb.co — они подходят для фоновых картинок.
+    // 4) ФОН: ВАЖНО! Эти пути должны существовать в репозитории:
+    //    создай папку assets и положи туда фото:
+    //    assets/bg1.jpg, assets/bg2.jpg, assets/bg3.jpg, ...
     const BG_IMAGES = [
-      "https://i.ibb.co/Nd2QbKPQ/IMG-0302.jpg",
-      "https://i.ibb.co/bMN4QBry/B2-AC3-B25-113-B-4-C73-AF84-DB8-BFEC273-F0.jpg",
-      "https://i.ibb.co/DHpQVmcZ/IMG-5025.jpg",
-      "https://i.ibb.co/jvRwDBgy/IMG-4360.png",
-      "https://i.ibb.co/ccWD9ZZD/IMG-0766.jpg",
-      "https://i.ibb.co/QFWdhsG6/IMG-4854.jpg"
+      "assets/bg1.jpg",
+      "assets/bg2.jpg",
+      "assets/bg3.jpg",
+      "assets/bg4.jpg",
+      "assets/bg5.jpg",
+      "assets/bg6.jpg"
     ];
  
+    // ====== Кнопка вниз на обложке ======
+    const downBtn = document.getElementById("downBtn");
+    downBtn?.addEventListener("click", () => {
+      const el = document.getElementById("details");
+      if(el) el.scrollIntoView({ behavior: "smooth" });
+    });
+ 
     // ====== Карта ======
-    document.getElementById("routeBtn").href = mapsUrl;
     document.getElementById("mapsBtn").href = mapsUrl;
     document.getElementById("mapsPrimaryBtn").href = mapsUrl;
+    document.getElementById("routeBtn")?.setAttribute("href", mapsUrl);
     document.getElementById("mapFrame").src = embedUrl;
  
     // ====== Копирование ======
@@ -1013,8 +927,7 @@
     // ====== RSVP: черновик + отправка ======
     const form = document.getElementById("rsvpForm");
     const saveDraftBtn = document.getElementById("saveDraftBtn");
-    const statusNote = document.getElementById("statusNote");
-    const draftKey = "wedding_rsvp_draft_soft_v2";
+    const draftKey = "wedding_rsvp_draft_ref_cover_v1";
  
     function getFormData(){
       const data = new FormData(form);
@@ -1067,7 +980,6 @@
       const oldText = submitBtn.textContent;
       submitBtn.disabled = true;
       submitBtn.textContent = "Отправляем…";
-      statusNote.textContent = "";
  
       try {
         await fetch(SCRIPT_URL, {
@@ -1088,7 +1000,7 @@
       }
     });
  
-    // ====== Мягкое появление блоков ======
+    // ====== Плавное появление блоков ======
     const items = document.querySelectorAll(".reveal");
     const io = new IntersectionObserver((entries)=>{
       for(const e of entries){
@@ -1097,38 +1009,45 @@
     }, { threshold: .12 });
     items.forEach(el => io.observe(el));
  
-    // ====== Фон: плавная смена фото ======
+    // ====== Фон: грузим только те картинки, которые реально загрузились ======
     const layerA = document.querySelector(".bgLayer.a");
     const layerB = document.querySelector(".bgLayer.b");
  
     function preload(url){
       return new Promise((resolve) => {
         const img = new Image();
-        img.onload = () => resolve(true);
-        img.onerror = () => resolve(false);
+        img.onload = () => resolve({ url, ok:true });
+        img.onerror = () => resolve({ url, ok:false });
         img.src = url;
       });
     }
  
     (async function initBg(){
-      if(!layerA || !layerB || !BG_IMAGES.length) return;
+      if(!layerA || !layerB) return;
  
-      // прогоняем прелоад (чтобы "не появившиеся" фото подхватились)
-      for(const u of BG_IMAGES){ await preload(u); }
+      // проверяем какие картинки реально доступны
+      const checks = await Promise.all(BG_IMAGES.map(preload));
+      const okImages = checks.filter(x => x.ok).map(x => x.url);
+ 
+      // если ничего не загрузилось — просто оставим светлый фон (чтобы сайт не "ломался")
+      if(!okImages.length){
+        console.log("BG: no images loaded. Проверь папку assets и имена файлов.");
+        return;
+      }
  
       let idx = 0;
       let showA = true;
  
-      layerA.style.backgroundImage = `url("${BG_IMAGES[0]}")`;
+      layerA.style.backgroundImage = `url("${okImages[0]}")`;
       layerA.classList.add("on");
  
       function nextBg(){
-        idx = (idx + 1) % BG_IMAGES.length;
+        idx = (idx + 1) % okImages.length;
  
         const showLayer = showA ? layerB : layerA;
         const hideLayer = showA ? layerA : layerB;
  
-        showLayer.style.backgroundImage = `url("${BG_IMAGES[idx]}")`;
+        showLayer.style.backgroundImage = `url("${okImages[idx]}")`;
         showLayer.classList.add("on");
         hideLayer.classList.remove("on");
  
@@ -1136,6 +1055,7 @@
       }
  
       setInterval(nextBg, 9000);
+      console.log("BG: loaded", okImages.length, "images");
     })();
   </script>
 </body>
