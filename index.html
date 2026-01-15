@@ -1,0 +1,718 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Александр & Гюнель — приглашение на свадьбу</title>
+  <meta name="description" content="Приглашение на свадьбу Александра и Гюнель" />
+ 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+ 
+  <style>
+    :root{
+      --bg:#fbfaf8;
+      --text:#101114;
+      --muted:#5f646d;
+      --card:#ffffff;
+      --stroke: rgba(16,17,20,.12);
+ 
+      --accent:#0f2a5f;   /* тёмно-синий */
+      --accent2:#0b0f16;  /* почти чёрный */
+ 
+      --serif: "Cormorant Garamond", serif;
+      --sans: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+ 
+      --radius: 18px;
+      --shadow: 0 18px 50px rgba(0,0,0,.08);
+    }
+ 
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:var(--sans);
+      line-height:1.55;
+    }
+ 
+    .container{
+      width:min(980px, calc(100% - 40px));
+      margin-inline:auto;
+    }
+ 
+    .section{ padding:64px 0; }
+ 
+    .section__title{
+      margin:0 0 18px;
+      font-family:var(--serif);
+      font-weight:600;
+      font-size:clamp(28px, 4vw, 44px);
+      letter-spacing:.02em;
+    }
+ 
+    .section__title--caps{
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      font-weight:500;
+      font-size:clamp(18px, 2.6vw, 28px);
+    }
+ 
+    .lead{
+      margin:10px 0;
+      font-size:clamp(16px, 2vw, 18px);
+    }
+ 
+    .muted{color:var(--muted); margin:0 0 22px}
+ 
+    .divider{
+      width:110px;
+      height:2px;
+      background:linear-gradient(90deg, transparent, rgba(15,42,95,.45), transparent);
+      margin:0 auto 18px;
+      border-radius:999px;
+    }
+ 
+    /* HERO */
+    .hero{
+      position:relative;
+      min-height:92vh;
+      display:grid;
+      align-items:center;
+      overflow:hidden;
+      background:var(--accent2);
+    }
+ 
+    .hero__bg{
+      position:absolute; inset:0;
+      background:
+        radial-gradient(900px 600px at 50% 25%, rgba(255,255,255,.10), transparent 60%),
+        radial-gradient(900px 600px at 30% 90%, rgba(15,42,95,.35), transparent 60%),
+        linear-gradient(135deg, #0b0f16, #0f2a5f);
+      transform:scale(1.04);
+    }
+ 
+    .hero__overlay{
+      position:absolute; inset:0;
+      background:
+        radial-gradient(1200px 700px at 50% 45%, rgba(0,0,0,.05), rgba(0,0,0,.45));
+    }
+ 
+    .hero__content{
+      position:relative;
+      color:#fff;
+      text-align:center;
+      padding:56px 0;
+    }
+ 
+    .hero__eyebrow{
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      opacity:.9;
+      font-size:12px;
+    }
+ 
+    .hero__title{ margin:14px 0 10px; line-height:1.05; }
+ 
+    .hero__subtitle{
+      display:block;
+      font-family:var(--serif);
+      font-weight:500;
+      font-size:clamp(18px, 2.3vw, 24px);
+      letter-spacing:.06em;
+      opacity:.95;
+    }
+ 
+    .hero__main{
+      display:block;
+      font-family:var(--serif);
+      font-weight:600;
+      font-size:clamp(40px, 6vw, 72px);
+      text-transform:lowercase;
+    }
+ 
+    .hero__main--thin{ font-weight:500; }
+ 
+    .hero__names{
+      margin-top:10px;
+      font-family:var(--serif);
+      font-size:clamp(22px, 3vw, 30px);
+      letter-spacing:.06em;
+      opacity:.95;
+    }
+ 
+    .hero__date{
+      display:inline-flex;
+      gap:14px;
+      align-items:baseline;
+      padding:14px 18px;
+      border:1px solid rgba(255,255,255,.22);
+      border-radius:999px;
+      backdrop-filter: blur(6px);
+      background: rgba(0,0,0,.18);
+      margin-top:18px;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+ 
+    .hero__dateDayMonth{
+      font-family:var(--serif);
+      font-size:22px;
+      letter-spacing:.18em;
+    }
+    .hero__dateYear{
+      font-family:var(--sans);
+      font-size:14px;
+      letter-spacing:.28em;
+      opacity:.9;
+    }
+    .hero__dateTime{
+      font-family:var(--sans);
+      font-size:14px;
+      letter-spacing:.18em;
+      opacity:.9;
+    }
+ 
+    .hero__btn{
+      display:inline-block;
+      margin-top:22px;
+      padding:12px 18px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.22);
+      text-decoration:none;
+      color:#fff;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      font-size:12px;
+      background: rgba(255,255,255,.08);
+    }
+    .hero__btn:hover{ filter:brightness(1.06); }
+ 
+    /* CARDS */
+    .card{
+      background:var(--card);
+      border:1px solid var(--stroke);
+      border-radius:var(--radius);
+      box-shadow: var(--shadow);
+      padding:22px;
+    }
+ 
+    .card__text{margin:10px 0;}
+ 
+    /* COUNTDOWN */
+    .countdown{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0,1fr));
+      gap:14px;
+      margin-top:18px;
+    }
+    .countdown__item{
+      background:var(--card);
+      border:1px solid var(--stroke);
+      border-radius:16px;
+      padding:18px 10px;
+      text-align:center;
+    }
+    .countdown__num{
+      font-family:var(--serif);
+      font-size:clamp(26px, 4vw, 44px);
+      letter-spacing:.06em;
+    }
+    .countdown__label{
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.22em;
+      color:var(--muted);
+    }
+    @media (max-width:640px){
+      .countdown{grid-template-columns:repeat(2,1fr)}
+    }
+ 
+    /* TIMELINE */
+    .timeline{ display:grid; gap:14px; margin-top:18px; }
+    .event{
+      display:grid;
+      grid-template-columns:110px 1fr;
+      gap:14px;
+      padding:18px;
+      border-radius:var(--radius);
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.8);
+    }
+    .event__time{
+      font-family:var(--serif);
+      font-size:24px;
+      letter-spacing:.08em;
+      color:var(--accent);
+    }
+    .event__title{
+      margin:0;
+      font-family:var(--serif);
+      font-size:22px;
+    }
+    .event__text{ margin:6px 0 0; color:var(--muted); }
+    @media (max-width:640px){ .event{grid-template-columns:1fr} }
+ 
+    /* DETAILS */
+    .details{ display:grid; gap:12px; margin-top:18px; }
+    .details__item{
+      background:var(--card);
+      border:1px solid var(--stroke);
+      border-radius:16px;
+      padding:16px;
+    }
+ 
+    /* MAP */
+    .mapWrap{margin-top:14px}
+    .mapSlot{
+      width:100%;
+      aspect-ratio: 16 / 9;
+      border-radius:16px;
+      overflow:hidden;
+      border:1px solid var(--stroke);
+      background:#f2f3f7;
+      display:grid;
+      place-items:center;
+    }
+    .mapPlaceholder{
+      text-align:center;
+      color:var(--muted);
+      padding:18px;
+    }
+ 
+    /* PALETTE */
+    .palette{
+      margin-top:14px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+    .swatch{
+      width:44px; height:44px;
+      border-radius:999px;
+      border:1px solid rgba(0,0,0,.12);
+      box-shadow: 0 10px 22px rgba(0,0,0,.10);
+    }
+ 
+    /* FORM */
+    .form{
+      background:var(--card);
+      border:1px solid var(--stroke);
+      border-radius:var(--radius);
+      box-shadow: var(--shadow);
+      padding:22px;
+    }
+ 
+    .form__group{margin:0 0 18px; border:0; padding:0}
+    .form__label{
+      display:block;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.22em;
+      color:var(--muted);
+      margin:0 0 10px;
+    }
+ 
+    .input{
+      width:100%;
+      padding:14px 14px;
+      border-radius:14px;
+      border:1px solid rgba(16,17,20,.18);
+      outline:none;
+      font-size:16px;
+      background:#fff;
+    }
+    .input:focus{border-color: rgba(16,17,20,.35)}
+ 
+    .radio, .check{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding:10px 0;
+      user-select:none;
+    }
+    .radio input, .check input{transform:translateY(2px)}
+ 
+    .hint{ margin-top:8px; color:var(--muted); font-size:13px; }
+    .form__error{
+      margin-top:8px;
+      color:#a11d1d;
+      font-size:13px;
+      min-height:18px;
+    }
+ 
+    .btn{
+      width:100%;
+      border:0;
+      border-radius:999px;
+      padding:14px 18px;
+      font-size:12px;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      background:var(--accent);
+      color:#fff;
+      cursor:pointer;
+    }
+    .btn:hover{filter:brightness(1.05)}
+    .btn:disabled{opacity:.6; cursor:not-allowed}
+ 
+    .form__status{ margin-top:12px; color:var(--muted); min-height:22px; }
+    .fineprint{ margin:14px 0 0; color:var(--muted); font-size:12px; }
+ 
+    /* FOOTER */
+    .footer{ padding:30px 0 40px; color:var(--muted); }
+    .footer__inner{
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      align-items:center;
+    }
+    .toTop{
+      color:var(--muted);
+      text-decoration:none;
+      border-bottom:1px dashed rgba(95,100,109,.55);
+    }
+    .toTop:hover{color:var(--text)}
+    .footer__small{opacity:.9}
+  </style>
+</head>
+ 
+<body>
+  <header class="hero" id="top">
+    <div class="hero__bg" aria-hidden="true"></div>
+    <div class="hero__overlay" aria-hidden="true"></div>
+ 
+    <div class="container hero__content">
+      <div class="hero__eyebrow">Витебск • Николаево</div>
+ 
+      <h1 class="hero__title">
+        <span class="hero__subtitle">будем рады вас видеть</span>
+        <span class="hero__main">приглашение</span>
+        <span class="hero__main hero__main--thin">на свадьбу</span>
+      </h1>
+ 
+      <div class="hero__names">Александр &amp; Гюнель</div>
+ 
+      <div class="hero__date">
+        <div class="hero__dateDayMonth">21•08</div>
+        <div class="hero__dateYear">2026</div>
+        <div class="hero__dateTime">15:00</div>
+      </div>
+ 
+      <a class="hero__btn" href="#rsvp">Подтвердить присутствие</a>
+    </div>
+  </header>
+ 
+  <main>
+    <section class="section section--intro">
+      <div class="container">
+        <div class="divider"></div>
+        <h2 class="section__title">Дорогие гости!</h2>
+        <p class="lead">
+          С огромной радостью приглашаем вас разделить с нами особенный день — нашу свадьбу.
+        </p>
+        <p class="lead">
+          Нам будет очень приятно видеть вас рядом в этот момент.
+        </p>
+      </div>
+    </section>
+ 
+    <section class="section section--countdown" id="countdown">
+      <div class="container">
+        <h2 class="section__title section__title--caps">До свадьбы осталось</h2>
+ 
+        <div class="countdown" role="timer" aria-live="polite">
+          <div class="countdown__item">
+            <div class="countdown__num" id="cdDays">00</div>
+            <div class="countdown__label">Дни</div>
+          </div>
+          <div class="countdown__item">
+            <div class="countdown__num" id="cdHours">00</div>
+            <div class="countdown__label">Часы</div>
+          </div>
+          <div class="countdown__item">
+            <div class="countdown__num" id="cdMins">00</div>
+            <div class="countdown__label">Мин</div>
+          </div>
+          <div class="countdown__item">
+            <div class="countdown__num" id="cdSecs">00</div>
+            <div class="countdown__label">Сек</div>
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+    <section class="section section--schedule" id="schedule">
+      <div class="container">
+        <h2 class="section__title section__title--caps">Программа дня</h2>
+ 
+        <div class="timeline">
+          <div class="event" data-reveal>
+            <div class="event__time">15:00</div>
+            <div>
+              <h3 class="event__title">Сбор гостей</h3>
+              <p class="event__text">Просим прийти немного заранее — чтобы спокойно разместиться и пообщаться.</p>
+            </div>
+          </div>
+ 
+          <div class="event" data-reveal>
+            <div class="event__time">15:30</div>
+            <div>
+              <h3 class="event__title">Церемония</h3>
+              <p class="event__text">Трогательный момент — можно взять с собой платочки 🙂</p>
+            </div>
+          </div>
+ 
+          <div class="event" data-reveal>
+            <div class="event__time">16:30</div>
+            <div>
+              <h3 class="event__title">Праздничный вечер</h3>
+              <p class="event__text">Ужин, тосты, музыка и танцы.</p>
+            </div>
+          </div>
+ 
+          <div class="event" data-reveal>
+            <div class="event__time">23:00</div>
+            <div>
+              <h3 class="event__title">Завершение</h3>
+              <p class="event__text">К сожалению, даже такой тёплый вечер когда-то заканчивается.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+    <section class="section section--location" id="location">
+      <div class="container">
+        <h2 class="section__title section__title--caps">Место</h2>
+ 
+        <div class="card" data-reveal>
+          <p class="card__text">
+            <strong>Город/деревня:</strong> Витебск, Николаево
+          </p>
+          <p class="card__text">
+            (Если хочешь — позже добавим точный адрес и карту.)
+          </p>
+ 
+          <div class="mapWrap">
+            <div class="mapSlot" id="mapSlot">
+              <div class="mapPlaceholder">
+                Карта (необязательно).<br>
+                Если хочешь — пришли ссылку на место в Google/Яндекс, и я вставлю карту.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+    <section class="section section--details" id="details">
+      <div class="container">
+        <h2 class="section__title section__title--caps">Небольшие детали</h2>
+ 
+        <div class="details">
+          <div class="details__item" data-reveal>
+            Если хотите сделать подарок — нам будет приятно получить пожелания в конверте.
+          </div>
+          <div class="details__item" data-reveal>
+            Вместо цветов можно принести бутылочку вина/шампанского — мы откроем её в один из будущих праздников.
+          </div>
+          <div class="details__item" data-reveal>
+            Будем благодарны, если без «Горько» — пусть поцелуи будут по любви, а не по заказу 🙂
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+    <section class="section section--dresscode" id="dresscode">
+      <div class="container">
+        <h2 class="section__title section__title--caps">Дресс-код</h2>
+ 
+        <div class="card" data-reveal>
+          <p class="card__text">
+            Будем рады, если вы поддержите палитру торжества.
+          </p>
+ 
+          <div class="palette">
+            <div class="swatch" style="background:#0b0f16" title="чёрный"></div>
+            <div class="swatch" style="background:#ffffff" title="белый"></div>
+            <div class="swatch" style="background:#0f2a5f" title="тёмно-синий"></div>
+            <div class="swatch" style="background:#2b3a55" title="сине-серый"></div>
+            <div class="swatch" style="background:#c9d2e3" title="светлый голубовато-серый"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+    <section class="section section--rsvp" id="rsvp">
+      <div class="container">
+        <h2 class="section__title section__title--caps">Подтверждение присутствия</h2>
+        <p class="muted">Пожалуйста, ответьте — чтобы мы всё правильно организовали.</p>
+ 
+        <form class="form" id="rsvpForm" novalidate>
+          <fieldset class="form__group">
+            <legend class="form__label">Вы сможете присутствовать?</legend>
+ 
+            <label class="radio">
+              <input type="radio" name="attendance" value="yes" required>
+              <span>Да, приду / придём</span>
+            </label>
+            <label class="radio">
+              <input type="radio" name="attendance" value="no" required>
+              <span>Не получится</span>
+            </label>
+            <label class="radio">
+              <input type="radio" name="attendance" value="+1" required>
+              <span>Буду +1</span>
+            </label>
+ 
+            <div class="form__error" data-error-for="attendance"></div>
+          </fieldset>
+ 
+          <div class="form__group">
+            <label class="form__label" for="names">Имя и фамилия</label>
+            <input class="input" id="names" name="names" placeholder="Например: Анна Иванова, Иван Иванов" minlength="3" required />
+            <div class="hint">Если вас несколько — перечислите всех через запятую.</div>
+            <div class="form__error" data-error-for="names"></div>
+          </div>
+ 
+          <fieldset class="form__group">
+            <legend class="form__label">Напитки (можно несколько)</legend>
+ 
+            <label class="check"><input type="checkbox" name="drinks" value="red_wine"><span>Вино красное</span></label>
+            <label class="check"><input type="checkbox" name="drinks" value="white_wine"><span>Вино белое</span></label>
+            <label class="check"><input type="checkbox" name="drinks" value="champagne"><span>Шампанское</span></label>
+            <label class="check"><input type="checkbox" name="drinks" value="whisky"><span>Виски</span></label>
+            <label class="check"><input type="checkbox" name="drinks" value="vodka"><span>Водка</span></label>
+            <label class="check"><input type="checkbox" name="drinks" value="soft"><span>Безалкогольное</span></label>
+          </fieldset>
+ 
+          <button class="btn" type="submit">Отправить</button>
+          <div class="form__status" id="rsvpStatus" role="status" aria-live="polite"></div>
+ 
+          <p class="fineprint">
+            Сейчас форма показывает “спасибо”, но не сохраняет ответы (так работает GitHub Pages).
+            Если захочешь — я подключу сохранение через Formspree (это реально просто).
+          </p>
+        </form>
+      </div>
+    </section>
+ 
+    <section class="section section--closing">
+      <div class="container">
+        <h2 class="section__title">До встречи 21 августа 2026!</h2>
+        <p class="lead">С любовью, Александр и Гюнель 🤍</p>
+      </div>
+    </section>
+  </main>
+ 
+  <footer class="footer">
+    <div class="container footer__inner">
+      <a class="toTop" href="#top">Наверх ↑</a>
+      <div class="footer__small">© <span id="yearNow"></span></div>
+    </div>
+  </footer>
+ 
+  <script>
+    (() => {
+      const $ = (sel, root = document) => root.querySelector(sel);
+      const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+ 
+      // Footer year
+      const y = $("#yearNow");
+      if (y) y.textContent = String(new Date().getFullYear());
+ 
+      // Countdown to: 21.08.2026 15:00 (для Беларуси летом обычно +03:00)
+      const target = new Date("2026-08-21T15:00:00+03:00");
+ 
+      const cd = {
+        days: $("#cdDays"),
+        hours: $("#cdHours"),
+        mins: $("#cdMins"),
+        secs: $("#cdSecs"),
+      };
+ 
+      function pad2(n){ return String(n).padStart(2, "0"); }
+ 
+      function tick() {
+        if (isNaN(target.getTime())) return;
+ 
+        const now = new Date();
+        let diff = target.getTime() - now.getTime();
+        if (diff < 0) diff = 0;
+ 
+        const totalSecs = Math.floor(diff / 1000);
+        const days = Math.floor(totalSecs / (3600 * 24));
+        const hours = Math.floor((totalSecs % (3600 * 24)) / 3600);
+        const mins = Math.floor((totalSecs % 3600) / 60);
+        const secs = totalSecs % 60;
+ 
+        if (cd.days) cd.days.textContent = pad2(days);
+        if (cd.hours) cd.hours.textContent = pad2(hours);
+        if (cd.mins) cd.mins.textContent = pad2(mins);
+        if (cd.secs) cd.secs.textContent = pad2(secs);
+      }
+ 
+      tick();
+      setInterval(tick, 1000);
+ 
+      // RSVP (demo): показывает сообщение, но никуда не отправляет
+      const form = $("#rsvpForm");
+      const status = $("#rsvpStatus");
+ 
+      function setError(name, msg) {
+        const box = document.querySelector(`[data-error-for="${name}"]`);
+        if (box) box.textContent = msg || "";
+      }
+ 
+      function getCheckedValues(name) {
+        return $$(`input[name="${name}"]:checked`, form).map(i => i.value);
+      }
+ 
+      if (form) {
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+ 
+          setError("attendance", "");
+          setError("names", "");
+          if (status) status.textContent = "";
+ 
+          const attendance = (getCheckedValues("attendance")[0] || "").trim();
+          const names = ($("#names")?.value || "").trim();
+ 
+          let ok = true;
+          if (!attendance) { setError("attendance", "Выберите вариант ответа."); ok = false; }
+          if (names.length < 3) { setError("names", "Введите имя и фамилию (или несколько имён)."); ok = false; }
+          if (!ok) return;
+ 
+          if (status) status.textContent = "Спасибо! Ваш ответ принят. (Сейчас это демо — без сохранения.)";
+          form.reset();
+        });
+      }
+ 
+      // Simple reveal animation
+      const revealEls = $$("[data-reveal]");
+      if (revealEls.length) {
+        const io = new IntersectionObserver((entries) => {
+          for (const ent of entries) {
+            if (ent.isIntersecting) {
+              ent.target.style.transform = "translateY(0)";
+              ent.target.style.opacity = "1";
+              io.unobserve(ent.target);
+            }
+          }
+        }, { threshold: 0.12 });
+ 
+        revealEls.forEach(el => {
+          el.style.opacity = "0";
+          el.style.transform = "translateY(10px)";
+          el.style.transition = "opacity .7s ease, transform .7s ease";
+          io.observe(el);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
