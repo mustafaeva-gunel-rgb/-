@@ -5,81 +5,79 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Сайт-приглашение на свадьбу Александра и Гюнель — 21.08.2026, 15:00, Витебский район, Дрюково" />
   <title>Александр & Гюнель — 21.08.2026</title>
- 
-  <!-- Шрифты: аккуратный гротеск + рукописный акцент -->
+
+  <!-- Шрифты -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Allura&display=swap" rel="stylesheet">
- 
+
   <style>
     :root{
       --ink:#111;
       --muted: rgba(0,0,0,.60);
       --line: rgba(0,0,0,.10);
- 
-      /* Акцент (как на референсе: нежная фуксия) */
+
+      /* Акцент */
       --accent: #ff2c7d;
- 
-      /* Кнопки/ссылки можно оставить спокойными */
+
+      /* Кнопки/ссылки */
       --btn: #0f2a5f;
- 
+
       /* Молочные карточки */
       --card: rgba(255,255,255,.90);
- 
+
       --shadow: 0 18px 45px rgba(0,0,0,.10);
       --radius: 18px;
       --max: 980px;
     }
- 
+
     *{box-sizing:border-box}
     html,body{height:100%}
+
+    /* ===== ПАДАЮЩИЕ "ЗВЁЗДЫ/ШАРИКИ" НА ФОНЕ ===== */
+    .fxCanvas{
+      position: fixed;
+      inset: 0;
+      z-index: 0;           /* фон */
+      pointer-events: none; /* чтобы не мешало кликам */
+      opacity: .55;         /* общая нежность эффекта */
+    }
+
+    /* Вуаль для читаемости */
+    .fxVeil{
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events:none;
+      background:
+        radial-gradient(900px 520px at 50% 22%, rgba(255,255,255,.62), rgba(255,255,255,.92) 70%),
+        linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.88));
+    }
+
     body{
-  margin:0;
-  color:var(--ink);
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
- 
-  /* ===== ПАДАЮЩИЕ "ЗВЁЗДЫ/ШАРИКИ" НА ФОНЕ ===== */
-.fxCanvas{
-  position: fixed;
-  inset: 0;
-  z-index: 0;           /* фон */
-  pointer-events: none; /* чтобы не мешало кликам */
-  opacity: .55;         /* общая нежность эффекта */
-}
- 
-/* Важно: контент должен быть выше */
-.topbar{ position: sticky; z-index: 50; }
-main, .wrap{ position: relative; z-index: 3; }
- 
-/* Вуаль для читаемости (если у тебя уже есть — оставь одну, не дублируй) */
-.fxVeil{
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  pointer-events:none;
-  background:
-    radial-gradient(900px 520px at 50% 22%, rgba(255,255,255,.62), rgba(255,255,255,.92) 70%),
-    linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.88));
-}
-}
- 
-/* Лёгкая фактура */
-body::after{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:-1;
-  opacity:.10;
-  mix-blend-mode:multiply;
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.10'/%3E%3C/svg%3E");
-}
+      margin:0;
+      color:var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      background: #f7f7f7;
+    }
+
+    /* Лёгкая фактура */
+    body::after{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:-1;
+      opacity:.10;
+      mix-blend-mode:multiply;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.10'/%3E%3C/svg%3E");
+    }
 
     /* контент над фоном */
     .topbar{ position: sticky; z-index: 50; top:0; }
     main, .wrap{ position: relative; z-index: 3; }
- 
+
     /* ===== ШАПКА ===== */
     .topbar{
       background: rgba(255,255,255,.78);
@@ -128,7 +126,7 @@ body::after{
       border-color:rgba(0,0,0,.12);
       background:rgba(0,0,0,.03);
     }
- 
+
     /* ===== Карточки ===== */
     .card{
       background: var(--card);
@@ -137,13 +135,90 @@ body::after{
       box-shadow:var(--shadow);
       position:relative;
       overflow:hidden;
+      isolation:isolate; /* чтобы слои внутри карточки не конфликтовали с внешними */
     }
     .card.padded{padding:24px}
     @media (max-width: 520px){
       .card.padded{padding:18px}
     }
- 
-    /* ===== Обложка в стиле референса ===== */
+
+    /* ===== НОВОЕ: НЕЖНЫЕ "ЛЕПЕСТКИ/ПЫЛЬЦА" НА ФОНЕ КАРТОЧЕК (БЕЗ JS) =====
+       Работает так: два слоя псевдоэлементов внутри .card.
+       Текст/контент остаётся кликабельным и поверх (z-index).
+    */
+    .card > *{ position:relative; z-index:2; } /* контент выше эффектов */
+
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:-30%;
+      z-index:0;
+      pointer-events:none;
+      opacity:.42;
+
+      /* "лепестки" как полупрозрачные пятнышки */
+      background:
+        radial-gradient(10px 7px at 12% 18%, rgba(255,255,255,.85), rgba(255,255,255,0) 70%),
+        radial-gradient(12px 8px at 28% 64%, rgba(255,255,255,.70), rgba(255,255,255,0) 72%),
+        radial-gradient(9px 6px at 46% 28%, rgba(255,255,255,.78), rgba(255,255,255,0) 70%),
+        radial-gradient(11px 7px at 62% 74%, rgba(255,255,255,.65), rgba(255,255,255,0) 72%),
+        radial-gradient(13px 9px at 78% 32%, rgba(255,255,255,.72), rgba(255,255,255,0) 72%),
+        radial-gradient(9px 6px at 88% 66%, rgba(255,255,255,.62), rgba(255,255,255,0) 72%),
+
+        radial-gradient(8px 5px at 18% 82%, rgba(255,255,255,.55), rgba(255,255,255,0) 70%),
+        radial-gradient(10px 6px at 52% 90%, rgba(255,255,255,.52), rgba(255,255,255,0) 70%),
+        radial-gradient(11px 7px at 70% 10%, rgba(255,255,255,.58), rgba(255,255,255,0) 72%),
+        radial-gradient(9px 6px at 6% 44%, rgba(255,255,255,.60), rgba(255,255,255,0) 72%),
+
+        /* чуть-чуть "розового дыхания" под акцент (очень мягко) */
+        radial-gradient(240px 180px at 50% 10%, rgba(255,44,125,.10), rgba(255,44,125,0) 70%);
+
+      filter: blur(.25px);
+      transform: translate3d(0,0,0);
+      animation: cardPetalsDrift 16s ease-in-out infinite;
+    }
+
+    .card::after{
+      content:"";
+      position:absolute;
+      inset:-20%;
+      z-index:1;
+      pointer-events:none;
+      opacity:.22;
+
+      /* пыльца/блики — микроточки */
+      background:
+        radial-gradient(2px 2px at 18% 24%, rgba(255,255,255,.95), rgba(255,255,255,0) 60%),
+        radial-gradient(2px 2px at 26% 70%, rgba(255,255,255,.80), rgba(255,255,255,0) 60%),
+        radial-gradient(1.5px 1.5px at 44% 36%, rgba(255,255,255,.85), rgba(255,255,255,0) 60%),
+        radial-gradient(2px 2px at 64% 78%, rgba(255,255,255,.75), rgba(255,255,255,0) 60%),
+        radial-gradient(2px 2px at 82% 42%, rgba(255,255,255,.85), rgba(255,255,255,0) 60%),
+        radial-gradient(1.5px 1.5px at 90% 68%, rgba(255,255,255,.70), rgba(255,255,255,0) 60%),
+
+        radial-gradient(2px 2px at 12% 86%, rgba(255,255,255,.75), rgba(255,255,255,0) 60%),
+        radial-gradient(1.5px 1.5px at 58% 92%, rgba(255,255,255,.70), rgba(255,255,255,0) 60%),
+        radial-gradient(2px 2px at 72% 16%, rgba(255,255,255,.78), rgba(255,255,255,0) 60%);
+
+      filter: blur(.15px);
+      animation: cardSparklePulse 9s ease-in-out infinite;
+    }
+
+    @keyframes cardPetalsDrift{
+      0%   { transform: translate3d(-8px,-6px,0) rotate(-0.6deg); }
+      50%  { transform: translate3d(10px, 8px,0) rotate(0.7deg); }
+      100% { transform: translate3d(-8px,-6px,0) rotate(-0.6deg); }
+    }
+    @keyframes cardSparklePulse{
+      0%,100% { opacity:.18; transform: translate3d(0,0,0) }
+      50%     { opacity:.30; transform: translate3d(6px,-4px,0) }
+    }
+
+    /* Если у пользователя включено "уменьшить движение" — выключаем анимации */
+    @media (prefers-reduced-motion: reduce){
+      .card::before, .card::after{ animation:none !important; }
+    }
+
+    /* ===== Обложка ===== */
     .cover{
       padding: 14px 0 10px;
       display:grid;
@@ -152,12 +227,12 @@ body::after{
       align-items:stretch;
     }
     @media (max-width: 900px){ .cover{grid-template-columns:1fr} }
- 
+
     .coverMain{
       padding: 32px 26px 26px;
       text-align:center;
     }
- 
+
     .caps{
       font-size: 12px;
       letter-spacing: .42em;
@@ -165,7 +240,7 @@ body::after{
       color: rgba(0,0,0,.62);
       margin: 4px 0 16px;
     }
- 
+
     .namesScript{
       font-family: "Allura", cursive;
       font-size: clamp(52px, 8vw, 86px);
@@ -176,8 +251,7 @@ body::after{
       display:inline-block;
       transform: translateY(10px);
     }
- 
-    /* декоративная линия под именами (тонко и аккуратно) */
+
     .flourish{
       display:flex;
       align-items:center;
@@ -192,7 +266,7 @@ body::after{
       background: linear-gradient(90deg, rgba(0,0,0,0), rgba(0,0,0,.22), rgba(0,0,0,0));
     }
     .flourish svg{ width:54px; height:18px; opacity:.75; }
- 
+
     .dateBlock{
       margin: 10px auto 18px;
       display:grid;
@@ -200,7 +274,7 @@ body::after{
       gap: 8px;
       justify-items:center;
     }
- 
+
     .dateBig{
       font-size: clamp(84px, 12vw, 132px);
       font-weight: 700;
@@ -215,7 +289,7 @@ body::after{
       transform: translateY(-.04em);
       margin: 0 .05em;
     }
- 
+
     .dateYear{
       font-size: clamp(86px, 12vw, 134px);
       font-weight: 700;
@@ -225,7 +299,7 @@ body::after{
       margin: 0;
       font-variant-numeric: tabular-nums;
     }
- 
+
     .bottomCaps{
       margin-top: 16px;
       color: rgba(0,0,0,.62);
@@ -234,7 +308,7 @@ body::after{
       text-transform: uppercase;
       line-height: 1.8;
     }
- 
+
     .downArrow{
       margin: 14px auto 0;
       width: 26px; height: 26px;
@@ -252,8 +326,8 @@ body::after{
       border-color: rgba(0,0,0,.16);
       background: rgba(255,255,255,.85);
     }
- 
-    /* ===== Правая колонка: таймер + адрес ===== */
+
+    /* ===== Правая колонка ===== */
     .mini{display:grid;grid-template-columns:1fr;gap:12px}
     h2{
       margin:0 0 10px;
@@ -261,7 +335,7 @@ body::after{
       font-weight:700;
       letter-spacing:-.2px;
     }
- 
+
     .countdown{display:flex; gap:10px; flex-wrap:wrap; justify-content:center}
     .pill{
       min-width:96px;
@@ -277,7 +351,7 @@ body::after{
       font-variant-numeric: tabular-nums;
     }
     .pill .l{font-size:12px;color:rgba(0,0,0,.56);margin:2px 0 0}
- 
+
     .stat{
       padding:16px;
       border-radius:14px;
@@ -286,15 +360,15 @@ body::after{
     }
     .stat .t{font-size:12px;color:rgba(0,0,0,.56);margin:0 0 8px;text-transform:uppercase;letter-spacing:1.6px}
     .stat .v{font-size:16px;font-weight:700;margin:0; line-height:1.35}
- 
-    /* ===== Остальные блоки (как было) ===== */
+
+    /* ===== Остальные блоки ===== */
     section{padding:10px 0}
     .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
     @media (max-width: 900px){ .grid{grid-template-columns:1fr} }
- 
+
     .p{margin:0;color:rgba(0,0,0,.70);line-height:1.7}
     .hr{height:1px;background:rgba(0,0,0,.08);margin:16px 0}
- 
+
     .ctaRow{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:10px;
@@ -326,7 +400,7 @@ body::after{
       color: rgba(0,0,0,.78);
     }
     .icon{width:16px;height:16px;opacity:.95}
- 
+
     .badgeRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; justify-content:center}
     .badge{
       font-size:13px;
@@ -336,7 +410,7 @@ body::after{
       background: rgba(0,0,0,.03);
       color: rgba(0,0,0,.70);
     }
- 
+
     /* Программа дня */
     .planList{margin:12px 0 0;padding:0;list-style:none}
     .planRow{
@@ -404,7 +478,7 @@ body::after{
       color:rgba(0,0,0,.70);
       line-height:1.6;
     }
- 
+
     /* Карта */
     .mapWrap{
       border-radius:16px;
@@ -420,7 +494,7 @@ body::after{
       display:block;
     }
     @media (max-width: 640px){ .mapWrap iframe{height:280px} }
- 
+
     .hintList{
       margin:10px 0 0;
       padding-left:18px;
@@ -428,7 +502,7 @@ body::after{
       line-height:1.7;
     }
     .hintList li{ margin:6px 0; }
- 
+
     form{display:grid; gap:10px; margin-top:10px}
     .row{display:grid; grid-template-columns:1fr 1fr; gap:10px}
     @media (max-width: 640px){ .row{grid-template-columns:1fr} }
@@ -450,22 +524,24 @@ body::after{
     textarea{min-height:105px;resize:vertical}
     .note{font-size:12px;color:rgba(0,0,0,.56);margin-top:8px}
     footer{padding:26px 0 50px;color:rgba(0,0,0,.55);text-align:center}
- 
+
     .reveal{opacity:0;transform: translateY(8px);transition: .6s ease}
     .reveal.on{opacity:1;transform: translateY(0)}
   </style>
 </head>
- 
+
 <body>
   <canvas class="fxCanvas" id="fxCanvas" aria-hidden="true"></canvas>
-<div class="fxVeil" aria-hidden="true"></div>
+  <div class="fxVeil" aria-hidden="true"></div>
+
+  <!-- оставляю твои слои (если у тебя есть CSS во 2й части — всё будет ок) -->
   <div class="bgStack" aria-hidden="true">
     <div class="bgLayer a on"></div>
     <div class="bgLayer b"></div>
   </div>
   <div class="bgVeil" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
- 
+
   <div class="topbar">
     <div class="inner">
       <div class="brand">
@@ -483,16 +559,16 @@ body::after{
       </nav>
     </div>
   </div>
- 
+
   <main class="wrap">
- 
+
     <!-- ОБЛОЖКА -->
     <div class="cover">
       <div class="card coverMain reveal" id="top">
         <div class="caps">ПРИГЛАШЕНИЕ<br>НА СВАДЬБУ</div>
- 
+
         <div class="namesScript">Александр + Гюнель</div>
- 
+
         <div class="flourish" aria-hidden="true">
           <div class="line"></div>
           <svg viewBox="0 0 120 32" fill="none">
@@ -503,26 +579,26 @@ body::after{
           </svg>
           <div class="line"></div>
         </div>
- 
+
         <div class="dateBlock" aria-label="Дата свадьбы">
           <p class="dateBig">21<span class="dot">•</span>08</p>
           <p class="dateYear">2026</p>
         </div>
- 
+
         <div class="bottomCaps">
           БУДЕМ РАДЫ ВАС ВИДЕТЬ<br>
           ВИТЕБСКИЙ РАЙОН
         </div>
- 
+
         <div class="downArrow" id="downBtn" title="Вниз" aria-label="Прокрутить вниз">↓</div>
- 
+
         <div class="badgeRow" style="margin-top:16px">
           <span class="badge">15:00 · сбор гостей</span>
           <span class="badge">🖤🤍 + акцент</span>
           <span class="badge">🚌 будет трансфер</span>
         </div>
       </div>
- 
+
       <div class="mini">
         <div class="card padded reveal">
           <h2 style="text-align:center;margin-bottom:8px">До свадьбы</h2>
@@ -534,7 +610,7 @@ body::after{
           </div>
           <p class="note" style="text-align:center">21.08.2026 · 15:00</p>
         </div>
- 
+
         <div class="card padded reveal">
           <div class="stat">
             <p class="t">Адрес</p>
@@ -551,7 +627,7 @@ body::after{
         </div>
       </div>
     </div>
- 
+
     <section id="details">
       <div class="grid">
         <div class="card padded reveal">
@@ -570,7 +646,7 @@ body::after{
           </div>
           <p class="note" id="copyNote" style="display:none">Адрес скопирован ✅</p>
         </div>
- 
+
         <div class="card padded reveal">
           <h2>Коротко о дне</h2>
           <p class="p">
@@ -586,7 +662,7 @@ body::after{
         </div>
       </div>
     </section>
- 
+
     <section id="route">
       <div class="grid">
         <div class="card padded reveal">
@@ -607,7 +683,7 @@ body::after{
           </div>
           <p class="note" id="copyPlaceNote" style="display:none">Скопировано ✅</p>
         </div>
- 
+
         <div class="card padded reveal">
           <h2>Карта</h2>
           <p class="p" style="margin-bottom:10px">
@@ -628,13 +704,13 @@ body::after{
         </div>
       </div>
     </section>
- 
+
     <section id="plan">
       <div class="grid">
         <div class="card padded reveal">
           <h2>Программа дня</h2>
           <p class="p">Тайминг ориентировочный (возможны небольшие изменения).</p>
- 
+
           <ul class="planList">
             <li class="planRow">
               <div class="planTime"><span class="planDot"></span>15:00</div>
@@ -643,7 +719,7 @@ body::after{
                 <p class="planItemText">Приветственный бокал · встреча · знакомимся</p>
               </div>
             </li>
- 
+
             <li class="planRow">
               <div class="planTime"><span class="planDot"></span>15:30</div>
               <div class="planBody">
@@ -651,7 +727,7 @@ body::after{
                 <p class="planItemText">Самый трогательный момент</p>
               </div>
             </li>
- 
+
             <li class="planRow">
               <div class="planTime"><span class="planDot"></span>17:00</div>
               <div class="planBody">
@@ -659,7 +735,7 @@ body::after{
                 <p class="planItemText">Ужин · тосты · атмосфера</p>
               </div>
             </li>
- 
+
             <li class="planRow">
               <div class="planTime"><span class="planDot"></span>23:30</div>
               <div class="planBody">
@@ -669,14 +745,14 @@ body::after{
             </li>
           </ul>
         </div>
- 
+
         <div class="card padded reveal" id="dresscode">
           <h2>Дресс-код</h2>
           <p class="p">
             <strong>Чёрно-белая палитра</strong> 🖤🤍<br>
             Акцент (необязательно) — можно в деталях.
           </p>
- 
+
           <div class="hr"></div>
           <h2 style="margin-top:0">Пожелания</h2>
           <p class="p">
@@ -685,7 +761,7 @@ body::after{
         </div>
       </div>
     </section>
- 
+
     <section id="transfer">
       <div class="grid">
         <div class="card padded reveal">
@@ -695,7 +771,7 @@ body::after{
             В RSVP укажите, нужен ли вам трансфер и откуда удобнее отправляться.
           </p>
         </div>
- 
+
         <div class="card padded reveal">
           <h2>Дети</h2>
           <p class="p">
@@ -705,14 +781,14 @@ body::after{
         </div>
       </div>
     </section>
- 
+
     <section id="rsvp">
       <div class="card padded reveal">
         <h2>RSVP · Подтверждение участия</h2>
         <p class="p">
           Будем благодарны, если вы подтвердите своё присутствие <strong>до 1 августа 2026 года</strong>.
         </p>
- 
+
         <form id="rsvpForm" autocomplete="on">
           <div class="row">
             <div>
@@ -728,7 +804,7 @@ body::after{
               </select>
             </div>
           </div>
- 
+
           <div class="row">
             <div>
               <label for="guests">Количество гостей</label>
@@ -747,7 +823,7 @@ body::after{
               </select>
             </div>
           </div>
- 
+
           <div class="row">
             <div>
               <label for="pickup">Откуда удобнее отправляться? (если нужен трансфер)</label>
@@ -762,7 +838,7 @@ body::after{
               </select>
             </div>
           </div>
- 
+
           <div class="row">
             <div>
               <label for="food">Питание / аллергии</label>
@@ -773,22 +849,22 @@ body::after{
               <input id="contact" name="contact" placeholder="Телефон / Telegram / Instagram" />
             </div>
           </div>
- 
+
           <div>
             <label for="comment">Комментарий</label>
             <textarea id="comment" name="comment" placeholder="Любые пожелания или важные детали"></textarea>
           </div>
- 
+
           <div class="ctaRow">
             <button class="btn primary" type="submit">Отправить RSVP</button>
             <button class="btn ghost" type="button" id="saveDraftBtn">Сохранить черновик</button>
           </div>
- 
+
           <p class="note" id="statusNote"></p>
         </form>
       </div>
     </section>
- 
+
     <section id="contacts">
       <div class="grid">
         <div class="card padded reveal">
@@ -805,7 +881,7 @@ body::after{
           </div>
           <p class="note">Если мессенджер не открывается — просто позвоните 🙂</p>
         </div>
- 
+
         <div class="card padded reveal">
           <h2>Памятка</h2>
           <p class="p">
@@ -814,34 +890,32 @@ body::after{
         </div>
       </div>
     </section>
- 
+
     <footer class="reveal">
       <div style="font-family: Allura, cursive; font-size:26px; color: var(--accent); margin-bottom:6px;">Александр &amp; Гюнель</div>
       21.08.2026 · Витебский район · Дрюково · Центральная, 32
     </footer>
   </main>
- 
+
   <script>
     // =========================
     // СКРИПТ (фон + карты + таймер + RSVP)
     // =========================
- 
+
     // 1) Дата свадьбы
     const weddingDateLocal = new Date(2026, 7, 21, 15, 0, 0);
- 
+
     // 2) Адрес + карты
     const addressText = "Витебский район, Вороновский сельсовет, деревня Дрюково, Центральная улица, 32";
     const placeText = "Дрюково, Центральная 32";
     const mapsQuery = encodeURIComponent(placeText + ", " + addressText);
     const mapsUrl = "https://www.google.com/maps/search/?api=1&query=" + mapsQuery;
     const embedUrl = "https://www.google.com/maps?q=" + mapsQuery + "&output=embed";
- 
+
     // 3) RSVP -> Google Sheets (твой URL)
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyU1T7nihR_oqbwWHgWGCmoRBx6g7a_JxquL3VyVl668RORpaqeAek6BkAxsvoZ9jy0/exec";
- 
-    // 4) ФОН: ВАЖНО! Эти пути должны существовать в репозитории:
-    //    создай папку assets и положи туда фото:
-    //    assets/bg1.jpg, assets/bg2.jpg, assets/bg3.jpg, ...
+
+    // 4) ФОН: пути должны существовать в репозитории
     const BG_IMAGES = [
       "assets/bg1.jpg",
       "assets/bg2.jpg",
@@ -849,20 +923,20 @@ body::after{
       "assets/bg4.jpg",
       "assets/bg5.jpg"
     ];
- 
+
     // ====== Кнопка вниз на обложке ======
     const downBtn = document.getElementById("downBtn");
     downBtn?.addEventListener("click", () => {
       const el = document.getElementById("details");
       if(el) el.scrollIntoView({ behavior: "smooth" });
     });
- 
+
     // ====== Карта ======
     document.getElementById("mapsBtn").href = mapsUrl;
     document.getElementById("mapsPrimaryBtn").href = mapsUrl;
     document.getElementById("routeBtn")?.setAttribute("href", mapsUrl);
     document.getElementById("mapFrame").src = embedUrl;
- 
+
     // ====== Копирование ======
     const copyBtn = document.getElementById("copyAddressBtn");
     const copyNote = document.getElementById("copyNote");
@@ -875,7 +949,7 @@ body::after{
         prompt("Скопируйте адрес:", addressText);
       }
     });
- 
+
     const copyPlaceBtn = document.getElementById("copyPlaceBtn");
     const copyPlaceNote = document.getElementById("copyPlaceNote");
     copyPlaceBtn.addEventListener("click", async () => {
@@ -888,7 +962,7 @@ body::after{
         prompt("Скопируйте:", text);
       }
     });
- 
+
     // ====== Таймер ======
     const elD = document.getElementById("d");
     const elH = document.getElementById("h");
@@ -907,19 +981,19 @@ body::after{
       const hours = Math.floor((sec % 86400) / 3600);
       const mins = Math.floor((sec % 3600) / 60);
       const secs = sec % 60;
- 
+
       elD.textContent = String(days);
       elH.textContent = pad(hours);
       elM.textContent = pad(mins);
       elS.textContent = pad(secs);
     }
     tick(); setInterval(tick, 1000);
- 
+
     // ====== RSVP: черновик + отправка ======
     const form = document.getElementById("rsvpForm");
     const saveDraftBtn = document.getElementById("saveDraftBtn");
     const draftKey = "wedding_rsvp_draft_ref_cover_v1";
- 
+
     function getFormData(){
       const data = new FormData(form);
       return Object.fromEntries(data.entries());
@@ -935,7 +1009,7 @@ body::after{
       const saved = localStorage.getItem(draftKey);
       if(saved) fillForm(JSON.parse(saved));
     }catch(e){}
- 
+
     saveDraftBtn.addEventListener("click", () => {
       try{
         localStorage.setItem(draftKey, JSON.stringify(getFormData()));
@@ -944,15 +1018,15 @@ body::after{
         alert("Не удалось сохранить черновик 😕");
       }
     });
- 
+
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
- 
+
       if(!SCRIPT_URL){
         alert("RSVP пока не подключён к таблице. Вставь SCRIPT_URL — и всё заработает 🙂");
         return;
       }
- 
+
       const v = getFormData();
       const payload = {
         name: v.name || "",
@@ -966,12 +1040,12 @@ body::after{
         comment: v.comment || "",
         userAgent: navigator.userAgent
       };
- 
+
       const submitBtn = form.querySelector('button[type="submit"]');
       const oldText = submitBtn.textContent;
       submitBtn.disabled = true;
       submitBtn.textContent = "Отправляем…";
- 
+
       try {
         await fetch(SCRIPT_URL, {
           method: "POST",
@@ -979,7 +1053,7 @@ body::after{
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload)
         });
- 
+
         localStorage.removeItem(draftKey);
         form.reset();
         alert("Спасибо! Будем рады Вас видеть ✅");
@@ -990,7 +1064,7 @@ body::after{
         submitBtn.textContent = oldText;
       }
     });
- 
+
     // ====== Плавное появление блоков ======
     const items = document.querySelectorAll(".reveal");
     const io = new IntersectionObserver((entries)=>{
@@ -999,11 +1073,11 @@ body::after{
       }
     }, { threshold: .12 });
     items.forEach(el => io.observe(el));
- 
+
     // ====== Фон: грузим только те картинки, которые реально загрузились ======
     const layerA = document.querySelector(".bgLayer.a");
     const layerB = document.querySelector(".bgLayer.b");
- 
+
     function preload(url){
       return new Promise((resolve) => {
         const img = new Image();
@@ -1012,172 +1086,160 @@ body::after{
         img.src = url;
       });
     }
- 
+
     (async function initBg(){
       if(!layerA || !layerB) return;
- 
-      // проверяем какие картинки реально доступны
+
       const checks = await Promise.all(BG_IMAGES.map(preload));
       const okImages = checks.filter(x => x.ok).map(x => x.url);
- 
-      // если ничего не загрузилось — просто оставим светлый фон (чтобы сайт не "ломался")
+
       if(!okImages.length){
         console.log("BG: no images loaded. Проверь папку assets и имена файлов.");
         return;
       }
- 
+
       let idx = 0;
       let showA = true;
- 
+
       layerA.style.backgroundImage = `url("${okImages[0]}")`;
       layerA.classList.add("on");
- 
+
       function nextBg(){
         idx = (idx + 1) % okImages.length;
- 
+
         const showLayer = showA ? layerB : layerA;
         const hideLayer = showA ? layerA : layerB;
- 
+
         showLayer.style.backgroundImage = `url("${okImages[idx]}")`;
         showLayer.classList.add("on");
         hideLayer.classList.remove("on");
- 
+
         showA = !showA;
       }
- 
+
       setInterval(nextBg, 9000);
       console.log("BG: loaded", okImages.length, "images");
     })();
   </script>
+
   <script>
-  // Нежный фон: падающие "звёзды/шарики" (не мешают читать)
-  const canvas = document.getElementById("fxCanvas");
-  const ctx = canvas.getContext("2d", { alpha: true });
- 
-  function resize(){
-    const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
-    canvas.width = Math.floor(window.innerWidth * dpr);
-    canvas.height = Math.floor(window.innerHeight * dpr);
-    canvas.style.width = window.innerWidth + "px";
-    canvas.style.height = window.innerHeight + "px";
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-  window.addEventListener("resize", resize);
-  resize();
- 
-  const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
- 
-  // Настройки (можно менять)
-  const CONFIG = {
-    count: 48,          // сколько частиц
-    minSize: 2,
-    maxSize: 6,
-    minSpeed: 0.3,
-    maxSpeed: 1.2,
-    drift: 0.35,        // боковой дрейф
-    twinkle: 0.55       // мерцание
-  };
- 
-  function rnd(a,b){ return a + Math.random()*(b-a); }
- 
-  const particles = [];
-  function spawn(initial=false){
-    const size = rnd(CONFIG.minSize, CONFIG.maxSize);
-    const x = rnd(0, window.innerWidth);
-    const y = initial ? rnd(0, window.innerHeight) : -size - 10;
-    const speed = rnd(CONFIG.minSpeed, CONFIG.maxSpeed);
-    const vx = rnd(-CONFIG.drift, CONFIG.drift);
-    const phase = rnd(0, Math.PI*2);
- 
-    // Тип: "звёздочка" или "шарик"
-    const type = Math.random() < 0.55 ? "star" : "dot";
- 
-    particles.push({ x, y, size, speed, vx, phase, type });
-  }
- 
-  // начальные частицы
-  for(let i=0;i<CONFIG.count;i++) spawn(true);
- 
-  function drawStar(x, y, r, alpha){
-    // маленькая 4-лучевая "звезда"
-    ctx.save();
-    ctx.globalAlpha = alpha;
-    ctx.translate(x, y);
- 
-    // светлый акцент: чёрно-бело + лёгкий оттенок
-    const grad = ctx.createRadialGradient(0,0,0, 0,0,r*2.2);
-    grad.addColorStop(0, "rgba(255,255,255,.95)");
-    grad.addColorStop(0.45, "rgba(240,245,255,.55)");
-    grad.addColorStop(1, "rgba(255,255,255,0)");
- 
-    ctx.fillStyle = grad;
- 
-    ctx.beginPath();
-    ctx.moveTo(0, -r);
-    ctx.quadraticCurveTo(r*0.15, -r*0.15, r, 0);
-    ctx.quadraticCurveTo(r*0.15, r*0.15, 0, r);
-    ctx.quadraticCurveTo(-r*0.15, r*0.15, -r, 0);
-    ctx.quadraticCurveTo(-r*0.15, -r*0.15, 0, -r);
-    ctx.closePath();
-    ctx.fill();
- 
-    ctx.restore();
-  }
- 
-  function drawDot(x, y, r, alpha){
-    ctx.save();
-    ctx.globalAlpha = alpha;
- 
-    const grad = ctx.createRadialGradient(x,y,0, x,y,r*2);
-    grad.addColorStop(0, "rgba(255,255,255,.92)");
-    grad.addColorStop(0.65, "rgba(230,240,255,.38)");
-    grad.addColorStop(1, "rgba(255,255,255,0)");
- 
-    ctx.fillStyle = grad;
-    ctx.beginPath();
-    ctx.arc(x, y, r, 0, Math.PI*2);
-    ctx.fill();
- 
-    ctx.restore();
-  }
- 
-  let t = 0;
-  function frame(){
-    if(prefersReduced) return; // уважение к настройке "reduce motion"
- 
-    t += 0.016;
-    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
- 
-    for(let i=0;i<particles.length;i++){
-      const p = particles[i];
- 
-      p.y += p.speed;
-      p.x += p.vx + Math.sin(t + p.phase) * 0.15;
- 
-      // мерцание
-      const tw = (Math.sin(t*2 + p.phase) + 1) / 2; // 0..1
-      const alpha = 0.18 + tw * CONFIG.twinkle * 0.25;
- 
-      if(p.type === "star") drawStar(p.x, p.y, p.size, alpha);
-      else drawDot(p.x, p.y, p.size, alpha);
- 
-      // если улетели вниз — перерождаем
-      if(p.y > window.innerHeight + 30){
-        particles[i] = null;
+    // Нежный фон: падающие "звёзды/шарики" (не мешают читать)
+    const canvas = document.getElementById("fxCanvas");
+    const ctx = canvas.getContext("2d", { alpha: true });
+
+    function resize(){
+      const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+      canvas.width = Math.floor(window.innerWidth * dpr);
+      canvas.height = Math.floor(window.innerHeight * dpr);
+      canvas.style.width = window.innerWidth + "px";
+      canvas.style.height = window.innerHeight + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    window.addEventListener("resize", resize);
+    resize();
+
+    const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Настройки
+    const CONFIG = {
+      count: 48,
+      minSize: 2,
+      maxSize: 6,
+      minSpeed: 0.3,
+      maxSpeed: 1.2,
+      drift: 0.35,
+      twinkle: 0.55
+    };
+
+    function rnd(a,b){ return a + Math.random()*(b-a); }
+
+    const particles = [];
+    function spawn(initial=false){
+      const size = rnd(CONFIG.minSize, CONFIG.maxSize);
+      const x = rnd(0, window.innerWidth);
+      const y = initial ? rnd(0, window.innerHeight) : -size - 10;
+      const speed = rnd(CONFIG.minSpeed, CONFIG.maxSpeed);
+      const vx = rnd(-CONFIG.drift, CONFIG.drift);
+      const phase = rnd(0, Math.PI*2);
+      const type = Math.random() < 0.55 ? "star" : "dot";
+      particles.push({ x, y, size, speed, vx, phase, type });
+    }
+
+    for(let i=0;i<CONFIG.count;i++) spawn(true);
+
+    function drawStar(x, y, r, alpha){
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      ctx.translate(x, y);
+
+      const grad = ctx.createRadialGradient(0,0,0, 0,0,r*2.2);
+      grad.addColorStop(0, "rgba(255,255,255,.95)");
+      grad.addColorStop(0.45, "rgba(240,245,255,.55)");
+      grad.addColorStop(1, "rgba(255,255,255,0)");
+      ctx.fillStyle = grad;
+
+      ctx.beginPath();
+      ctx.moveTo(0, -r);
+      ctx.quadraticCurveTo(r*0.15, -r*0.15, r, 0);
+      ctx.quadraticCurveTo(r*0.15, r*0.15, 0, r);
+      ctx.quadraticCurveTo(-r*0.15, r*0.15, -r, 0);
+      ctx.quadraticCurveTo(-r*0.15, -r*0.15, 0, -r);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.restore();
+    }
+
+    function drawDot(x, y, r, alpha){
+      ctx.save();
+      ctx.globalAlpha = alpha;
+
+      const grad = ctx.createRadialGradient(x,y,0, x,y,r*2);
+      grad.addColorStop(0, "rgba(255,255,255,.92)");
+      grad.addColorStop(0.65, "rgba(230,240,255,.38)");
+      grad.addColorStop(1, "rgba(255,255,255,0)");
+
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI*2);
+      ctx.fill();
+
+      ctx.restore();
+    }
+
+    let t = 0;
+    function frame(){
+      if(prefersReduced) return;
+
+      t += 0.016;
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+      for(let i=0;i<particles.length;i++){
+        const p = particles[i];
+
+        p.y += p.speed;
+        p.x += p.vx + Math.sin(t + p.phase) * 0.15;
+
+        const tw = (Math.sin(t*2 + p.phase) + 1) / 2;
+        const alpha = 0.18 + tw * CONFIG.twinkle * 0.25;
+
+        if(p.type === "star") drawStar(p.x, p.y, p.size, alpha);
+        else drawDot(p.x, p.y, p.size, alpha);
+
+        if(p.y > window.innerHeight + 30){
+          particles[i] = null;
+        }
       }
+
+      for(let i=particles.length-1;i>=0;i--){
+        if(particles[i] === null) particles.splice(i,1);
+      }
+      while(particles.length < CONFIG.count) spawn(false);
+
+      requestAnimationFrame(frame);
     }
- 
-    // чистим null и досоздаём
-    for(let i=particles.length-1;i>=0;i--){
-      if(particles[i] === null) particles.splice(i,1);
-    }
-    while(particles.length < CONFIG.count) spawn(false);
- 
     requestAnimationFrame(frame);
-  }
-  requestAnimationFrame(frame);
-</script>
- 
+  </script>
 
 </body>
 </html>
