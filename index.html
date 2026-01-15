@@ -62,6 +62,10 @@
       will-change: opacity;
     }
     .bgLayer.on{ opacity: .22; }
+    * ПОКАЗАТЬ ПЕРВУЮ КАРТИНКУ ДАЖЕ БЕЗ СКРИПТА */
+.bgLayer.a{
+  background-image: url("assets/bg1.jpg");
+}
  
     /* Вуаль: по краям плотнее (читаемость), по центру мягче (видно фото) */
     .bgVeil{
@@ -468,7 +472,7 @@
  
 <body>
   <div class="bgStack" aria-hidden="true">
-    <div class="bgLayer a"></div>
+    <div class="bgLayer a on"></div>
     <div class="bgLayer b"></div>
   </div>
   <div class="bgVeil" aria-hidden="true"></div>
