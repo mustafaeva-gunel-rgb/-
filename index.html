@@ -23,6 +23,11 @@
       --accent:#0f2a5f;    /* синий */
       --accent2:#1f5a3a;   /* зелёный акцент (по желанию) */
  
+      /* НЕОН для имён */
+      --neon:#4aa3ff;      /* светящийся голубой */
+      --neon2:#8a5cff;     /* фиолетовый отлив */
+      --neon3:#00ffd5;     /* бирюза для блика */
+ 
       --shadow: 0 18px 45px rgba(0,0,0,.10);
       --radius: 18px;
       --max: 980px;
@@ -146,16 +151,6 @@
       letter-spacing:2.6px;
       margin:0 0 12px;
     }
- 
-    .title{
-      font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
-      font-weight:700;
-      font-size:52px;
-      line-height:1.02;
-      margin:0 0 8px;
-      letter-spacing:-.6px;
-    }
-    @media (max-width: 520px){ .title{font-size:42px} }
  
     .script{
       font-family: "Marck Script", ui-serif, Georgia, "Times New Roman", Times, serif;
@@ -442,7 +437,7 @@
     }
     .lbClose:hover{background: rgba(10,10,10,.55)}
  
-    /* ====== Мини-карта ====== */
+    /* ====== Карта ====== */
     .mapWrap{
       border-radius:16px;
       overflow:hidden;
@@ -497,38 +492,154 @@
     main, .wrap{ position: relative; z-index: 2; }
  
     /* ===========================
-       ТВОИ ПОЖЕЛАНИЯ
+       1) ИМЕНА — СУПЕР НЕОН
        =========================== */
  
-    /* 1) Имена — яркие, необычный шрифт */
     .namesBig{
+      position: relative;
       font-family: "Ruslan Display", system-ui, sans-serif;
-      font-size: clamp(46px, 6vw, 78px);
-      line-height: 1.02;
+      font-size: clamp(50px, 6.4vw, 86px);
+      line-height: 1.00;
       margin: 6px 0 10px;
-      letter-spacing: .6px;
-      color: #ffffff;
+      letter-spacing: .9px;
+ 
+      /* градиент букв */
+      background: linear-gradient(90deg, #ffffff 0%, var(--neon) 35%, var(--neon2) 70%, #ffffff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+ 
+      /* сильное сияние */
       text-shadow:
-        0 2px 12px rgba(0,0,0,.35),
-        0 0 22px rgba(15,42,95,.35),
-        0 0 38px rgba(15,42,95,.22);
+        0 0 10px rgba(74,163,255,.55),
+        0 0 22px rgba(74,163,255,.55),
+        0 0 44px rgba(74,163,255,.45),
+        0 0 70px rgba(138,92,255,.35),
+        0 0 110px rgba(0,255,213,.20);
+      filter: saturate(1.15);
     }
-    .namesBig .amp{
-      font-family: "Marck Script", cursive;
-      font-weight: 400;
-      font-size: .88em;
+ 
+    /* светящийся контур */
+    .namesBig::after{
+      content: attr(data-text);
+      position:absolute;
+      inset:0;
+      color: transparent;
+      -webkit-text-stroke: 2px rgba(255,255,255,.28);
+      text-shadow:
+        0 0 18px rgba(255,255,255,.25),
+        0 0 40px rgba(74,163,255,.25);
+      pointer-events:none;
+      transform: translateY(1px);
       opacity: .95;
     }
  
-    /* 2) Программа дня — названия ярче и больше */
+    .namesBig .amp{
+      font-family: "Marck Script", cursive;
+      font-weight: 400;
+      font-size: .90em;
+      opacity: .95;
+      background: linear-gradient(90deg, #fff, var(--neon3), #fff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow:
+        0 0 10px rgba(0,255,213,.45),
+        0 0 26px rgba(0,255,213,.30);
+    }
+ 
+    /* лёгкое "дыхание" неона */
+    @media (prefers-reduced-motion: no-preference){
+      .namesBig{
+        animation: neonPulse 2.8s ease-in-out infinite;
+      }
+      @keyframes neonPulse{
+        0%, 100% { filter: saturate(1.12) brightness(1.02); }
+        50% { filter: saturate(1.35) brightness(1.08); }
+      }
+    }
+ 
+    /* ===========================
+       2) ПРОГРАММА ДНЯ — ИКОНКИ + ТАЙМЛАЙН
+       =========================== */
+ 
+    .planList{
+      margin:12px 0 0;
+      padding:0;
+      list-style:none;
+    }
+    .planRow{
+      display:grid;
+      grid-template-columns: 74px 1fr;
+      gap:12px;
+      padding:14px 0;
+      border-top:1px solid var(--line);
+      position:relative;
+    }
+    .planRow:first-child{ border-top:none; padding-top:6px; }
+ 
+    .planTime{
+      font-variant-numeric: tabular-nums;
+      font-weight:900;
+      color: var(--accent);
+      display:flex;
+      align-items:flex-start;
+      gap:8px;
+    }
+ 
+    .planDot{
+      width:10px; height:10px;
+      border-radius:999px;
+      background: var(--accent);
+      box-shadow:
+        0 0 0 6px rgba(15,42,95,.10),
+        0 0 18px rgba(15,42,95,.22);
+      margin-top:6px;
+      flex:0 0 auto;
+    }
+ 
+    .planBody{
+      padding-left:10px;
+      position:relative;
+    }
+ 
+    /* вертикальная линия таймлайна */
+    .planBody::before{
+      content:"";
+      position:absolute;
+      left:-14px;
+      top:0;
+      bottom:0;
+      width:2px;
+      background: linear-gradient(180deg, rgba(15,42,95,.20), rgba(15,42,95,.06));
+      border-radius:999px;
+    }
+ 
     .planItemTitle{
       font-family: "Cormorant Garamond", ui-serif, Georgia, serif;
-      font-size: 24px;
+      font-size: 26px;
       font-weight: 700;
       color: var(--accent);
       margin: 0 0 4px;
       letter-spacing: .2px;
+      display:flex;
+      align-items:center;
+      gap:10px;
     }
+ 
+    .planIcon{
+      width:34px; height:34px;
+      border-radius:999px;
+      border:1px solid rgba(15,42,95,.18);
+      background: rgba(15,42,95,.06);
+      display:grid;
+      place-items:center;
+      box-shadow: 0 10px 22px rgba(0,0,0,.06);
+      font-size: 18px;
+      line-height: 1;
+      flex:0 0 auto;
+    }
+ 
     .planItemText{
       margin: 0;
       font-size: 15px;
@@ -589,7 +700,7 @@
           </g>
           <g fill="rgba(31,90,58,.18)">
             <path d="M132 78c-10 2-20 8-26 18 10 4 22 2 30-4 6-6 8-10-4-14z"/>
-            <path d="M112 98c-9 3-16 9-20 18 10 3 20 1 27-5 6-5 7-9-7-13z"/>
+            <path d="M112 98c-9 3-16 9-20 18 10 3 20 1 27-5 6-5 7-9 -7-13z"/>
             <path d="M148 66c-8 2-15 7-19 14 8 3 17 1 23-3 5-4 6-8-4-11z"/>
           </g>
         </svg>
@@ -605,15 +716,15 @@
           </g>
           <g fill="rgba(31,90,58,.18)">
             <path d="M132 78c-10 2-20 8-26 18 10 4 22 2 30-4 6-6 8-10-4-14z"/>
-            <path d="M112 98c-9 3-16 9-20 18 10 3 20 1 27-5 6-5 7-9-7-13z"/>
+            <path d="M112 98c-9 3-16 9-20 18 10 3 20 1 27-5 6-5 7-9 -7-13z"/>
             <path d="M148 66c-8 2-15 7-19 14 8 3 17 1 23-3 5-4 6-8-4-11z"/>
           </g>
         </svg>
  
         <p class="kicker">свадебное приглашение</p>
  
-        <!-- ИМЕНА: ярко + необычный шрифт -->
-        <div class="namesBig">
+        <!-- ИМЕНА: супер неон -->
+        <div class="namesBig" data-text="Александр & Гюнель">
           Александр <span class="amp">&amp;</span> Гюнель
         </div>
  
@@ -694,7 +805,7 @@
             <p class="t">Адрес</p>
             <p class="v" style="font-size:16px; font-weight:700; line-height:1.35">
               Витебский район, Вороновский сельсовет,<br>
-              д. Дрюково, ул. Центральная, 32
+              деревня Дрюково, Центральная улица, 32
             </p>
           </div>
         </div>
@@ -704,34 +815,17 @@
     <section id="details">
       <div class="grid">
         <div class="card padded reveal">
-          <svg class="leaf-corner small bl" viewBox="0 0 220 220" aria-hidden="true">
-            <g fill="none" stroke="rgba(31,90,58,.85)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M40 170c45-68 85-105 150-125" />
-              <path d="M62 155c15-25 28-40 58-64" />
-              <path d="M78 142c12-18 24-30 44-45" />
-              <path d="M95 130c10-13 18-22 34-32" />
-            </g>
-            <g fill="rgba(31,90,58,.18)">
-              <path d="M112 98c-9 3-16 9-20 18 10 3 20 1 27-5 6-5 7-9 -7-13z"/>
-            </g>
-          </svg>
- 
           <h2>Где и когда</h2>
  
-          <!-- Детали: другой шрифт, больше и ярче -->
           <p class="detailsText">
             <strong>Сбор гостей:</strong> 15:00<br>
             <strong>Дата:</strong> 21 августа 2026<br>
-            <strong>Место:</strong> Витебский район, д. Дрюково
+            <strong>Адрес:</strong><br>
+            Витебский район, Вороновский сельсовет,<br>
+            деревня Дрюково, Центральная улица, 32
           </p>
  
           <div class="hr"></div>
- 
-          <p class="detailsText" style="margin-bottom:12px">
-            <strong>Адрес:</strong><br>
-            Витебский район, Вороновский сельсовет,<br>
-            д. Дрюково, ул. Центральная, 32
-          </p>
  
           <div class="ctaRow">
             <a class="btn" id="mapsBtn" target="_blank" rel="noopener">Открыть карту</a>
@@ -743,7 +837,6 @@
         <div class="card padded reveal">
           <h2>Коротко о дне</h2>
  
-          <!-- УДАЛЕНО: всё про конверт -->
           <p class="detailsText">
             Дресс-код — <strong>ч/б</strong> 🖤🤍 + <strong>синий акцент</strong> 💙 (по желанию).<br>
             Вместо цветов — <strong>бутылочка напитка</strong> 🥂<br>
@@ -755,18 +848,15 @@
             <a class="btn" href="#gallery">Смотреть фото</a>
             <a class="btn ghost" href="#route">Как добраться</a>
           </div>
-          <p class="note">Ниже добавили галерею и карту.</p>
         </div>
       </div>
     </section>
  
-    <!-- ====== ГАЛЕРЕЯ ====== -->
     <section id="gallery">
       <div class="card padded reveal">
         <h2>Фото</h2>
         <p class="p">
-          Немного атмосферы 💙 (сюда можно добавить ваши фото, место, детали декора).
-          Нажмите на фото, чтобы открыть крупно.
+          Немного атмосферы 💙. Нажмите на фото, чтобы открыть крупно.
         </p>
  
         <div class="galleryGrid" id="galleryGrid" aria-label="Галерея фотографий"></div>
@@ -777,21 +867,20 @@
       </div>
     </section>
  
-    <!-- ====== КАК ДОБРАТЬСЯ / ПАРКОВКА + КАРТА ====== -->
     <section id="route">
       <div class="grid">
         <div class="card padded reveal">
           <h2>Как добраться и парковка</h2>
           <p class="p">
             Для удобства мы добавили подсказки и карту.
-            Если поедете на своём авто — пожалуйста, приезжайте заранее, чтобы спокойно припарковаться.
+            Если поедете на своём авто — пожалуйста, приезжайте заранее.
           </p>
  
           <ul class="hintList">
             <li><strong>Навигатор:</strong> по адресу из раздела “Где и когда”.</li>
-            <li><strong>Парковка:</strong> рядом/на территории (следуйте указателям и просьбам организаторов).</li>
-            <li><strong>Опоздания:</strong> если задерживаетесь — напишите организатору (контакт ниже).</li>
-            <li><strong>Трансфер:</strong> если нужен — отметьте в RSVP, мы сообщим детали ближе к дате.</li>
+            <li><strong>Парковка:</strong> рядом/на территории (следуйте указателям).</li>
+            <li><strong>Опоздания:</strong> если задерживаетесь — напишите организатору.</li>
+            <li><strong>Трансфер:</strong> если нужен — отметьте в RSVP.</li>
           </ul>
  
           <div class="hr"></div>
@@ -817,10 +906,6 @@
               title="Карта — Дрюково, Центральная 32">
             </iframe>
           </div>
- 
-          <p class="note" style="margin-top:10px">
-            Если карта не отображается — откройте Google Maps кнопкой слева.
-          </p>
         </div>
       </div>
     </section>
@@ -831,69 +916,62 @@
           <h2>Программа дня</h2>
           <p class="p">Тайминг ориентировочный (возможны небольшие изменения).</p>
  
-          <!-- СДЕЛАНО: названия пунктов ярче и крупнее -->
-          <ul class="list">
-            <li>
-              <div>
-                <div class="time">15:00</div>
-                <div class="planItemTitle">Сбор гостей</div>
-                <p class="planItemText">Приветственный бокал · фото · знакомимся и обнимаемся</p>
+          <!-- НОВОЕ: красивый таймлайн + иконки -->
+          <ul class="planList">
+            <li class="planRow">
+              <div class="planTime"><span class="planDot"></span>15:00</div>
+              <div class="planBody">
+                <div class="planItemTitle"><span class="planIcon">🥂</span>Сбор гостей</div>
+                <p class="planItemText">Приветственный бокал · фото · знакомимся</p>
               </div>
-              <div class="right">Welcome</div>
             </li>
  
-            <li>
-              <div>
-                <div class="time">15:30</div>
-                <div class="planItemTitle">Церемония</div>
-                <p class="planItemText">Трогательный момент 💙</p>
+            <li class="planRow">
+              <div class="planTime"><span class="planDot"></span>15:30</div>
+              <div class="planBody">
+                <div class="planItemTitle"><span class="planIcon">💍</span>Церемония</div>
+                <p class="planItemText">Самый трогательный момент 💙</p>
               </div>
-              <div class="right">Ceremony</div>
             </li>
  
-            <li>
-              <div>
-                <div class="time">16:00</div>
-                <div class="planItemTitle">Фото и поздравления</div>
+            <li class="planRow">
+              <div class="planTime"><span class="planDot"></span>16:00</div>
+              <div class="planBody">
+                <div class="planItemTitle"><span class="planIcon">📸</span>Фото и поздравления</div>
                 <p class="planItemText">Общие фотографии · тёплые слова</p>
               </div>
-              <div class="right">Photos</div>
             </li>
  
-            <li>
-              <div>
-                <div class="time">17:00</div>
-                <div class="planItemTitle">Праздничный вечер</div>
-                <p class="planItemText">Банкет · ужин · тосты</p>
+            <li class="planRow">
+              <div class="planTime"><span class="planDot"></span>17:00</div>
+              <div class="planBody">
+                <div class="planItemTitle"><span class="planIcon">🍽️</span>Праздничный вечер</div>
+                <p class="planItemText">Ужин · тосты · атмосфера</p>
               </div>
-              <div class="right">Dinner</div>
             </li>
  
-            <li>
-              <div>
-                <div class="time">19:00</div>
-                <div class="planItemTitle">Танцы и программа</div>
-                <p class="planItemText">Музыка · конкурсы · веселье</p>
+            <li class="planRow">
+              <div class="planTime"><span class="planDot"></span>19:00</div>
+              <div class="planBody">
+                <div class="planItemTitle"><span class="planIcon">🎶</span>Танцы и программа</div>
+                <p class="planItemText">Музыка · веселье · танцуем!</p>
               </div>
-              <div class="right">Party</div>
             </li>
  
-            <li>
-              <div>
-                <div class="time">21:30</div>
-                <div class="planItemTitle">Торт</div>
-                <p class="planItemText">Сладкий момент вечера 🍰</p>
+            <li class="planRow">
+              <div class="planTime"><span class="planDot"></span>21:30</div>
+              <div class="planBody">
+                <div class="planItemTitle"><span class="planIcon">🍰</span>Торт</div>
+                <p class="planItemText">Сладкий момент вечера</p>
               </div>
-              <div class="right">Cake</div>
             </li>
  
-            <li>
-              <div>
-                <div class="time">23:30</div>
-                <div class="planItemTitle">Завершение</div>
+            <li class="planRow">
+              <div class="planTime"><span class="planDot"></span>23:30</div>
+              <div class="planBody">
+                <div class="planItemTitle"><span class="planIcon">🚌</span>Завершение</div>
                 <p class="planItemText">Трансфер · объятия · до встречи 💙</p>
               </div>
-              <div class="right">Transfer</div>
             </li>
           </ul>
         </div>
@@ -903,7 +981,7 @@
           <p class="p">
             <strong>Чёрно-белая палитра</strong> 🖤🤍<br>
             Будем рады, если вы поддержите стиль вечера образами в чёрно-белых тонах.
-            <span class="script">Синий акцент</span> (аксессуар/платок/галстук) — по желанию 💙
+            <span class="script">Синий акцент</span> — по желанию 💙
           </p>
           <div class="badgeRow">
             <span class="badge">черный</span>
@@ -1062,7 +1140,6 @@
     </footer>
   </main>
  
-  <!-- ====== LIGHTBOX (галерея) ====== -->
   <div class="lightbox" id="lightbox" aria-hidden="true">
     <div class="lbCard" role="dialog" aria-modal="true" aria-label="Просмотр фото">
       <button class="lbClose" id="lbClose" aria-label="Закрыть">✕</button>
@@ -1080,21 +1157,19 @@
  
   <script>
     // ====== НАСТРОЙКИ ======
-    const weddingDateLocal = new Date(2026, 7, 21, 15, 0, 0); // 7 = август (0=янв)
+    const weddingDateLocal = new Date(2026, 7, 21, 15, 0, 0);
     const addressText = "Витебский район, Вороновский сельсовет, деревня Дрюково, Центральная улица, 32";
     const placeText = "Дрюково, Центральная 32";
  
-    // 1) КАРТА (кнопки)
+    // Карта
     const mapsQuery = encodeURIComponent(placeText + ", " + addressText);
     const mapsUrl = "https://www.google.com/maps/search/?api=1&query=" + mapsQuery;
- 
-    // 2) Встроенная карта (iframe)
     const embedUrl = "https://www.google.com/maps?q=" + mapsQuery + "&output=embed";
  
-    // 3) RSVP -> GOOGLE SHEETS (как у тебя было)
+    // RSVP -> Google Sheets
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyU1T7nihR_oqbwWHgWGCmoRBx6g7a_JxquL3VyVl668RORpaqeAek6BkAxsvoZ9jy0/exec";
  
-    // ====== ГАЛЕРЕЯ ======
+    // Галерея
     const GALLERY_IMAGES = [
       { src: "https://images.unsplash.com/photo-1529634897501-3c0b1d0c8fbd?auto=format&fit=crop&w=1400&q=70", title: "Лёгкая эстетика" },
       { src: "https://images.unsplash.com/photo-1523437237164-d442d57cc3c9?auto=format&fit=crop&w=1400&q=70", title: "Свечи и уют" },
@@ -1106,13 +1181,13 @@
       { src: "https://images.unsplash.com/photo-1520857014576-3b01a0d9bce2?auto=format&fit=crop&w=1400&q=70", title: "Тёплые моменты" }
     ];
  
-    // ====== КНОПКИ КАРТЫ ======
+    // Кнопки карты
     document.getElementById("routeBtn").href = mapsUrl;
     document.getElementById("mapsBtn").href = mapsUrl;
     document.getElementById("mapsPrimaryBtn").href = mapsUrl;
     document.getElementById("mapFrame").src = embedUrl;
  
-    // ====== КОПИРОВАНИЕ АДРЕСА ======
+    // Копирование адреса
     const copyBtn = document.getElementById("copyAddressBtn");
     const copyNote = document.getElementById("copyNote");
     copyBtn.addEventListener("click", async () => {
@@ -1125,7 +1200,7 @@
       }
     });
  
-    // Копировать "место" (название + адрес)
+    // Копировать "место"
     const copyPlaceBtn = document.getElementById("copyPlaceBtn");
     const copyPlaceNote = document.getElementById("copyPlaceNote");
     copyPlaceBtn.addEventListener("click", async () => {
@@ -1139,7 +1214,7 @@
       }
     });
  
-    // ====== ТАЙМЕР ======
+    // Таймер
     const elD = document.getElementById("d");
     const elH = document.getElementById("h");
     const elM = document.getElementById("m");
@@ -1164,7 +1239,7 @@
     }
     tick(); setInterval(tick, 1000);
  
-    // ====== ГАЛЕРЕЯ: РЕНДЕР + LIGHTBOX ======
+    // Галерея + Lightbox
     const galleryGrid = document.getElementById("galleryGrid");
     const lightbox = document.getElementById("lightbox");
     const lbImg = document.getElementById("lbImg");
@@ -1233,11 +1308,11 @@
       if(e.key === "ArrowRight") next();
     });
  
-    // ====== RSVP: ЧЕРНОВИК + ОТПРАВКА В GOOGLE SHEETS ======
+    // RSVP draft + send
     const form = document.getElementById("rsvpForm");
     const saveDraftBtn = document.getElementById("saveDraftBtn");
     const statusNote = document.getElementById("statusNote");
-    const draftKey = "wedding_rsvp_draft_v4_blue";
+    const draftKey = "wedding_rsvp_draft_v5_neon";
  
     function getFormData(){
       const data = new FormData(form);
@@ -1312,7 +1387,7 @@
       }
     });
  
-    // ====== МЯГКОЕ ПОЯВЛЕНИЕ БЛОКОВ ======
+    // Reveal blocks
     const items = document.querySelectorAll(".reveal");
     const io = new IntersectionObserver((entries)=>{
       for(const e of entries){
@@ -1321,7 +1396,7 @@
     }, { threshold: .12 });
     items.forEach(el => io.observe(el));
  
-    // ====== ФОН: ПЛАВНАЯ СМЕНА (исправлено: один рабочий скрипт) ======
+    // Background slideshow
     const BG_IMAGES = [
       "https://i.ibb.co/Nd2QbKPQ/IMG-0302.jpg",
       "https://i.ibb.co/bMN4QBry/B2-AC3-B25-113-B-4-C73-AF84-DB8-BFEC273-F0.jpg",
