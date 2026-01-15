@@ -12,14 +12,12 @@
 
   <style>
     :root{
-      /* ЗЕЛЁНЫЙ ФОН как просила (глубокий, не молочный) */
-      --bg: #0f3b36;     /* основной фон */
-      --bg2:#0b2e2a;     /* глубже */
-      --ink: #f4f7f5;    /* текст на зелёном */
+      --bg: #0f3b36;
+      --bg2:#0b2e2a;
+      --ink: #f4f7f5;
       --muted: rgba(244,247,245,.74);
       --line: rgba(255,255,255,.16);
 
-      /* стеклянные карточки на зелёном */
       --card: rgba(255,255,255,.10);
       --card2: rgba(255,255,255,.14);
 
@@ -85,68 +83,11 @@
       padding: 18px 20px 74px;
     }
 
-    /* ===== TOPBAR ===== */
-    .topbar{
-      position: sticky;
-      top:0;
-      z-index: 50;
-      background: rgba(10,35,32,.55);
-      border-bottom: 1px solid rgba(255,255,255,.14);
-      backdrop-filter: blur(14px);
-    }
-    .topbar .inner{
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 12px 20px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-    }
-    .brand{
-      display:flex; align-items:center; gap:10px;
-      font-weight:800;
-      letter-spacing:.2px;
-      white-space:nowrap;
-      color: rgba(255,255,255,.92);
-    }
-    .seal{
-      width: 30px; height: 30px;
-      border-radius: 999px;
-      display:grid; place-items:center;
-      border:1px solid rgba(255,255,255,.20);
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.18), rgba(255,255,255,.05));
-      box-shadow: 0 14px 30px rgba(0,0,0,.25);
-      font-size: 14px;
-      color: rgba(255,255,255,.92);
-      user-select:none;
-    }
-    .nav{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-    .nav a{
-      text-decoration:none;
-      color: rgba(255,255,255,.78);
-      font-size: 13px;
-      padding: 7px 10px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      transition: .2s ease;
-    }
-    .nav a:hover{
-      color: rgba(255,255,255,.95);
-      border-color: rgba(255,255,255,.18);
-      background: rgba(255,255,255,.08);
-    }
-
     section{ padding: 16px 0; }
     .grid{ display:grid; grid-template-columns: 1fr 1fr; gap:14px; }
     @media (max-width: 900px){ .grid{ grid-template-columns: 1fr; } }
 
-    /* ===== Карточки “дороже”: стекло + тонкая внутренняя рамка ===== */
+    /* ===== Карточки “дороже” ===== */
     .card{
       background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.08));
       border: 1px solid rgba(255,255,255,.16);
@@ -243,7 +184,7 @@
       box-shadow: 0 20px 55px rgba(0,0,0,.28);
     }
 
-    /* ===== Вступительный блок с рамкой (дороже) ===== */
+    /* ===== Вступительный блок с рамкой ===== */
     .intro{ padding-top: 10px; }
     .frame{
       position: relative;
@@ -379,7 +320,7 @@
       color: rgba(255,255,255,.78);
     }
 
-    /* ===== Фото “дороже”: медальон, двойная рамка, блик, виньетка ===== */
+    /* ===== Фото ===== */
     .photoRow{
       display:grid;
       grid-template-columns: 1fr 1fr;
@@ -417,8 +358,6 @@
       margin: 2px auto 14px;
       overflow:hidden;
       position:relative;
-
-      /* “дорогая” рамка */
       border: 1px solid rgba(255,255,255,.34);
       box-shadow:
         0 28px 90px rgba(0,0,0,.32),
@@ -426,7 +365,6 @@
       background: rgba(255,255,255,.10);
     }
     .medallion::before{
-      /* внутренняя тонкая окружность */
       content:"";
       position:absolute;
       inset: 14px;
@@ -436,7 +374,6 @@
       z-index:3;
     }
     .medallion::after{
-      /* блик */
       content:"";
       position:absolute;
       inset:-30%;
@@ -533,7 +470,7 @@
     /* ===== Карта ===== */
     .mapWrap{
       border-radius: 18px;
-      overflow: hidden;
+      overflow:hidden;
       border: 1px solid rgba(255,255,255,.18);
       background: rgba(255,255,255,.12);
       box-shadow: 0 18px 55px rgba(0,0,0,.30);
@@ -570,7 +507,7 @@
     }
     textarea{ min-height: 110px; resize: vertical; }
 
-    /* ===== Заставка "ОТКРЫТЬ ПРИГЛАШЕНИЕ" ===== */
+    /* ===== Заставка ===== */
     body.lock{ overflow:hidden; }
     .gate{
       position: fixed;
@@ -749,26 +686,6 @@
     </div>
   </div>
 
-  <div class="topbar">
-    <div class="inner">
-      <div class="brand">
-        <div class="seal">A&amp;G</div>
-        Александр &amp; Гюнель
-      </div>
-      <nav class="nav">
-        <a href="#home">Главная</a>
-        <a href="#quote">Фраза</a>
-        <a href="#photos">Фото</a>
-        <a href="#plan">Программа</a>
-        <a href="#route">Локация</a>
-        <a href="#details">Детали</a>
-        <a href="#dresscode">Дресс-код</a>
-        <a href="#rsvp">Анкета</a>
-        <a href="#contacts">Контакты</a>
-      </nav>
-    </div>
-  </div>
-
   <main class="wrap">
 
     <!-- Вступительный блок с рамкой -->
@@ -811,7 +728,7 @@
       </div>
     </section>
 
-    <!-- Фото в “дорогих” круглых рамках -->
+    <!-- Фото -->
     <section id="photos">
       <div class="photoRow reveal">
         <div class="photoCard">
@@ -1083,10 +1000,6 @@
   </div>
 
   <script>
-    // =========================
-    // ДАННЫЕ
-    // =========================
-
     // 1) Дата свадьбы
     const weddingDateLocal = new Date(2026, 7, 21, 15, 0, 0);
 
@@ -1100,12 +1013,10 @@
     document.getElementById("mapsPrimaryBtn").href = mapsUrl;
     document.getElementById("mapFrame").src = embedUrl;
 
-    // 3) RSVP -> Google Sheets (URL из твоего кода)
+    // 3) RSVP -> Google Sheets
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyU1T7nihR_oqbwWHgWGCmoRBx6g7a_JxquL3VyVl668RORpaqeAek6BkAxsvoZ9jy0/exec";
 
-    // =========================
-    // ЗАСТАВКА "ОТКРЫТЬ"
-    // =========================
+    // ===== Заставка "ОТКРЫТЬ" =====
     const gate = document.getElementById("gate");
     const openBtn = document.getElementById("openInviteBtn");
 
@@ -1113,13 +1024,13 @@
       gate.classList.add("hide");
       document.body.classList.remove("lock");
       setTimeout(()=>{ gate.style.display = "none"; }, 420);
+
+      // ВАЖНО: скроллим сразу к блоку с сердцем (музыкой)
       document.getElementById("home")?.scrollIntoView({ behavior: "smooth", block: "start" });
     }
     openBtn.addEventListener("click", openInvite);
 
-    // =========================
-    // КОПИРОВАНИЕ "МЕСТА"
-    // =========================
+    // ===== Копирование "места" =====
     const copyPlaceBtn = document.getElementById("copyPlaceBtn");
     const copyPlaceNote = document.getElementById("copyPlaceNote");
     copyPlaceBtn.addEventListener("click", async () => {
@@ -1133,28 +1044,20 @@
       }
     });
 
-    // =========================
-    // ТАЙМЕР
-    // =========================
+    // ===== Таймер =====
     const elD = document.getElementById("d");
     const elH = document.getElementById("h");
     const elM = document.getElementById("m");
     const elS = document.getElementById("s");
 
     function pad(n){ return String(n).padStart(2,"0"); }
-
     function tick(){
       const now = new Date();
       const diff = weddingDateLocal.getTime() - now.getTime();
-
       if(diff <= 0){
-        elD.textContent = "0";
-        elH.textContent = "00";
-        elM.textContent = "00";
-        elS.textContent = "00";
+        elD.textContent = "0"; elH.textContent = "00"; elM.textContent = "00"; elS.textContent = "00";
         return;
       }
-
       const sec = Math.floor(diff/1000);
       const days = Math.floor(sec / 86400);
       const hours = Math.floor((sec % 86400) / 3600);
@@ -1168,18 +1071,15 @@
     }
     tick(); setInterval(tick, 1000);
 
-    // =========================
-    // RSVP: черновик + отправка
-    // =========================
+    // ===== RSVP: черновик + отправка =====
     const form = document.getElementById("rsvpForm");
     const saveDraftBtn = document.getElementById("saveDraftBtn");
-    const draftKey = "wedding_rsvp_moment_green_luxe_v1";
+    const draftKey = "wedding_rsvp_moment_green_luxe_v2";
 
     function getFormData(){
       const data = new FormData(form);
       return Object.fromEntries(data.entries());
     }
-
     function fillForm(obj){
       if(!obj) return;
       for(const [k,v] of Object.entries(obj)){
@@ -1248,9 +1148,7 @@
       }
     });
 
-    // =========================
-    // МУЗЫКА (сердце + док-панель)
-    // =========================
+    // ===== Музыка =====
     const audio = document.getElementById("bgMusic");
     const heartBtn = document.getElementById("heartBtn");
     const musicState = document.getElementById("musicState");
@@ -1293,9 +1191,7 @@
     audio.addEventListener("play", ()=> setUI(true));
     setUI(false);
 
-    // =========================
-    // Reveal
-    // =========================
+    // ===== Reveal =====
     const items = document.querySelectorAll(".reveal");
     const canAnimate = window.matchMedia && window.matchMedia("(prefers-reduced-motion: no-preference)").matches;
 
