@@ -61,7 +61,7 @@
       transition: opacity 1.8s ease;
       will-change: opacity;
     }
-    .bgLayer.on{ opacity: .22; }
+    .bgLayer.on{ opacity: .55; }
  
     /* Вуаль: по краям плотнее (читаемость), по центру мягче (видно фото) */
     .bgVeil{
