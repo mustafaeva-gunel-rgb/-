@@ -61,7 +61,7 @@
       transition: opacity 1.8s ease;
       will-change: opacity;
     }
-    .bgLayer.on{ opacity: .55; }
+    .bgLayer.on{ opacity: .30; }
  
     /* Вуаль: по краям плотнее (читаемость), по центру мягче (видно фото) */
     .bgVeil{
@@ -1021,12 +1021,63 @@
       });
     }
  
-    (async function initBg(){
-      if(!layerA || !layerB) return;
+   // ====== ФОН: железно работает на GitHub Pages (и в подпапке репо тоже) ======
+const layerA = document.querySelector(".bgLayer.a");
+const layerB = document.querySelector(".bgLayer.b");
  
-      // проверяем какие картинки реально доступны
-      const checks = await Promise.all(BG_IMAGES.map(preload));
-      const okImages = checks.filter(x => x.ok).map(x => x.url);
+// Пиши ровно столько, сколько фото у тебя есть
+const BG_FILES = ["bg1.jpg","bg2.jpg","bg3.jpg","bg4.jpg","bg5.jpg"];
+ 
+// Собираем корректные ссылки на основе текущего адреса сайта
+const BG_IMAGES = BG_FILES.map(f => new URL("assets/" + f, window.location.href).toString());
+ 
+function preload(url){
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => resolve({ url, ok:true });
+    img.onerror = () => resolve({ url, ok:false });
+    img.src = url;
+  });
+}
+ 
+(async function initBg(){
+  if(!layerA || !layerB) return;
+ 
+  // Проверяем, что картинки реально грузятся
+  const checks = await Promise.all(BG_IMAGES.map(preload));
+  const okImages = checks.filter(x => x.ok).map(x => x.url);
+ 
+  if(!okImages.length){
+    console.log("BG: images not loaded. Проверь: assets/bg1.jpg и т.д.");
+    // временный тест: покажем первую картинку фоном body (чтобы понять точно)
+    document.body.style.backgroundImage = `url("${BG_IMAGES[0]}")`;
+    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundPosition = "center";
+    return;
+  }
+ 
+  let idx = 0;
+  let showA = true;
+ 
+  layerA.style.backgroundImage = `url("${okImages[0]}")`;
+  layerA.classList.add("on");
+ 
+  setInterval(() => {
+    idx = (idx + 1) % okImages.length;
+ 
+    const showLayer = showA ? layerB : layerA;
+    const hideLayer = showA ? layerA : layerB;
+ 
+    showLayer.style.backgroundImage = `url("${okImages[idx]}")`;
+    showLayer.classList.add("on");
+    hideLayer.classList.remove("on");
+ 
+    showA = !showA;
+  }, 9000);
+ 
+  console.log("BG: OK, loaded", okImages.length, "images");
+})();
+
  
       // если ничего не загрузилось — просто оставим светлый фон (чтобы сайт не "ломался")
       if(!okImages.length){
