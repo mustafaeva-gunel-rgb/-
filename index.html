@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Сайт-приглашение на свадьбу Александра и Гюнель — 21.08.2026, 15:30, Витебский район, Дрюково" />
   <title>Александр &amp; Гюнель — 21.08.2026</title>
-
+ 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Allura&display=swap" rel="stylesheet">
-
+ 
   <style>
     :root{
       --bg: #0f3b36;
@@ -17,15 +17,15 @@
       --ink: #f4f7f5;
       --muted: rgba(244,247,245,.74);
       --line: rgba(255,255,255,.16);
-
+ 
       --card: rgba(255,255,255,.10);
       --card2: rgba(255,255,255,.14);
-
+ 
       --radius: 26px;
       --shadow: 0 22px 70px rgba(0,0,0,.28);
       --max: 980px;
     }
-
+ 
     *{ box-sizing:border-box }
     html,body{ height:100% }
     body{
@@ -35,8 +35,7 @@
       background: var(--bg);
       overflow-x:hidden;
     }
-
-    /* ===== Зеленый фон: мягкие пятна + “пыльца” (статично) ===== */
+ 
     .bg{
       position: fixed;
       inset: 0;
@@ -62,8 +61,7 @@
         radial-gradient(12px 9px at 54% 78%, rgba(255,255,255,.72), rgba(255,255,255,0) 72%);
       filter: blur(.2px);
     }
-
-    /* лёгкая фактура */
+ 
     .grain{
       position: fixed;
       inset: 0;
@@ -74,7 +72,7 @@
       background-image:
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
     }
-
+ 
     .wrap{
       position: relative;
       z-index: 5;
@@ -82,12 +80,11 @@
       margin: 0 auto;
       padding: 18px 20px 74px;
     }
-
+ 
     section{ padding: 16px 0; }
     .grid{ display:grid; grid-template-columns: 1fr 1fr; gap:14px; }
     @media (max-width: 900px){ .grid{ grid-template-columns: 1fr; } }
-
-    /* ===== Карточки “дороже” ===== */
+ 
     .card{
       background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.08));
       border: 1px solid rgba(255,255,255,.16);
@@ -101,7 +98,7 @@
     .card.padded{ padding: 26px; }
     @media (max-width:520px){ .card.padded{ padding: 18px; } }
     .card > *{ position:relative; z-index:2; }
-
+ 
     .card::before{
       content:"";
       position:absolute;
@@ -129,7 +126,7 @@
       z-index:1;
       opacity:.80;
     }
-
+ 
     h2{
       margin: 0 0 10px;
       font-size: 20px;
@@ -144,8 +141,7 @@
     }
     .hr{ height:1px; background: rgba(255,255,255,.16); margin: 16px 0; }
     .note{ font-size: 12px; color: rgba(255,255,255,.68); margin-top: 8px; }
-
-    /* ===== Кнопки ===== */
+ 
     .ctaRow{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:center; }
     .btn{
       display:inline-flex;
@@ -172,7 +168,7 @@
       box-shadow: 0 18px 45px rgba(0,0,0,.24);
     }
     .btn:active{ transform: translateY(1px); }
-
+ 
     .btn.primary{
       background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.74));
       color: rgba(11,46,42,.98);
@@ -183,8 +179,7 @@
       border-color: rgba(255,255,255,.90);
       box-shadow: 0 20px 55px rgba(0,0,0,.28);
     }
-
-    /* ===== Вступительный блок с рамкой ===== */
+ 
     .intro{ padding-top: 10px; }
     .frame{
       position: relative;
@@ -228,7 +223,7 @@
     }
     .frame::before{ left:-96px; top:-104px; transform: rotate(18deg); }
     .frame::after{ right:-96px; bottom:-104px; transform: rotate(198deg); }
-
+ 
     .smallCaps{
       font-size: 12px;
       letter-spacing: .42em;
@@ -258,8 +253,7 @@
       color: rgba(255,255,255,.84);
       line-height: 1.9;
     }
-
-    /* ===== Сердце-музыка ===== */
+ 
     .heartRow{
       display:flex;
       justify-content:center;
@@ -293,8 +287,7 @@
       line-height: 1.35;
     }
     .musicText b{ color: rgba(255,255,255,.95); }
-
-    /* ===== ЦИТАТА ===== */
+ 
     .quote{
       text-align:center;
       padding: 28px 22px;
@@ -319,8 +312,7 @@
       text-transform: uppercase;
       color: rgba(255,255,255,.78);
     }
-
-    /* ===== Фото ===== */
+ 
     .photoRow{
       display:grid;
       grid-template-columns: 1fr 1fr;
@@ -328,7 +320,7 @@
       align-items:stretch;
     }
     @media (max-width: 900px){ .photoRow{ grid-template-columns: 1fr; } }
-
+ 
     .photoCard{
       background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.08));
       border: 1px solid rgba(255,255,255,.16);
@@ -350,7 +342,7 @@
       pointer-events:none;
       opacity:.75;
     }
-
+ 
     .medallion{
       width: min(270px, 74vw);
       aspect-ratio: 1/1;
@@ -398,7 +390,7 @@
       transform: scale(1.03);
       filter: contrast(1.02) saturate(1.02);
     }
-
+ 
     .who{
       font-weight: 800;
       letter-spacing: .16em;
@@ -414,8 +406,7 @@
       color: rgba(255,255,255,.96);
       text-shadow: 0 18px 55px rgba(0,0,0,.25);
     }
-
-    /* ===== Таймер ===== */
+ 
     .countdown{ display:flex; gap:10px; flex-wrap:wrap; justify-content:center; }
     .pill{
       min-width: 92px;
@@ -438,8 +429,7 @@
       margin: 2px 0 0;
       color: rgba(255,255,255,.72);
     }
-
-    /* ===== Программа ===== */
+ 
     .plan{
       margin: 10px 0 0;
       padding: 0;
@@ -466,8 +456,7 @@
       line-height: 1.65;
     }
     .b strong{ color: rgba(255,255,255,.96); }
-
-    /* ===== Карта ===== */
+ 
     .mapWrap{
       border-radius: 18px;
       overflow:hidden;
@@ -483,8 +472,7 @@
       filter: saturate(.95) contrast(1.05);
     }
     @media (max-width:640px){ .mapWrap iframe{ height: 280px; } }
-
-    /* ===== Форма ===== */
+ 
     form{ display:grid; gap:10px; margin-top: 10px; }
     .row{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
     @media (max-width:640px){ .row{ grid-template-columns:1fr; } }
@@ -506,8 +494,12 @@
       background: rgba(0,0,0,.18);
     }
     textarea{ min-height: 110px; resize: vertical; }
-
-    /* ===== Заставка ===== */
+ 
+    .status-ok{
+      color: rgba(255,255,255,.88);
+      margin-top: 6px;
+    }
+ 
     body.lock{ overflow:hidden; }
     .gate{
       position: fixed;
@@ -608,8 +600,7 @@
       pointer-events:none;
       transition: opacity .35s ease;
     }
-
-    /* ===== мини-панель музыки ===== */
+ 
     .musicDock{
       position: fixed;
       right: 14px;
@@ -641,14 +632,13 @@
       opacity: .92;
       max-width: 220px;
     }
-
-    /* ===== Reveal ===== */
+ 
     .reveal{ opacity: 1; transform: none; }
     @media (prefers-reduced-motion: no-preference){
       .reveal{ opacity:0; transform: translateY(10px); transition: .65s ease; }
       .reveal.on{ opacity:1; transform: translateY(0); }
     }
-
+ 
     footer{
       padding: 22px 0 30px;
       text-align:center;
@@ -665,17 +655,15 @@
     a:hover{ color: rgba(255,255,255,1); }
   </style>
 </head>
-
+ 
 <body class="lock">
   <div class="bg" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
-
-  <!-- Музыка: положи файл assets/music.mp3 -->
+ 
   <audio id="bgMusic" preload="metadata">
     <source src="assets/music.mp3" type="audio/mpeg">
   </audio>
-
-  <!-- Заставка -->
+ 
   <div class="gate" id="gate" aria-hidden="false">
     <div class="gateCard">
       <div class="gateSmall">нажмите, чтобы открыть приглашение</div>
@@ -685,16 +673,14 @@
       <div class="gateHint">Музыку можно включить сердцем на странице 💚</div>
     </div>
   </div>
-
+ 
   <main class="wrap">
-
-    <!-- Вступительный блок с рамкой -->
     <section id="home" class="intro">
       <div class="frame reveal">
         <div class="innerBorder" aria-hidden="true"></div>
-
+ 
         <div class="smallCaps">мы женимся!</div>
-
+ 
         <div class="heartRow" aria-label="Музыка">
           <div class="heartBtn" id="heartBtn" role="button" aria-label="Включить / выключить музыку" title="Музыка">
             <span id="heartIcon">❤</span>
@@ -704,31 +690,29 @@
             Нажмите на сердце, чтобы включить / пауза
           </div>
         </div>
-
+ 
         <div class="scriptNames">Александр &amp; Гюнель</div>
         <div class="dateBig">21 августа 2026 · 15:30</div>
-
+ 
         <p class="lead">
           С большой радостью приглашаем вас на наш первый семейный праздник — нашу свадьбу!<br>
           Мы очень хотим, чтобы в этот день рядом были наши самые близкие люди.
         </p>
-
+ 
         <div class="ctaRow" style="margin-top:16px;">
           <a class="btn primary" href="#rsvp">Заполнить анкету</a>
           <a class="btn" href="#route">Открыть карту</a>
         </div>
       </div>
     </section>
-
-    <!-- Фраза -->
+ 
     <section id="quote" class="reveal">
       <div class="quote">
         <p class="q">Место для счастья — здесь,<br>время для счастья — сейчас</p>
         <div class="s">мы ждём вас</div>
       </div>
     </section>
-
-    <!-- Фото -->
+ 
     <section id="photos">
       <div class="photoRow reveal">
         <div class="photoCard">
@@ -739,7 +723,7 @@
           <p class="who">жених</p>
           <p class="whoBig">Александр</p>
         </div>
-
+ 
         <div class="photoCard">
           <div class="medallion">
             <img src="assets/couple2.jpg" alt="Фото молодожёнов — Гюнель">
@@ -750,8 +734,7 @@
         </div>
       </div>
     </section>
-
-    <!-- Программа + Таймер -->
+ 
     <section id="plan">
       <div class="grid">
         <div class="card padded reveal">
@@ -775,12 +758,11 @@
             </li>
             <li>
               <div class="t">00:00</div>
-              <p class="b"><strong>Окончание мероприятия</strong><br>К сожалению, даже такой прекрасный вечер может закончиться
-</p>
+              <p class="b"><strong>Окончание мероприятия</strong><br>К сожалению, даже такой прекрасный вечер может закончиться</p>
             </li>
           </ul>
         </div>
-
+ 
         <div class="card padded reveal">
           <h2>До свадьбы осталось</h2>
           <div class="countdown" aria-live="polite">
@@ -793,8 +775,7 @@
         </div>
       </div>
     </section>
-
-    <!-- Локация -->
+ 
     <section id="route">
       <div class="grid">
         <div class="card padded reveal">
@@ -812,7 +793,7 @@
           </div>
           <p class="note" id="copyPlaceNote" style="display:none">Скопировано ✅</p>
         </div>
-
+ 
         <div class="card padded reveal">
           <h2>Карта</h2>
           <div class="mapWrap">
@@ -827,22 +808,21 @@
         </div>
       </div>
     </section>
-
-    <!-- Детали -->
+ 
     <section id="details">
       <div class="card padded reveal">
         <h2>Детали</h2>
-
+ 
         <p class="p"><strong>— Подарки</strong></p>
         <p class="p">Ваше присутствие и тёплые слова — самое ценное для нас ❤️</p>
-
+ 
         <div class="hr"></div>
-
+ 
         <p class="p"><strong>— Цветы</strong></p>
-        <p class="p">Приятным комплиментом для нас вместо цветов от мужчин будет бутылочка вашего любимого напитка, которую мы откроем на ближайшем совместном празднике 🥂, а от прекрасных  дам  — книга 📚 (любимая или та, которую вы советуете), чтобы в нашей библиотеке всегда была частичка ваших пожеланий. </p>
-
+        <p class="p">Приятным комплиментом для нас вместо цветов от мужчин будет бутылочка вашего любимого напитка, которую мы откроем на ближайшем совместном празднике 🥂, а от прекрасных дам — книга 📚 (любимая или та, которую вы советуете), чтобы в нашей библиотеке всегда была частичка ваших пожеланий.</p>
+ 
         <div class="hr"></div>
-
+ 
         <p class="p"><strong>— Про «Горько»</strong></p>
         <p class="p">
           Будем благодарны, если вы <strong>воздержитесь от криков «Горько»</strong> на празднике,
@@ -850,8 +830,7 @@
         </p>
       </div>
     </section>
-
-    <!-- Дресс-код -->
+ 
     <section id="dresscode">
       <div class="grid">
         <div class="card padded reveal">
@@ -861,7 +840,7 @@
             <strong>Чёрно-белая палитра</strong> 🖤🤍 (акцент по желанию).
           </p>
         </div>
-
+ 
         <div class="card padded reveal">
           <h2>Коротко о дне</h2>
           <p class="p">
@@ -877,8 +856,7 @@
         </div>
       </div>
     </section>
-
-    <!-- Анкета -->
+ 
     <section id="rsvp">
       <div class="card padded reveal">
         <h2>Анкета гостя · RSVP</h2>
@@ -886,8 +864,16 @@
           Ваши ответы очень помогут нам при организации свадьбы.<br>
           Будем благодарны, если вы ответите <strong>до 1 августа 2026 года</strong>.
         </p>
-
-        <form id="rsvpForm" autocomplete="on">
+ 
+        <form
+          id="rsvpForm"
+          autocomplete="on"
+          action="https://script.google.com/macros/s/AKfycbxOtzhk42ZayR9R8A8m932Yqok7y9txAgsFoSz7oHDmcigzn1aTFl2QYwdUbgJSRMFg/exec"
+          method="POST"
+          target="hidden_iframe"
+        >
+          <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+ 
           <div class="row">
             <div>
               <label for="name">Имя и фамилия</label>
@@ -903,7 +889,7 @@
               </select>
             </div>
           </div>
-
+ 
           <div class="row">
             <div>
               <label for="guests">Количество гостей</label>
@@ -922,7 +908,7 @@
               </select>
             </div>
           </div>
-
+ 
           <div class="row">
             <div>
               <label for="pickup">Откуда удобнее отправляться? (если нужен трансфер)</label>
@@ -937,7 +923,7 @@
               </select>
             </div>
           </div>
-
+ 
           <div class="row">
             <div>
               <label for="food">Питание / аллергии</label>
@@ -948,23 +934,22 @@
               <input id="contact" name="contact" placeholder="Телефон / Telegram / Instagram" />
             </div>
           </div>
-
+ 
           <div>
             <label for="comment">Комментарий (сюда можно написать пожелания по алкоголю)</label>
             <textarea id="comment" name="comment" placeholder="Любые пожелания или важные детали"></textarea>
           </div>
-
+ 
           <div class="ctaRow" style="margin-top:6px;">
-            <button class="btn primary" type="submit">ОТПРАВИТЬ</button>
+            <button class="btn primary" type="submit" id="submitBtn">ОТПРАВИТЬ</button>
             <button class="btn" type="button" id="saveDraftBtn">Сохранить черновик</button>
           </div>
-
+ 
           <p class="note" id="statusNote"></p>
         </form>
       </div>
     </section>
-
-    <!-- Контакты -->
+ 
     <section id="contacts">
       <div class="card padded reveal">
         <h2>Контакты</h2>
@@ -981,15 +966,13 @@
         <p class="note">Если мессенджер не открывается — просто позвоните 🙂</p>
       </div>
     </section>
-
+ 
     <footer class="reveal">
       <div class="script">Александр &amp; Гюнель</div>
       21.08.2026 · Витебский район · Дрюково · Центральная, 32
     </footer>
-
   </main>
-
-  <!-- Мини-панель музыки -->
+ 
   <div class="musicDock" id="musicDock" style="display:none" aria-hidden="true">
     <div class="dockBtn" id="dockToggle" title="Музыка"><span id="dockIcon">⏵</span></div>
     <div class="dockText">
@@ -997,37 +980,30 @@
       Нажмите для паузы/воспроизведения
     </div>
   </div>
-
+ 
   <script>
-    // 1) Дата свадьбы
-    const weddingDateLocal = new Date(2026, 7, 21, 15, 0, 0);
-
-    // 2) Адрес + карты
+    const weddingDateLocal = new Date(2026, 7, 21, 15, 30, 0);
+ 
     const addressText = "Витебский район, Вороновский сельсовет, деревня Дрюково, Центральная улица, 32";
     const placeText = "Дрюково, Центральная 32";
     const mapsQuery = encodeURIComponent(placeText + ", " + addressText);
     const mapsUrl = "https://www.google.com/maps/search/?api=1&query=" + mapsQuery;
     const embedUrl = "https://www.google.com/maps?q=" + mapsQuery + "&output=embed";
-
+ 
     document.getElementById("mapsPrimaryBtn").href = mapsUrl;
     document.getElementById("mapFrame").src = embedUrl;
-
-    // 3) RSVP -> Google Sheets
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyU1T7nihR_oqbwWHgWGCmoRBx6g7a_JxquL3VyVl668RORpaqeAek6BkAxsvoZ9jy0/exec";
-
-    // ===== Заставка "ОТКРЫТЬ" =====
+ 
     const gate = document.getElementById("gate");
     const openBtn = document.getElementById("openInviteBtn");
-
+ 
     function openInvite(){
       gate.classList.add("hide");
       document.body.classList.remove("lock");
-      setTimeout(()=>{ gate.style.display = "none"; }, 420);
+      setTimeout(() => { gate.style.display = "none"; }, 420);
       document.getElementById("home")?.scrollIntoView({ behavior: "smooth", block: "start" });
     }
     openBtn.addEventListener("click", openInvite);
-
-    // ===== Копирование "места" =====
+ 
     const copyPlaceBtn = document.getElementById("copyPlaceBtn");
     const copyPlaceNote = document.getElementById("copyPlaceNote");
     copyPlaceBtn.addEventListener("click", async () => {
@@ -1035,137 +1011,112 @@
       try{
         await navigator.clipboard.writeText(text);
         copyPlaceNote.style.display = "block";
-        setTimeout(()=> copyPlaceNote.style.display="none", 1800);
+        setTimeout(() => copyPlaceNote.style.display = "none", 1800);
       }catch(e){
         prompt("Скопируйте:", text);
       }
     });
-
-    // ===== Таймер =====
+ 
     const elD = document.getElementById("d");
     const elH = document.getElementById("h");
     const elM = document.getElementById("m");
     const elS = document.getElementById("s");
-
-    function pad(n){ return String(n).padStart(2,"0"); }
+ 
+    function pad(n){ return String(n).padStart(2, "0"); }
     function tick(){
       const now = new Date();
       const diff = weddingDateLocal.getTime() - now.getTime();
       if(diff <= 0){
-        elD.textContent = "0"; elH.textContent = "00"; elM.textContent = "00"; elS.textContent = "00";
+        elD.textContent = "0";
+        elH.textContent = "00";
+        elM.textContent = "00";
+        elS.textContent = "00";
         return;
       }
-      const sec = Math.floor(diff/1000);
+      const sec = Math.floor(diff / 1000);
       const days = Math.floor(sec / 86400);
       const hours = Math.floor((sec % 86400) / 3600);
       const mins = Math.floor((sec % 3600) / 60);
       const secs = sec % 60;
-
+ 
       elD.textContent = String(days);
       elH.textContent = pad(hours);
       elM.textContent = pad(mins);
       elS.textContent = pad(secs);
     }
-    tick(); setInterval(tick, 1000);
-
-    // ===== RSVP: черновик + отправка =====
+    tick();
+    setInterval(tick, 1000);
+ 
     const form = document.getElementById("rsvpForm");
     const saveDraftBtn = document.getElementById("saveDraftBtn");
-    const draftKey = "wedding_rsvp_moment_green_luxe_v2";
-
+    const draftKey = "wedding_rsvp_moment_green_luxe_v3";
+    const statusNote = document.getElementById("statusNote");
+    const submitBtn = document.getElementById("submitBtn");
+ 
     function getFormData(){
       const data = new FormData(form);
       return Object.fromEntries(data.entries());
     }
+ 
     function fillForm(obj){
       if(!obj) return;
-      for(const [k,v] of Object.entries(obj)){
+      for(const [k, v] of Object.entries(obj)){
         const el = form.querySelector(`[name="${k}"]`);
         if(el) el.value = v;
       }
     }
-
+ 
     try{
       const saved = localStorage.getItem(draftKey);
       if(saved) fillForm(JSON.parse(saved));
     }catch(e){}
-
+ 
     saveDraftBtn.addEventListener("click", () => {
       try{
         localStorage.setItem(draftKey, JSON.stringify(getFormData()));
-        alert("Черновик сохранён ✅");
+        statusNote.textContent = "Черновик сохранён ✅";
       }catch(e){
-        alert("Не удалось сохранить черновик 😕");
+        statusNote.textContent = "Не удалось сохранить черновик 😕";
       }
     });
-
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      if(!SCRIPT_URL){
-        alert("RSVP пока не подключён к таблице. Вставь SCRIPT_URL — и всё заработает 🙂");
-        return;
-      }
-
-      const v = getFormData();
-      const payload = {
-        name: v.name || "",
-        attend: v.attend || "",
-        guests: v.guests || "",
-        transferNeed: v.transferNeed || "",
-        pickup: v.pickup || "",
-        kids: v.kids || "",
-        food: v.food || "",
-        contact: v.contact || "",
-        comment: v.comment || "",
-        userAgent: navigator.userAgent
-      };
-
-      const submitBtn = form.querySelector('button[type="submit"]');
-      const oldText = submitBtn.textContent;
+ 
+    form.addEventListener("submit", () => {
       submitBtn.disabled = true;
-      submitBtn.textContent = "Отправляем…";
-
+      submitBtn.textContent = "ОТПРАВЛЯЕМ…";
+      statusNote.textContent = "Отправляем ответ…";
+ 
       try{
-        await fetch(SCRIPT_URL, {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-
         localStorage.removeItem(draftKey);
+      }catch(e){}
+ 
+      setTimeout(() => {
         form.reset();
-        alert("Спасибо! Будем рады Вас видеть ✅");
-      }catch(err){
-        alert("Не получилось отправить 😕 Проверьте интернет и попробуйте ещё раз.");
-      }finally{
+        statusNote.textContent = "Спасибо! Ответ отправлен ✅";
         submitBtn.disabled = false;
-        submitBtn.textContent = oldText;
-      }
+        submitBtn.textContent = "ОТПРАВИТЬ";
+      }, 1200);
     });
-
-    // ===== Музыка =====
+ 
     const audio = document.getElementById("bgMusic");
     const heartBtn = document.getElementById("heartBtn");
     const musicState = document.getElementById("musicState");
     const heartIcon = document.getElementById("heartIcon");
-
+ 
     const musicDock = document.getElementById("musicDock");
     const dockToggle = document.getElementById("dockToggle");
     const dockIcon = document.getElementById("dockIcon");
     const dockState = document.getElementById("dockState");
-
+ 
     function setUI(isPlaying){
       musicState.textContent = isPlaying ? "Музыка включена" : "Музыка выключена";
       heartIcon.textContent = isPlaying ? "💚" : "❤";
-
+ 
       musicDock.style.display = "flex";
       musicDock.setAttribute("aria-hidden", "false");
       dockIcon.textContent = isPlaying ? "⏸" : "⏵";
       dockState.textContent = isPlaying ? "вкл" : "выкл";
     }
-
+ 
     async function toggleMusic(){
       try{
         if(audio.paused){
@@ -1179,21 +1130,20 @@
         alert("Не получилось включить музыку. Проверь, что файл assets/music.mp3 существует 🙂");
       }
     }
-
+ 
     heartBtn.addEventListener("click", toggleMusic);
     dockToggle.addEventListener("click", toggleMusic);
-
-    audio.addEventListener("ended", ()=> setUI(false));
-    audio.addEventListener("pause", ()=> setUI(false));
-    audio.addEventListener("play", ()=> setUI(true));
+ 
+    audio.addEventListener("ended", () => setUI(false));
+    audio.addEventListener("pause", () => setUI(false));
+    audio.addEventListener("play", () => setUI(true));
     setUI(false);
-
-    // ===== Reveal =====
+ 
     const items = document.querySelectorAll(".reveal");
     const canAnimate = window.matchMedia && window.matchMedia("(prefers-reduced-motion: no-preference)").matches;
-
+ 
     if(canAnimate){
-      const io = new IntersectionObserver((entries)=>{
+      const io = new IntersectionObserver((entries) => {
         for(const e of entries){
           if(e.isIntersecting) e.target.classList.add("on");
         }
@@ -1205,3 +1155,4 @@
   </script>
 </body>
 </html>
+ 
