@@ -887,9 +887,7 @@
           Будем благодарны, если вы ответите <strong>до 1 августа 2026 года</strong>.
         </p>
 
-        <form id="rsvpForm" autocomplete="on" action="https://script.google.com/macros/s/AKfycbxOtzhk42ZayR9R8A8m932Yqok7y9txAgsFoSz7oHDmcigzn1aTFl2QYwdUbgJSRMFg/exec" method="POST" target="hidden_iframe">
-          <form id="rsvpForm" autocomplete="on" action="https://script.google.com/macros/s/AKfycbxOtzhk42ZayR9R8A8m932Yqok7y9txAgsFoSz7oHDmcigzn1aTFl2QYwdUbgJSRMFg/exec" method="POST" target="hidden_iframe">
-  <iframe name="hidden_iframe" style="display:none;"></iframe>
+        <form id="rsvpForm" autocomplete="on">
           <div class="row">
             <div>
               <label for="name">Имя и фамилия</label>
@@ -1015,7 +1013,7 @@
     document.getElementById("mapFrame").src = embedUrl;
 
     // 3) RSVP -> Google Sheets
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxOtzhk42ZayR9R8A8m932Yqok7y9txAgsFoSz7oHDmcigzn1aTFl2QYwdUbgJSRMFg/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyU1T7nihR_oqbwWHgWGCmoRBx6g7a_JxquL3VyVl668RORpaqeAek6BkAxsvoZ9jy0/exec";
 
     // ===== Заставка "ОТКРЫТЬ" =====
     const gate = document.getElementById("gate");
@@ -1070,26 +1068,82 @@
     }
     tick(); setInterval(tick, 1000);
 
-    // ===== RSVP: отправка =====
-const form = document.getElementById("rsvpForm");
- 
-form.addEventListener("submit", () => {
-  setTimeout(() => {
-    form.reset();
-    alert("Спасибо! Будем рады Вас видеть ✅");
-  }, 800);
-});
- 
-    form.reset();
-    alert("Спасибо! Будем рады Вас видеть ✅");
-  } catch (err) {
-    alert("Не получилось отправить. Попробуйте ещё раз.");
-    console.error(err);
-  } finally {
-    submitBtn.disabled = false;
-    submitBtn.textContent = oldText;
-  }
-});
+    // ===== RSVP: черновик + отправка =====
+    const form = document.getElementById("rsvpForm");
+    const saveDraftBtn = document.getElementById("saveDraftBtn");
+    const draftKey = "wedding_rsvp_moment_green_luxe_v2";
+
+    function getFormData(){
+      const data = new FormData(form);
+      return Object.fromEntries(data.entries());
+    }
+    function fillForm(obj){
+      if(!obj) return;
+      for(const [k,v] of Object.entries(obj)){
+        const el = form.querySelector(`[name="${k}"]`);
+        if(el) el.value = v;
+      }
+    }
+
+    try{
+      const saved = localStorage.getItem(draftKey);
+      if(saved) fillForm(JSON.parse(saved));
+    }catch(e){}
+
+    saveDraftBtn.addEventListener("click", () => {
+      try{
+        localStorage.setItem(draftKey, JSON.stringify(getFormData()));
+        alert("Черновик сохранён ✅");
+      }catch(e){
+        alert("Не удалось сохранить черновик 😕");
+      }
+    });
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      if(!SCRIPT_URL){
+        alert("RSVP пока не подключён к таблице. Вставь SCRIPT_URL — и всё заработает 🙂");
+        return;
+      }
+
+      const v = getFormData();
+      const payload = {
+        name: v.name || "",
+        attend: v.attend || "",
+        guests: v.guests || "",
+        transferNeed: v.transferNeed || "",
+        pickup: v.pickup || "",
+        kids: v.kids || "",
+        food: v.food || "",
+        contact: v.contact || "",
+        comment: v.comment || "",
+        userAgent: navigator.userAgent
+      };
+
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const oldText = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Отправляем…";
+
+      try{
+        await fetch(SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        localStorage.removeItem(draftKey);
+        form.reset();
+        alert("Спасибо! Будем рады Вас видеть ✅");
+      }catch(err){
+        alert("Не получилось отправить 😕 Проверьте интернет и попробуйте ещё раз.");
+      }finally{
+        submitBtn.disabled = false;
+        submitBtn.textContent = oldText;
+      }
+    });
 
     // ===== Музыка =====
     const audio = document.getElementById("bgMusic");
