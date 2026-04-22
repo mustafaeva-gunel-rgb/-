@@ -1068,82 +1068,52 @@
     }
     tick(); setInterval(tick, 1000);
 
-    // ===== RSVP: черновик + отправка =====
-    const form = document.getElementById("rsvpForm");
-    const saveDraftBtn = document.getElementById("saveDraftBtn");
-    const draftKey = "wedding_rsvp_moment_green_luxe_v2";
-
-    function getFormData(){
-      const data = new FormData(form);
-      return Object.fromEntries(data.entries());
-    }
-    function fillForm(obj){
-      if(!obj) return;
-      for(const [k,v] of Object.entries(obj)){
-        const el = form.querySelector(`[name="${k}"]`);
-        if(el) el.value = v;
-      }
-    }
-
-    try{
-      const saved = localStorage.getItem(draftKey);
-      if(saved) fillForm(JSON.parse(saved));
-    }catch(e){}
-
-    saveDraftBtn.addEventListener("click", () => {
-      try{
-        localStorage.setItem(draftKey, JSON.stringify(getFormData()));
-        alert("Черновик сохранён ✅");
-      }catch(e){
-        alert("Не удалось сохранить черновик 😕");
-      }
+    // ===== RSVP: отправка =====
+const form = document.getElementById("rsvpForm");
+ 
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+ 
+  if (!SCRIPT_URL) {
+    alert("RSVP пока не подключён к таблице.");
+    return;
+  }
+ 
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const oldText = submitBtn.textContent;
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Отправляем…";
+ 
+  const payload = {
+    name: form.name.value || "",
+    attend: form.attend.value || "",
+    guests: form.guests.value || "",
+    transferNeed: form.transferNeed.value || "",
+    pickup: form.pickup.value || "",
+    kids: form.kids.value || "",
+    food: form.food.value || "",
+    contact: form.contact.value || "",
+    comment: form.comment.value || ""
+  };
+ 
+  try {
+    const body = new URLSearchParams(payload);
+ 
+    await fetch(SCRIPT_URL, {
+      method: "POST",
+      body: body
     });
-
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      if(!SCRIPT_URL){
-        alert("RSVP пока не подключён к таблице. Вставь SCRIPT_URL — и всё заработает 🙂");
-        return;
-      }
-
-      const v = getFormData();
-      const payload = {
-        name: v.name || "",
-        attend: v.attend || "",
-        guests: v.guests || "",
-        transferNeed: v.transferNeed || "",
-        pickup: v.pickup || "",
-        kids: v.kids || "",
-        food: v.food || "",
-        contact: v.contact || "",
-        comment: v.comment || "",
-        userAgent: navigator.userAgent
-      };
-
-      const submitBtn = form.querySelector('button[type="submit"]');
-      const oldText = submitBtn.textContent;
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Отправляем…";
-
-      try{
-        await fetch(SCRIPT_URL, {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-
-        localStorage.removeItem(draftKey);
-        form.reset();
-        alert("Спасибо! Будем рады Вас видеть ✅");
-      }catch(err){
-        alert("Не получилось отправить 😕 Проверьте интернет и попробуйте ещё раз.");
-      }finally{
-        submitBtn.disabled = false;
-        submitBtn.textContent = oldText;
-      }
-    });
+ 
+    form.reset();
+    alert("Спасибо! Будем рады Вас видеть ✅");
+  } catch (err) {
+    alert("Не получилось отправить. Попробуйте ещё раз.");
+    console.error(err);
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = oldText;
+  }
+});
 
     // ===== Музыка =====
     const audio = document.getElementById("bgMusic");
