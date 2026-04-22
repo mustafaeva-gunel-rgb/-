@@ -887,7 +887,9 @@
           Будем благодарны, если вы ответите <strong>до 1 августа 2026 года</strong>.
         </p>
 
-        <form id="rsvpForm" autocomplete="on">
+        <form id="rsvpForm" autocomplete="on" action="https://script.google.com/macros/s/AKfycbxOtzhk42ZayR9R8A8m932Yqok7y9txAgsFoSz7oHDmcigzn1aTFl2QYwdUbgJSRMFg/exec" method="POST" target="hidden_iframe">
+          <form id="rsvpForm" autocomplete="on" action="https://script.google.com/macros/s/AKfycbxOtzhk42ZayR9R8A8m932Yqok7y9txAgsFoSz7oHDmcigzn1aTFl2QYwdUbgJSRMFg/exec" method="POST" target="hidden_iframe">
+  <iframe name="hidden_iframe" style="display:none;"></iframe>
           <div class="row">
             <div>
               <label for="name">Имя и фамилия</label>
@@ -1071,38 +1073,12 @@
     // ===== RSVP: отправка =====
 const form = document.getElementById("rsvpForm");
  
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
- 
-  if (!SCRIPT_URL) {
-    alert("RSVP пока не подключён к таблице.");
-    return;
-  }
- 
-  const submitBtn = form.querySelector('button[type="submit"]');
-  const oldText = submitBtn.textContent;
-  submitBtn.disabled = true;
-  submitBtn.textContent = "Отправляем…";
- 
-  const payload = {
-    name: form.name.value || "",
-    attend: form.attend.value || "",
-    guests: form.guests.value || "",
-    transferNeed: form.transferNeed.value || "",
-    pickup: form.pickup.value || "",
-    kids: form.kids.value || "",
-    food: form.food.value || "",
-    contact: form.contact.value || "",
-    comment: form.comment.value || ""
-  };
- 
-  try {
-    const body = new URLSearchParams(payload);
- 
-    await fetch(SCRIPT_URL, {
-      method: "POST",
-      body: body
-    });
+form.addEventListener("submit", () => {
+  setTimeout(() => {
+    form.reset();
+    alert("Спасибо! Будем рады Вас видеть ✅");
+  }, 800);
+});
  
     form.reset();
     alert("Спасибо! Будем рады Вас видеть ✅");
